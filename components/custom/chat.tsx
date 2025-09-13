@@ -26,6 +26,7 @@ export function Chat({
       onFinish: () => {
         window.history.replaceState({}, "", `/chat/${id}`);
       },
+      api: "/chat/api/chat",
     });
 
   const [messagesContainerRef, messagesEndRef] =
