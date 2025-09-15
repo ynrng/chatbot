@@ -7,6 +7,7 @@ import {
   json,
   uuid,
   boolean,
+  integer,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
@@ -41,3 +42,22 @@ export const reservation = pgTable("Reservation", {
 });
 
 export type Reservation = InferSelectModel<typeof reservation>;
+
+
+export const movies = pgTable("Movies", {
+  imdbId: varchar("imdbId").primaryKey().notNull(),
+  createdAt: timestamp("createdAt").notNull(),
+  eventAt: timestamp("eventAt"),
+  eventSent: boolean("eventsent").default(false),
+  user: varchar("user", { length: 64 }).notNull(),
+});
+
+export type Movies = InferSelectModel<typeof movies>;
+
+
+export const movie_votes = pgTable("MovieVotes", {
+  imdbId: varchar("imdbId").primaryKey().notNull(),
+  user: integer("user").notNull().default(0),
+});
+
+export type MovieVotes = InferSelectModel<typeof movie_votes>;
