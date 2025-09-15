@@ -2,34 +2,11 @@
 
 import { CoreMessage } from "ai";
 import { notFound } from "next/navigation";
-import React, {
-    useRef,
-    useEffect,
-    useState,
-    useCallback,
-    Dispatch,
-    SetStateAction,
-    ChangeEvent,
-} from "react";
-
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { toast } from "sonner";
 
-import { auth } from "@/app/(auth)/auth";
-import { Chat as PreviewChat } from "@/components/custom/chat";
-import { getChatById } from "@/db/queries";
-import { Chat } from "@/db/schema";
-import { convertToUIMessages } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Page({ params }: { params: any }) {
     const { id } = params;
