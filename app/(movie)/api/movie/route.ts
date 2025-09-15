@@ -11,3 +11,4 @@
 // const chats = await getChatsByUserId({ id: session.user.id! });
 // return Response.json(chats);
 // }
+export async function POST(request: Request) { }

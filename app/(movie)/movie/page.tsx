@@ -95,12 +95,10 @@ export default function Page({ params }: { params: any }) {
                 {
                     titles.map((title) => (
                         <div className="flex flex-row justify-between items-center gap-4" key={title.id} onClick={(e) => { console.log(title); }}>
-                            {title.primaryImage && (
-                                <img src={title.primaryImage.url} alt={title.primaryTitle} className="w-8 h-8 rounded" />
-                            )}
+                            <img src={title.primaryImage ? title.primaryImage.url : null} alt={title.primaryTitle} className="w-8 h-8 rounded" />
                             <div>
                                 <div className="font-bold">{title.primaryTitle}</div>
-                                <div className="text-xs text-muted-foreground">{title.startYear} {title.rating.aggregateRating}</div>
+                                <div className="text-xs text-muted-foreground">{title.startYear} {title.rating ? title.rating.aggregateRating : ''}</div>
                             </div>
                         </div>
                     ))
