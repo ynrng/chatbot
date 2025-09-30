@@ -14,40 +14,35 @@ export default function Page({ params }: { params: any }) {
     let [keyword, setKeyword] = useState<string>("");
     let [titles, setTitles] = useState<Array<any>>([]);
 
-    const onInputChange = useCallback(
-        async () => {
-            if (!keyword) {
-                return;
+    const onInputChange = useCallback(async () => {
+        if (!keyword) {
+            return;
+        }
+        try {
+            const response = await fetch(
+                `https://api.imdbapi.dev/search/titles?query=${keyword}&limit=3`
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                const { titles } = data;
+
+                // for { id, primaryTitle, primaryImage, startYear, rating } in titles:
+                console.log("22222", titles);
+                setTitles(titles);
+
+                // return titles;
+            } else {
+                const { error } = await response.json();
+                toast.error(error);
             }
-            try {
-                const response = await fetch(
-                    `https://api.imdbapi.dev/search/titles?query=${keyword}&limit=3`,
-                );
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const { titles } = data;
-
-                    // for { id, primaryTitle, primaryImage, startYear, rating } in titles:
-                    console.log('22222', titles)
-                    setTitles(titles);
-
-                    // return titles;
-                } else {
-                    const { error } = await response.json();
-                    toast.error(error);
-                }
-
-            } catch (error) {
-                console.error("Error uploading files!", error);
-            }
-        }, [keyword, setTitles],
-    );
-
+        } catch (error) {
+            console.error("Error uploading files!", error);
+        }
+    }, [keyword, setTitles]);
 
     return (
         <div>
-
             <div className="flex flex-col justify-center pb-4 md:pb-8 h-dvh bg-background">
                 <div> Movie Page</div>
 
@@ -65,22 +60,38 @@ export default function Page({ params }: { params: any }) {
                             }
                         }}
                     />
-                    <Button onClick={() => { onInputChange(); }}
-                    >+</Button>
+                    <Button
+                        onClick={() => {
+                            onInputChange();
+                        }}
+                    >
+                        +
+                    </Button>
                 </div>
 
-                {
-                    titles.map((title) => (
-                        <div className="flex flex-row justify-between items-center gap-4" key={title.id} onClick={(e) => { console.log(title); }}>
-                            <img src={title.primaryImage ? title.primaryImage.url : null} alt={title.primaryTitle} className="w-8 h-8 rounded" />
-                            <div>
-                                <div className="font-bold">{title.primaryTitle}</div>
-                                <div className="text-xs text-muted-foreground">{title.startYear} {title.rating ? title.rating.aggregateRating : ''}</div>
+                {titles.map((title) => (
+                    <div
+                        className="flex flex-row justify-between items-center gap-4"
+                        key={title.id}
+                        onClick={(e) => {
+                            console.log(title);
+                        }}
+                    >
+                        <img
+                            src={title.primaryImage ? title.primaryImage.url : null}
+                            alt={title.primaryTitle}
+                            className="w-8 h-8 rounded"
+                        />
+                        <div>
+                            <div className="font-bold">{title.primaryTitle}</div>
+                            <div className="text-xs text-muted-foreground">
+                                {title.startYear}{" "}
+                                {title.rating ? title.rating.aggregateRating : ""}
                             </div>
                         </div>
-                    ))
-                }
-
+                    </div>
+                ))}
             </div>
-        </div>);
+        </div>
+    );
 }
