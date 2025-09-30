@@ -30,7 +30,7 @@ export default function Page({ params }: { params: any }) {
             <div className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
 
                 <span
-                    className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto "
+                    className="transition-colors flex items-center justify-center text-forground gap-2 font-extrabold text-9xl w-full sm:w-auto "
                 >
                     {daysLeft > 0 ? <span>
                         {daysLeft} Days Until Les Arcs
