@@ -35,6 +35,7 @@
     "framer-motion": "^11.3.19",
     "geist": "^1.3.1",
     "input-otp": "^1.2.4",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.446.0",
     "next": "15.0.0-canary.152",
     "next-auth": "5.0.0-beta.22",
@@ -42,6 +43,7 @@
     "postgres": "^3.4.4",
     "react": "19.0.0-rc-7771d3a7-20240827",
     "react-dom": "19.0.0-rc-7771d3a7-20240827",
+    "react-leaflet": "^5.0.0",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
     "server-only": "^0.0.1",
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "@types/d3-scale": "^4.0.8",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^20",
     "@types/pdf-parse": "^1.1.4",
     "@types/react": "^18",
