@@ -2,7 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 import L, { LatLngExpression } from "leaflet";
-import { useEffect } from "react";
+
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 
 // Fix Leaflet's default marker icon path
@@ -15,12 +15,12 @@ L.Icon.Default.mergeOptions({
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
 
-export default function Map({
+export default function FlightMap({
     children,
-    polylinePositions,
+    // polylinePositions,
 }: {
     children?: React.ReactNode,
-    polylinePositions?: [any],
+    // polylinePositions?: [any],
 }) {
     const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
     const pvg_coords: [number, number] = [31.1443, 121.8083]; // Shanghai Pudong International Airport coordinates
@@ -33,7 +33,7 @@ export default function Map({
             center={center_coords}
             zoom={5.5}
             scrollWheelZoom={false}
-            className="h-full w-full rounded-lg"
+            className="h-full w-full"
         >
 
             {/* <TileLayer

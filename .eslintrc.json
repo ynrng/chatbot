@@ -12,7 +12,7 @@
   ],
   "rules": {
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "off"
+    "tailwindcss/classnames-order": "off",
     // "import/order": [
     //   "off",
       // {
@@ -32,6 +32,7 @@
       //   }
       // }
     // ]
+    "react/no-unescaped-entities": "off"
   },
   "settings": {
     "import/resolver": {

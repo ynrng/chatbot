@@ -1,0 +1,80 @@
+Date,Airline,flight number,Departure airport,Departure IATA,Departure time,Arrival airport,Arrival IATA,Arrival time,Millage
+2026-01-06,KLM Royal Dutch Airlines,KL1432,Lyon Saint-Exupéry,LYS,14:10,Amsterdam Schiphol,AMS,15:50,733
+2026-01-06,KLM Royal Dutch Airlines,KL933,Amsterdam Schiphol,AMS,22:40,Edinburgh,EDI,23:10,667
+2025-12-27,easyJet,U23248,Edinburgh,EDI,07:00,Grenoble,GNB,10:25,1326
+2025-12-06,Ryanair,RK597,Edinburgh,EDI,08:40,London Stansted,STN,10:05,510
+2025-11-25,Ryanair,RK9817,London Stansted,STN,19:50,Edinburgh,EDI,21:15,510
+2025-06-20,Hainan Airlines,HU407,Beijing Capital,PEK,03:10,Edinburgh,EDI,07:00,7944
+2025-06-19,Hainan Airlines,HU7612,Shanghai Hongqiao,SHA,20:15,Beijing Capital,PEK,22:30,1178
+2025-06-18,Shenzhen Airlines,ZH9519,Shenzhen Bao'an,SZX,14:30,Shanghai Pudong,PVG,17:05,1343
+2025-05-31,Hainan Airlines,HU408,Edinburgh,EDI,12:00,Beijing Capital,PEK,05:10,7945
+2025-03-22,easyJet,U23296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
+2025-03-15,Wizz Air UK,W95417,London Luton,LTN,05:40,Grenoble,GNB,08:50,837
+2025-01-04,easyJet,U23296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
+2024-12-28,easyJet,U23293,Edinburgh,EDI,11:55,Geneva,GVA,15:10,1264
+2024-09-15,Eurowings,EW362,Cologne,CGN,13:55,Edinburgh,EDI,14:40,894
+2024-09-11,Lufthansa,LH1527,Edinburgh,EDI,05:55,Frankfurt,FRA,08:50,1033
+2024-07-21,Ryanair,RK1273,London Stansted,STN,21:25,Edinburgh,EDI,22:45,510
+2024-07-20,Ryanair,RK597,Edinburgh,EDI,06:40,London Stansted,STN,08:00,510
+2024-07-07,Ryanair,FR5590,Rome Ciampino,CIA,11:45,Edinburgh,EDI,14:00,1950
+2024-07-04,Ryanair,FR4903,Palermo,PMO,14:45,Rome Fiumicino,FCO,16:00,407
+2024-06-29,Ryanair,FR3425,Edinburgh,EDI,05:45,Palermo,PMO,10:10,2325
+2024-05-05,easyJet,U2336,Birmingham,BHX,21:00,Edinburgh,EDI,22:05,403
+2024-05-04,easyJet,U2331,Edinburgh,EDI,07:00,Birmingham,BHX,08:15,403
+2024-04-13,easyJet,U23294,Geneva,GVA,20:45,Edinburgh,EDI,22:00,1264
+2024-04-06,Swiss easyJet,DS1588,Edinburgh,EDI,09:05,Geneva,GVA,12:35,1265
+2023-12-25,Air France,AF1164,Paris Charles de Gaulle,CDG,09:50,Birmingham,BHX,10:10,494
+2023-12-24,Air France,AF111,Shanghai Pudong,PVG,22:15,Paris Charles de Gaulle,CDG,06:00,9277
+2023-12-08,Emirates,EK302,Dubai International,DXB,03:10,Shanghai Pudong,PVG,15:05,6445
+2023-12-07,Emirates,EK40,Birmingham,BHX,13:40,Dubai International,DXB,00:45,5611
+2023-11-21,Air France,AF1564,Paris Charles de Gaulle,CDG,21:25,Birmingham,BHX,21:45,494
+2023-11-18,Air France,AF1565,Birmingham,BHX,06:00,Paris Charles de Gaulle,CDG,08:20,494
+2023-10-10,Lufthansa,LH958,Frankfurt,FRA,21:55,Birmingham,BHX,22:30,767
+2023-10-07,Lufthansa,LH959,Birmingham,BHX,06:00,Frankfurt,FRA,08:30,767
+2023-07-12,Ryanair,FR3800,Barcelona El Prat,BCN,06:25,Birmingham,BHX,07:50,1272
+2023-07-06,Ryanair,FR3801,Birmingham,BHX,06:30,Barcelona El Prat,BCN,09:45,1272
+2023-05-15,Shenzhen Airlines,ZH9067,Shenzhen Bao'an,SZX,12:00,London Heathrow,LHR,18:15,9604
+2023-05-14,Shenzhen Airlines,ZH9512,Shanghai Pudong,PVG,17:30,Shenzhen Bao'an,SZX,20:10,1343
+2023-05-01,Shenzhen Airlines,ZH9527,Shenzhen Bao'an,SZX,16:00,Shanghai Pudong,PVG,18:15,1234
+2023-04-29,Shenzhen Airlines,ZH9068,London Heathrow,LHR,22:05,Shenzhen Bao'an,SZX,17:45,9611
+2023-03-12,Air France,AF1314,Paris Charles de Gaulle,CDG,13:35,Birmingham,BHX,13:55,494
+2023-03-12,Air France,AF7641,Lyon Saint-Exupéry,LYS,10:30,Paris Charles de Gaulle,CDG,11:45,408
+2023-03-04,Air France,AF1842,Paris Charles de Gaulle,CDG,10:05,Geneva,GVA,11:15,402
+2023-03-04,Air France,AF1565,Birmingham,BHX,06:00,Paris Charles de Gaulle,CDG,08:20,494
+2021-09-18,Singapore Airlines,SQ322,Singapore Changi,SIN,23:30,London Heathrow,LHR,05:55,10893
+2021-09-18,Singapore Airlines,SQ883,Hong Kong International,HKG,14:25,Singapore Changi,SIN,18:20,2565
+2021-09-15,南方航空,CZ6848,Huangshan Tunxi,TXN,11:00,Shenzhen Bao'an,SZX,12:55,1038
+2021-03-02,南方航空,CZ6997,Urumqi Diwopu,URC,15:30,Shanghai Hongqiao,SHA,20:20,3649
+2021-03-02,南方航空,CZ6842,Altay Xuedu,AAT,11:20,Urumqi Diwopu,URC,12:35,450
+2021-02-22,南方航空,CZ6841,Urumqi Diwopu,URC,09:10,Altay Xuedu,AAT,10:35,450
+2021-02-18,首都航空,JD5843,Hangzhou Xiaoshan,HGH,06:55,Urumqi Diwopu,URC,12:30,3653
+2021-01-01,春秋航空,9C8936,Changchun Longjia,CGQ,19:30,Shanghai Pudong,PVG,22:15,1698
+2020-12-29,中国国航,CA1985,Shanghai Pudong,PVG,07:35,Changchun Longjia,CGQ,10:35,1698
+2020-12-11,中国国航,CA1854,Ningbo Lishe,NGB,09:35,Beijing Capital,PEK,12:00,1338
+2020-08-08,上海航空,FM9126,Rizhao Shanzihe,RIZ,18:00,Shanghai Pudong,PVG,19:35,527
+2020-08-06,春秋航空,9C6537,Shanghai Hongqiao,SHA,19:05,Rizhao Shanzihe,RIZ,20:35,498
+2019-09-15,东方航空,MU212,Manila Ninoy Aquino,MNL,06:10,Shanghai Pudong,PVG,09:30,1853
+2019-09-14,菲律宾亚航,Z2353,Bohol,TAGB,16:00,Manila Ninoy Aquino,MNL,17:30,622
+2019-09-11,菲律宾亚航,Z2354,Manila Ninoy Aquino,MNL,11:10,Bohol,TAGB,12:35,622
+2019-09-11,菲律宾亚航,Z219,Shanghai Pudong,PVG,03:40,Manila Ninoy Aquino,MNL,07:15,1853
+2019-04-15,东方航空,MU288,Okinawa Naha,OKA,17:40,Shanghai Pudong,PVG,18:45,811
+2019-04-12,东方航空,MU2085,Shanghai Pudong,PVG,09:55,Okinawa Naha,OKA,13:30,792
+2018-10-04,东方航空,MU9268,Huangshan Tunxi,TXN,--,Shanghai Hongqiao,SHA,--,380
+2018-04-06,乐桃航空,MM79,Osaka Kansai,KIX,22:10,Shanghai Pudong,PVG,00:05,1337
+2018-03-31,Shenzhen Airlines,ZH9061,Nantong Xingdong,NTG,13:10,Osaka Kansai,KIX,16:20,1352
+2018-03-31,乐桃航空,MM80,Shanghai Pudong,PVG,--,Osaka Kansai,KIX,--,1308
+2017-10-07,Singapore Airlines,SQ828,Singapore Changi,SIN,08:05,Shanghai Pudong,PVG,13:25,3809
+2017-10-06,Singapore Airlines,SQ451,Male Velana International,MLE,23:25,Singapore Changi,SIN,07:10,3398
+2017-10-01,Singapore Airlines,SQ462,Singapore Changi,SIN,10:10,Male Velana International,MLE,14:35,3398
+2017-10-01,Singapore Airlines,SQ825,Shanghai Pudong,PVG,00:35,Singapore Changi,SIN,05:55,3796
+2017-08-02,乐桃航空,MM899,Tokyo Haneda,HND,02:50,Shanghai Pudong,PVG,05:05,1739
+2017-07-29,乐桃航空,MM898,Shanghai Pudong,PVG,--,Tokyo Haneda,HND,--,1787
+2017-01-31,东方航空,MU9268,Huangshan Tunxi,TXN,22:30,Shanghai Hongqiao,SHA,23:40,380
+2016-10-06,东方航空,MU260,St. Petersburg Pulkovo,LED,23:05,Shanghai Pudong,PVG,13:30,7121
+2016-09-30,东方航空,MU591,Shanghai Pudong,PVG,11:55,Moscow Sheremetyevo,SVO,17:00,6828
+2016-04-18,厦门航空,MF8545,Xiamen Gaoqi,XMN,19:00,Shanghai Hongqiao,SHA,20:45,878
+2016-04-15,厦门航空,MF8568,Shanghai Hongqiao,SHA,13:15,Xiamen Gaoqi,XMN,15:05,878
+2015-06-30,中国国航,CA4535,Chengdu Shuangliu,CTU,16:50,Shanghai Pudong,PVG,19:45,1782
+2015-06-26,吉祥航空,HO1269,Shanghai Hongqiao,SHA,06:45,Chengdu Shuangliu,CTU,10:40,1782
+2015-05-22,东方航空,MU524,Tokyo Narita,NRT,13:50,Shanghai Pudong,PVG,16:15,1787
+2015-05-17,东方航空,MU225,Shanghai Pudong,PVG,08:55,Osaka Kansai,KIX,12:10,1337
