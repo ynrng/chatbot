@@ -69,6 +69,9 @@ export const flights = pgTable("Flights", {
   scheduled_out: timestamp("scheduled_out").notNull(),
   origin_iata: varchar("origin_iata", { length: 8 }),
   destination_iata: varchar("destination_iata", { length: 8 }),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
 });
 
 export type Flights = InferSelectModel<typeof flights>;

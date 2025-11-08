@@ -37,12 +37,13 @@ END $$;
 CREATE TABLE IF NOT EXISTS "Flights" (
 	"fa_flight_id" uuid PRIMARY KEY NOT NULL,
 	"scheduled_out" timestamp NOT NULL,
-	"origin_iata" varchar(8)
-	"destination_iata" varchar(8)
+	"origin_iata" varchar(8),
+	"destination_iata" varchar(8),
+	"userId" uuid NOT NULL
 );
 
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "Flights" (
+CREATE TABLE IF NOT EXISTS "FlightTrack" (
 	"fa_flight_id" uuid PRIMARY KEY NOT NULL,
 	"actual_distance" integer,
 	"positions" jsonb
