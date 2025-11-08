@@ -53,7 +53,7 @@ export const History = ({ user }: { user: User | undefined }) => {
     data: history,
     isLoading,
     mutate,
-  } = useSWR<Array<Chat>>(user ? "/api/history" : null, fetcher, {
+  } = useSWR<Array<Chat>>(user ? "/api/chat/history" : null, fetcher, {
     fallbackData: [],
   });
 
@@ -65,7 +65,7 @@ export const History = ({ user }: { user: User | undefined }) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   const handleDelete = async () => {
-    const deletePromise = fetch(`/api/chat?id=${deleteId}`, {
+    const deletePromise = fetch(`/api/chat/chat?id=${deleteId}`, {
       method: "DELETE",
     });
 
