@@ -1,17 +1,83 @@
 import "server-only";
 
 import { genSaltSync, hashSync } from "bcrypt-ts";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { user, chat, User, reservation } from "./schema";
+import { user, chat, User, reservation, flightTrack, FlightTrack, flights, Flights, airport, Airport } from "./schema";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
 // https://authjs.dev/reference/adapter/drizzle
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
+
+
+
+export async function createAirport(ap: Airport) {
+  try {
+    return await db.insert(airport).values(ap);
+  } catch (error) {
+    console.error("Failed to create airport in database");
+    throw error;
+  }
+}
+
+export async function getAirports(ids: string[]): Promise<Array<Airport>> {
+  try {
+    if (!ids || ids.length === 0) return [];
+    return await db.select().from(airport).where(inArray(airport.iata, ids));
+  } catch (error) {
+    console.error("Failed to get airport from database");
+    throw error;
+  }
+}
+
+export async function createFlightTrack(track: FlightTrack) {
+  try {
+    return await db.insert(flightTrack).values(track);
+  } catch (error) {
+    console.error("Failed to create track in database");
+    throw error;
+  }
+}
+
+
+export async function getFlightTrack(id: string): Promise<FlightTrack> {
+  try {
+    return await db.select().from(flightTrack).where(eq(flightTrack.fa_flight_id, id)).limit(1).then(res => res[0]);
+  } catch (error) {
+    console.error("Failed to get flightTrack from database",id);
+    throw error;
+  }
+}
+export async function getflights(): Promise<Array<Flights>> {
+  try {
+    return await db.select().from(flights);
+  } catch (error) {
+    console.error("Failed to get flights from database");
+    throw error;
+  }
+}
+
+export async function createFlight(flight: Flights) {
+  try {
+    return await db.insert(flights).values(flight);
+  } catch (error) {
+    console.error("Failed to create flight in database");
+    throw error;
+  }
+}
+
+// export async function deleteFlight(id: string) {
+//   try {
+//     return await db.delete(flights).where(eq(flights.fa_flight_id, id));
+//   } catch (error) {
+//     console.error("Failed to delete flight track from database");
+//     throw error;
+//   }
+// }
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {

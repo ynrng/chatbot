@@ -28,7 +28,7 @@ export default function Page({ params }: { params: any }) {
                 const { titles } = data;
 
                 // for { id, primaryTitle, primaryImage, startYear, rating } in titles:
-                console.log("22222", titles);
+
                 setTitles(titles);
 
                 // return titles;

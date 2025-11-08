@@ -9,6 +9,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { Chat } from "@/db/schema";
+// import { headers } from "next/headers";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,8 +20,26 @@ interface ApplicationError extends Error {
   status: number;
 }
 
-export const fetcher = async (url: string) => {
-  const res = await fetch(url);
+export const fetcherFlight = async (url: string) => {
+  const apiKey = process.env.AERO_API_KEY;
+  if (!apiKey) {
+    return new Response("Server configuration error: missing AEROAPI_KEY", { status: 500 }).json();
+  }
+
+  return fetcher(url,
+    {
+    'x-apikey': apiKey,
+  }
+  );
+
+};
+
+export const fetcher = async (url: string, h?: Record<string, string>) => {
+  const res = await fetch(url,{
+        "headers": {
+          "Content-Type": "application/json",
+          ...h,
+        }});
 
   if (!res.ok) {
     const error = new Error(

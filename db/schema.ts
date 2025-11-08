@@ -8,6 +8,10 @@ import {
   uuid,
   boolean,
   integer,
+  text,
+  jsonb,
+  doublePrecision,
+  date
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
@@ -63,24 +67,40 @@ export type Reservation = InferSelectModel<typeof reservation>;
 // export type MovieVotes = InferSelectModel<typeof movie_votes>;
 
 
+// https://www.flightaware.com/aeroapi/portal/documentation#get-/airports/-id-
+export const airport = pgTable("Airport", {
+  iata: text("iata").primaryKey().notNull(),
+  name: text("name"),
+  longitude: doublePrecision("longitude"),
+  latitude: doublePrecision("latitude"),
+  timezone: text("timezone"),
+  country_code: text("country_code"),
+});
+
+export type Airport = InferSelectModel<typeof airport>;
+
+
+// https://www.flightaware.com/aeroapi/portal/documentation#get-/flights/-id-/track
+export const flightTrack = pgTable("FlightTrack", {
+  fa_flight_id: text("fa_flight_id").primaryKey().notNull(), //.references(() => flights.fa_flight_id),
+  actual_distance: integer("actual_distance"),
+  positions: jsonb("positions"),
+});
+
+export type FlightTrack = InferSelectModel<typeof flightTrack>;
+
+
+
 // https://www.flightaware.com/aeroapi/portal/documentation#get-/flights/-ident-
 export const flights = pgTable("Flights", {
-  fa_flight_id: uuid("fa_flight_id").primaryKey().notNull(),
-  scheduled_out: timestamp("scheduled_out").notNull(),
+  fa_flight_id: uuid("fa_flight_id"),
+  scheduled_out: date("scheduled_out").notNull(),
   origin_iata: varchar("origin_iata", { length: 8 }),
   destination_iata: varchar("destination_iata", { length: 8 }),
+  ident: text("ident").notNull(),
   userId: uuid("userId")
     .notNull()
     .references(() => user.id),
 });
 
 export type Flights = InferSelectModel<typeof flights>;
-
-// https://www.flightaware.com/aeroapi/portal/documentation#get-/flights/-id-/track
-export const flightTrack = pgTable("FlightTrack", {
-  fa_flight_id: uuid("fa_flight_id").primaryKey().notNull().references(() => flights.fa_flight_id),
-  actual_distance: integer("actual_distance"),
-  positions: json("positions"),
-});
-
-export type FlightTrack = InferSelectModel<typeof flightTrack>;

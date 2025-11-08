@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-// import { Navbar } from '@/components/movie/navbar';
+import { Navbar } from '@/components/movie/navbar';
 
 export const metadata: Metadata = {
     title: 'travel',
@@ -14,7 +14,7 @@ export default async function RootLayout({
 }>) {
     return (
         <>
-            {/* <Navbar /> */}
+            <Navbar />
             {children}
         </>
     );

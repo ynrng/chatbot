@@ -8,9 +8,9 @@ Date,Airline,flight number,Departure airport,Departure IATA,Departure time,Arriv
 2025-06-19,Hainan Airlines,HU7612,Shanghai Hongqiao,SHA,20:15,Beijing Capital,PEK,22:30,1178
 2025-06-18,Shenzhen Airlines,ZH9519,Shenzhen Bao'an,SZX,14:30,Shanghai Pudong,PVG,17:05,1343
 2025-05-31,Hainan Airlines,HU408,Edinburgh,EDI,12:00,Beijing Capital,PEK,05:10,7945
-2025-03-22,easyJet,U23296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
+2025-03-22,easyJet,EZY3296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
 2025-03-15,Wizz Air UK,W95417,London Luton,LTN,05:40,Grenoble,GNB,08:50,837
-2025-01-04,easyJet,U23296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
+2025-01-04,easyJet,EZY3296,Geneva,GVA,20:50,Edinburgh,EDI,22:10,1264
 2024-12-28,easyJet,U23293,Edinburgh,EDI,11:55,Geneva,GVA,15:10,1264
 2024-09-15,Eurowings,EW362,Cologne,CGN,13:55,Edinburgh,EDI,14:40,894
 2024-09-11,Lufthansa,LH1527,Edinburgh,EDI,05:55,Frankfurt,FRA,08:50,1033

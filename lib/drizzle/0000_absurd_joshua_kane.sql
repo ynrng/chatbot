@@ -48,3 +48,31 @@ CREATE TABLE IF NOT EXISTS "FlightTrack" (
 	"actual_distance" integer,
 	"positions" jsonb
 );
+
+--> statement-breakpoint
+create table IF NOT EXISTS "Airport" (
+	iata text PRIMARY KEY NOT NULL,
+	name text null,
+	longitude double precision null,
+	latitude double precision null,
+	timezone text null,
+	country_code text null
+);
+
+CREATE TABLE IF NOT EXISTS "FlightTrack" (
+	fa_flight_id text PRIMARY KEY NOT NULL,
+	actual_distance integer null,
+	positions jsonb null
+);
+
+
+CREATE TABLE IF NOT EXISTS "Flights" (
+	fa_flight_id text null,
+	scheduled_out date not null,
+	origin_iata character text null,
+	destination_iata character text null,
+	"userId" uuid not null,
+	ident text not null,
+	constraint Flights_pkey primary key unique (scheduled_out, ident),
+	constraint Flights_userId_fkey foreign KEY ("userId") references "User" (id)
+);

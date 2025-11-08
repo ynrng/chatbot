@@ -17,25 +17,20 @@ const FlightPolyLine = dynamic(() => import("@/components/travel/flightPolyLine"
 
 export default function Page() {
 
-    const flightId = '12345';
 
-    const { data } = useSWR(flightId ? `/api/flight/${flightId}/track` : null, fetcher);
-
-
-
-    const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
-
-    const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
-
-
-    console.log("Flight Track Data:", data);
-
+    // const { data } = useSWR(flightId ? `/api/flight/${flightId}/track` : null, fetcher);
+    const { data } = useSWR(`/api/flight/list`, fetcher);
 
     return (
-        <div className="h-screen ">
+        <div className="h-screen w-full">
             <Map>
-                {data?.positions && <FlightPolyLine positions={data?.positions} color="blue" />}
-                <FlightPolyLine from={edi_coords} to={geneva_coords} curvature={5} color="deepskyblue" />
+                {
+                    data && data.map((d: any) => (
+                        d.positions?.length ?
+                            <FlightPolyLine key={d.indent + d.scheduled_out} positions={d.positions} color="blue" />
+                            : <FlightPolyLine key={d.indent + d.scheduled_out} from={[d.from_airport?.latitude, d.from_airport?.longitude]} to={[d.to_airport?.latitude, d.to_airport?.longitude]} curvature={5} color="deepskyblue" />)
+                    ) || null
+                }
             </Map>
         </div>
     );
