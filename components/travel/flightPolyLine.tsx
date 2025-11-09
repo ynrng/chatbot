@@ -12,6 +12,7 @@ function generateBezierCurve(
 ): [number, number][] {
     const [lat1, lng1] = start;
     const [lat2, lng2] = end;
+    if (!lat1 || !lng1 || !lat2 || !lng2) return [];
 
     // Control point (offset from midpoint)
     const midLat = (lat1 + lat2) / 2 + curvature;
@@ -26,7 +27,7 @@ function generateBezierCurve(
         points.push([lat, lng]);
     }
 
-    return points;
+    return points; // filter out invalid points
 }
 
 // helper to overwrite properties of a type
@@ -55,14 +56,14 @@ export default function FlightPolyLine({
 
     const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
 
-    if (positions) {
+    if (positions?.length) {
         const positionsPast: LatLngExpression[] = positions.map((p: any) => [p.latitude, p.longitude]);
 
         return positionsPast.length && <Polyline color="blue"   {...polylineProps} positions={positionsPast} />;
     } else if (from && to) {
 
         const positionsFuture = generateBezierCurve(from, to, curvature || 5);
-        return (
+        return positionsFuture?.length&&(
             <Polyline
                 positions={positionsFuture}
                 pathOptions={{
@@ -73,6 +74,8 @@ export default function FlightPolyLine({
                 }}
                 {...polylineProps}
             />
-        );
+        )||null;
+    }else{
+        return null;
     }
 }

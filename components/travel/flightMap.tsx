@@ -1,7 +1,7 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import L, { LatLngExpression } from "leaflet";
+import L from "leaflet";
 
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 

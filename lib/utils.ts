@@ -20,7 +20,7 @@ interface ApplicationError extends Error {
   status: number;
 }
 
-export const fetcherFlight = async (url: string) => {
+export const fetcherFlight = async (url: string, headers?: any, options?: any) => {
   const apiKey = process.env.AERO_API_KEY;
   if (!apiKey) {
     return new Response("Server configuration error: missing AEROAPI_KEY", { status: 500 }).json();
@@ -28,18 +28,19 @@ export const fetcherFlight = async (url: string) => {
 
   return fetcher(url,
     {
-    'x-apikey': apiKey,
-  }
+      headers: {
+        ...headers,
+        'x-apikey': apiKey,
+      },
+      ...options
+    },
   );
 
 };
 
-export const fetcher = async (url: string, h?: Record<string, string>) => {
-  const res = await fetch(url,{
-        "headers": {
-          "Content-Type": "application/json",
-          ...h,
-        }});
+export const fetcher = async (url: string, ...options: any) => {
+  console.log('fetcher url:', url, ...options); // todo fix this
+  const res = await fetch(url, ...options);
 
   if (!res.ok) {
     const error = new Error(

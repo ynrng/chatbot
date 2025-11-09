@@ -39,26 +39,30 @@ export async function GET(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const date = searchParams.get("date");
+  let q = '';
   const start = date?.split("T")[0] || "";
+  if (start) {
+    q += `&start=${start}`;
+    const end = start? `${start}T23%3A59%3A59Z`: ''
+    if (end) {
+      q += `&end=${end}`;
+    }
+  }
 
-  // const res = await fetcherFlight(
-  //   `https://aeroapi.flightaware.com/aeroapi/flights/${id}?ident_type=fa_flight_id&start=${date}&end=${date}T23%3A59%3A59Z`
-  // );
-  const res = Response.json(data_get.flights);
+  const res = await fetcherFlight(
+    `https://aeroapi.flightaware.com/aeroapi/flights/${id}?ident_type=fa_flight_id${q}`
+  );
+  // const res = Response.json(data_get.flights);
 
-
-
-  return res;
+  return Response.json(res)
 }
 
 
 
 export async function POST(request: Request) {
-
 
 
   const session = await auth();
@@ -71,25 +75,34 @@ export async function POST(request: Request) {
     return new Response("Request body is empty", { status: 400 });
   }
 
+  console.log('11111 ',);
+  let body: any;
+  try {
+    body = await request.json();
 
-  // try {
-  const body = await request.json();
+
+  console.log('22222 ',body);
+  } catch (error) {
+    return new Response("Invalid JSON in request body", { status: 400 });
+  }
 
 
   // const res = Response.json(data_get.flights);
 
 
   let f: Flights = {
-    fa_flight_id: body.fa_flight_id || '',
-    scheduled_out: body.scheduled_out,
-    origin_iata: body.origin.code_iata,
-    destination_iata: body.destination.code_iata,
+    fa_flight_id: body.fa_flight_id || null,
+    scheduled_out: new Date(body.scheduled_out).toISOString(),
+    origin_iata: body.origin?.code_iata,
+    destination_iata: body.destination?.code_iata,
     ident: body.ident,
     userId: session?.user?.id || '',
   };
+  console.log('f f f f f ',f);
 
   try {
     await createFlight(f);
+  console.log('33333 ',);
   } catch (error) {
     console.error("Failed to save flight");
     return new Response("Failed to save flight", { status: 500 });
@@ -98,8 +111,8 @@ export async function POST(request: Request) {
   if (f.fa_flight_id) {
 
     const res1 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/flights/${f.fa_flight_id}/track`);
-    if (res1 && res1.positions) {
-      console.log("11111111111:", res1);
+    if (res1?.positions?.length) {
+      console.log("44444:", res1);
 
       await createFlightTrack({
         fa_flight_id: f.fa_flight_id,
@@ -115,7 +128,7 @@ export async function POST(request: Request) {
   const airports = await getAirports(iatas)
   const iatas_existing = airports.map(a => a.iata)
 
-  console.log("222222:", iatas, iatas_existing,);
+  console.log("55555:", iatas, iatas_existing,);
   await Promise.all(
     iatas.map(async (i) => {
       if (iatas_existing.indexOf(i) === -1) {

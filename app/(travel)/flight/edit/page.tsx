@@ -5,6 +5,7 @@ import React, {  useState, useCallback } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 
 import {
@@ -26,7 +27,7 @@ export default function Page() {
 
   const [showAddDialog, setShowAddDialog] = useState(false);
 
-  const onInputChange = useCallback(async () => {
+  const onInputChange = async () => {
     if (!keyword) {
       return;
     }
@@ -37,9 +38,10 @@ export default function Page() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('faaaaaaaaaaa',data);
 
-        if (data.length) {
-          setFlights(data);
+        if (  data?.flights?.length) {
+          setFlights(data.flights);
         }
 
         // return flights;
@@ -50,7 +52,7 @@ export default function Page() {
     } catch (error) {
       console.error("Errors!", error);
     }
-  }, [keyword, setFlights]);
+  };
 
 
   const handleAdd = async () => {
@@ -61,7 +63,7 @@ export default function Page() {
     });
 
     toast.promise(addPromise, {
-      loading: "Deleting flight...",
+      loading: "Adding flight...",
       success: () => {
         // mutate((history) => {
         //   if (history) {
@@ -77,6 +79,15 @@ export default function Page() {
     setKeyword("");
     setFlights([]);
     setFlight(null);
+  };
+
+
+  const handleBatchAdd = async () => {
+
+    const addPromise = fetch(`/api/flight/list`, {
+      method: "POST",
+      body: JSON.stringify({path: `${window.location.origin}/csv/flight_history.csv`}),
+    });
   };
 
 
@@ -97,14 +108,18 @@ export default function Page() {
               }
             }}
           />
+          <Button
+            onClick={handleBatchAdd}
+          >
+            Load from csv
+          </Button>
 
         </div>
-        {flights.map((f) => (
+        {flights&& flights.map((f) => (
           <div
             className="flex flex-row justify-around items-center  p-2"
             key={f.fa_flight_id}
             onClick={() => {
-              // flight = f;
               setFlight(f);
               setShowAddDialog(true);
             }}
@@ -139,10 +154,9 @@ export default function Page() {
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Hooray!</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently add your
-              flight and remove it from our servers.
+              Add  {flight ? (flight.ident +' '+ flight.scheduled_out) : ''} to your flights history?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

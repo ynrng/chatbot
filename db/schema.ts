@@ -93,10 +93,10 @@ export type FlightTrack = InferSelectModel<typeof flightTrack>;
 
 // https://www.flightaware.com/aeroapi/portal/documentation#get-/flights/-ident-
 export const flights = pgTable("Flights", {
-  fa_flight_id: uuid("fa_flight_id"),
+  fa_flight_id: text("fa_flight_id"),
   scheduled_out: date("scheduled_out").notNull(),
-  origin_iata: varchar("origin_iata", { length: 8 }),
-  destination_iata: varchar("destination_iata", { length: 8 }),
+  origin_iata: text("origin_iata"),
+  destination_iata: text("destination_iata"),
   ident: text("ident").notNull(),
   userId: uuid("userId")
     .notNull()

@@ -1,4 +1,4 @@
-Date,Airline,flight number,Departure airport,Departure IATA,Departure time,Arrival airport,Arrival IATA,Arrival time,Millage
+date,airline,flight_number,departure_airport,departure_iata,departure_time,arrival_airport,arrival_iata,arrival_time,millage
 2026-01-06,KLM Royal Dutch Airlines,KL1432,Lyon Saint-Exupéry,LYS,14:10,Amsterdam Schiphol,AMS,15:50,733
 2026-01-06,KLM Royal Dutch Airlines,KL933,Amsterdam Schiphol,AMS,22:40,Edinburgh,EDI,23:10,667
 2025-12-27,easyJet,U23248,Edinburgh,EDI,07:00,Grenoble,GNB,10:25,1326
