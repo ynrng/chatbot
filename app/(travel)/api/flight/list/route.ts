@@ -1,11 +1,13 @@
 // import { auth } from "@/app/(auth)/auth";
-import { getAirports, getflights, getFlightTrack } from "@/db/queries";
+import { getAirports, getflights, getFlightTrack, createAirport } from "@/db/queries";
 
 import fs from "fs/promises";
 import path from "path";
 import { parse } from "csv-parse/sync";
 
 import { auth } from "@/app/(auth)/auth";
+import { fetcherFlight } from "@/lib/utils";
+import { Flights, Airport, FlightTrack } from "@/db/schema";
 
 // import { Flights } from "@/db/schema";
 
@@ -18,13 +20,56 @@ export async function GET() {
 
   const flights = await getflights();
   const iatas = flights.map((f) => [f.origin_iata, f.destination_iata]);
-  const iataSet = new Set(iatas.flat().filter(i => i !== null));
+  const iataSet = Array.from(new Set(iatas.flat().filter(i => i!=null)));
 
-  const airports = await getAirports(Array.from(iataSet))
+  const airports = await getAirports(iataSet)
   const airportMap: { [key: string]: any } = {};
   airports.forEach((a) => {
     airportMap[a.iata] = a;
   })
+  const iatas_existing = Object.keys(airportMap);
+
+  await Promise.all(
+    iataSet.map(async (i) => {
+      if (iatas_existing.indexOf(i) < 0) {
+        const res2 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/airports/${i}`);
+
+        console.log('res2:', res2);
+        let ap: Airport | null = null;
+        if (res2?.code_iata == i) {
+          ap = {
+            iata: res2.code_iata,
+            name: res2.name,
+            longitude: res2.longitude,
+            latitude: res2.latitude,
+            timezone: res2.timezone,
+            country_code: res2.country_code,
+          };
+
+        } else if (res2?.alternatives?.length) {
+          for (let index = 0; index < res2.alternatives.length; index++) {
+            let a = res2.alternatives[index];
+            if (a?.code_iata == i) {
+              ap = {
+                iata: a.code_iata,
+                name: a.name,
+                longitude: a.longitude,
+                latitude: a.latitude,
+                timezone: a.timezone,
+                country_code: a.country_code,
+              };
+              break;
+            }
+          }
+        }
+        if (ap) {
+          iatas_existing.push(ap.iata);
+          airportMap[ap.iata] = ap;
+          await createAirport(ap);
+        }
+      }
+    })
+  );
 
 
 
@@ -125,8 +170,8 @@ export async function POST(request: Request) {
 
       let today = new Date()
       let flightDate = new Date(r.date)
-      if (flightDate.valueOf() > today.valueOf() || today.valueOf()-flightDate.valueOf() > 10*24*60*60*1000 ) {
-        withoutTrack(request, r, );
+      if (flightDate.valueOf() > today.valueOf() || today.valueOf() - flightDate.valueOf() > 10 * 24 * 60 * 60 * 1000) {
+        withoutTrack(request, r,);
       } else {
 
         const res_f = await fetcherInternal(`/api/flight?id=${r.flight_number}&date=${r.date}`, request);
@@ -149,7 +194,7 @@ export async function POST(request: Request) {
             }
           });
         } else {
-          withoutTrack(request, r, );
+          withoutTrack(request, r,);
         }
       }
 

@@ -19,7 +19,6 @@ export default function Page() {
 
 
     const { data } = useSWR(`/api/flight/list`, fetcher);
-    console.log('flight map data:', data);
 
     return (
         <div className="h-screen w-full">

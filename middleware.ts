@@ -5,5 +5,5 @@ import { authConfig } from "@/app/(auth)/auth.config";
 export default NextAuth(authConfig).auth;
 
 export const config = {
-  matcher: ["/chat", "/:id", "/api/chat", "/api/chat/:path*",  "/login", ],
+  matcher: ["/chat", "/:id", "/api/chat", "/api/chat/:path*",  "/login", "/flight/edit"],
 };

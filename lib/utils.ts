@@ -10,6 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import { Chat } from "@/db/schema";
 // import { headers } from "next/headers";
+import {rateLimitedFetch} from "@/lib/rateLimiter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -26,15 +27,24 @@ export const fetcherFlight = async (url: string, headers?: any, options?: any) =
     return new Response("Server configuration error: missing AEROAPI_KEY", { status: 500 }).json();
   }
 
-  return fetcher(url,
-    {
+  const res2 = await rateLimitedFetch(url, {
       headers: {
         ...headers,
         'x-apikey': apiKey,
       },
       ...options
-    },
-  );
+    },);
+  return res2.json();
+
+  // return fetcher(url,
+  //   {
+  //     headers: {
+  //       ...headers,
+  //       'x-apikey': apiKey,
+  //     },
+  //     ...options
+  //   },
+  // );
 
 };
 
