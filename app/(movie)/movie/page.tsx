@@ -80,7 +80,7 @@ export default function Page({ params }: { params: any }) {
                         <img
                             src={title.primaryImage ? title.primaryImage.url : null}
                             alt={title.primaryTitle}
-                            className="w-8 h-8 rounded"
+                            className="size-8 rounded"
                         />
                         <div>
                             <div className="font-bold">{title.primaryTitle}</div>

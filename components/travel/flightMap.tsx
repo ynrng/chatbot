@@ -33,7 +33,7 @@ export default function FlightMap({
             center={center_coords}
             zoom={5.5}
             scrollWheelZoom={false}
-            className="h-full w-full flex flex-1 z-20"
+            className="size-full flex flex-1 z-20"
         >
 
             {/* <TileLayer
