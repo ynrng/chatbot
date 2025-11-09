@@ -16,9 +16,44 @@ import { Flights, Airport, FlightTrack } from "@/db/schema";
 //   to: any;
 // };
 
-export async function GET() {
+export async function GET(request: Request) {
 
   const flights = await getflights();
+// retrieve flight track if possible
+
+
+  for (const r of flights) {
+    console.log('rrrrrr', r);
+
+
+    let today = new Date()
+    let flightDate = new Date(r.scheduled_out)
+    let diff = today.valueOf() - flightDate.valueOf()
+    if (!r.fa_flight_id &&  diff >0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
+
+      const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}&date=${r.scheduled_out}`, request);
+
+      const json_f = await res_f.json()
+      console.log('flightsssssss:', json_f);
+      if ( json_f?.flights?.length > 0) {
+
+        for (let f of json_f.flights){
+          console.log('fffffff fa_flight_id:');
+          if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out)) {
+            console.log('mmmmmmmmmmmmmatch fa_flight_id:', f);
+            const res = await fetcherInternal(`/api/flight`, request, {
+              method: "POST",
+              body: JSON.stringify(f),
+            });
+            break;
+          }
+        }
+
+      }
+    }
+  }
+
+  // retrieve airports information
   const iatas = flights.map((f) => [f.origin_iata, f.destination_iata]);
   const iataSet = Array.from(new Set(iatas.flat().filter(i => i!=null)));
 
@@ -94,18 +129,7 @@ export async function GET() {
 function fetcherInternal(url: string, request: Request, option?: any) {
 
   const internalUrl = new URL(url, request.url).toString();
-
-
-  console.log('fetcherInternal:', internalUrl, {
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-      // forward client cookies / auth headers when needed
-      "cookie": request.headers.get("cookie") ?? "",
-      "authorization": request.headers.get("authorization") ?? "",
-    },
-    ...option,
-  });
+  console.log('fetcherInternal url:', internalUrl);
 
   return fetch(internalUrl, {
     method: "GET",
@@ -184,9 +208,6 @@ export async function POST(request: Request) {
             console.log('fffffff fa_flight_id:');
             if (f.origin.code_iata === r.departure_iata && f.destination.code_iata === r.arrival_iata && f.scheduled_out.startsWith(r.date)) {
               console.log('mmmmmmmmmmmmmatch fa_flight_id:', f);
-              // match
-
-
               const res = await fetcherInternal(`/api/flight`, request, {
                 method: "POST",
                 body: JSON.stringify(f),
@@ -197,11 +218,6 @@ export async function POST(request: Request) {
           withoutTrack(request, r,);
         }
       }
-
-
-
-
-
     }
 
   } catch (err) {
