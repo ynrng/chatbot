@@ -27,7 +27,7 @@ export default function Page() {
                     data && data.map((d: any) => (
                         d.positions?.length > 0 ?
                             <FlightPolyLine key={d.indent + d.scheduled_out} positions={d.positions} color="blue" />
-                            : <FlightPolyLine key={d.ident + d.scheduled_out} from={[d.from_airport?.latitude, d.from_airport?.longitude]} to={[d.to_airport?.latitude, d.to_airport?.longitude]} curvature={5} color="deepskyblue" />)
+                            : <FlightPolyLine key={d.ident + d.scheduled_out} from={[d.from_airport?.latitude, d.from_airport?.longitude]} to={[d.to_airport?.latitude, d.to_airport?.longitude]} curvature={.3} color="deepskyblue" />)
                     ) || null
                 }
             </Map>

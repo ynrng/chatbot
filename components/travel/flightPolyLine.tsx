@@ -12,20 +12,58 @@ function generateBezierCurve(
 ): [number, number][] {
     const [lat1, lng1] = start;
     const [lat2, lng2] = end;
-    if (!lat1 || !lng1 || !lat2 || !lng2) return [];
+    if (!lat1 || !lat2 || !lng1 || !lng2) return [];
+
+    const points: [number, number][] = [start];
+
+    // Web Mercator projection <-> geographic helpers
+    const R = 6378137;
+    const project = (lat: number, lng: number) => {
+        const x = (lng * Math.PI / 180) * R;
+        const y = Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360)) * R;
+        return [x, y];
+    };
+    const unproject = (x: number, y: number) => {
+        const lng = (x / R) * 180 / Math.PI;
+        const lat = (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * 180 / Math.PI;
+        return [lat, lng] as [number, number];
+    };
+
+    // project endpoints to meters
+    const [x1, y1] = project(lat1, lng1);
+    const [x2, y2] = project(lat2, lng2);
 
     // Control point (offset from midpoint)
-    const midLat = (lat1 + lat2) / 2 + curvature;
-    const midLng = (lng1 + lng2) / 2 + curvature;
+    const mx = (x1 + x2) / 2;
+    const my = (y1 + y2) / 2;
 
-    const points: [number, number][] = [];
+
+    // vector from start to end
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+
+    // perpendicular vector (rotate 90deg)
+    let px = -dy;
+    let py = dx;
+
+    // normalize perpendicular
+    const len = Math.hypot(px, py) || 1;
+    px /= len;
+    py /= len;
+
+    // scale offset by distance and curvature
+    const distance = Math.hypot(dx, dy);
+    const offset = distance * curvature;
+    const cx = mx + px * offset;
+    const cy = my + py * offset;
 
     for (let t = 0; t <= 1; t += 1 / segments) {
         // Quadratic Bezier formula: B(t) = (1-t)^2 P0 + 2(1-t)t P1 + t^2 P2
-        const lat = (1 - t) ** 2 * lat1 + 2 * (1 - t) * t * midLat + t ** 2 * lat2;
-        const lng = (1 - t) ** 2 * lng1 + 2 * (1 - t) * t * midLng + t ** 2 * lng2;
-        points.push([lat, lng]);
+        const bx = (1 - t) ** 2 * x1 + 2 * (1 - t) * t * cx + t ** 2 * x2;
+        const by = (1 - t) ** 2 * y1 + 2 * (1 - t) * t * cy + t ** 2 * y2;
+        points.push(unproject(bx, by));
     }
+    points.push(end);
 
     return points; // filter out invalid points
 }
@@ -63,7 +101,7 @@ export default function FlightPolyLine({
     } else if (from && to) {
 
         const positionsFuture = generateBezierCurve(from, to, curvature || 5);
-        return positionsFuture?.length&&(
+        return positionsFuture?.length && (
             <Polyline
                 positions={positionsFuture}
                 pathOptions={{
@@ -74,8 +112,8 @@ export default function FlightPolyLine({
                 }}
                 {...polylineProps}
             />
-        )||null;
-    }else{
+        ) || null;
+    } else {
         return null;
     }
 }
