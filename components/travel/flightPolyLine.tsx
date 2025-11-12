@@ -7,7 +7,7 @@ import { Polyline, PolylineProps } from "react-leaflet";
 function generateBezierCurve(
     start: [number, number],
     end: [number, number],
-    curvature: number = 0.1,
+    curvature: number = 1,
     segments: number = 50
 ): [number, number][] {
     const [lat1, lng1] = start;
@@ -53,7 +53,7 @@ function generateBezierCurve(
 
     // scale offset by distance and curvature
     const distance = Math.hypot(dx, dy);
-    const offset = distance * curvature;
+    const offset = distance * (0.3 + curvature * 0.1);
     const cx = mx + px * offset;
     const cy = my + py * offset;
 
@@ -76,9 +76,10 @@ type Props = Overwrite<
         positions?: any[]; // override PolylineProps.positions type
     }
 > & {
-    from?: [number, number];
-    to?: [number, number];
+    from: [number, number];
+    to: [number, number];
     curvature?: number;
+    centre?: [number, number];
 };
 
 
@@ -87,27 +88,35 @@ export default function FlightPolyLine({
     from,
     to,
     curvature,
+    centre,
     ...polylineProps
 }: Props) {
 
     const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+    if (!centre || !centre[0] || !centre[1]) {
+        centre = edi_coords;
+    }
 
-    const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
+    let from_dis = Math.abs(from[0] - centre[0]) + Math.abs(from[1] - centre[1])
+    let to_dis = Math.abs(to[0] - centre[0]) + Math.abs(to[1] - centre[1])
+    let color =from_dis>to_dis ? "green" : "deepskyblue";
 
     if (positions?.length) {
         const positionsPast: LatLngExpression[] = positions.map((p: any) => [p.latitude, p.longitude]);
 
-        return positionsPast.length && <Polyline color="blue"   {...polylineProps} positions={positionsPast} />;
+        return positionsPast.length && <Polyline color={polylineProps?.color || color}   {...polylineProps} positions={positionsPast} />;
     } else if (from && to) {
 
-        const positionsFuture = generateBezierCurve(from, to, curvature || 5);
+        const positionsFuture = generateBezierCurve(from, to, curvature || 0);
+
+
         return positionsFuture?.length && (
             <Polyline
                 positions={positionsFuture}
                 pathOptions={{
-                    color: polylineProps?.color || "deepskyblue",
+                    color: polylineProps?.color || color,
                     weight: 1,
-                    renderer: L.canvas(), // force canvas rendering
+                    // renderer: L.canvas(), // force canvas rendering
                     className: "bg-cyan-500 shadow-lg shadow-cyan-500/50", //todo this is not working
                 }}
                 {...polylineProps}

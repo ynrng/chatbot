@@ -19,7 +19,7 @@ import { Flights, Airport, FlightTrack } from "@/db/schema";
 export async function GET(request: Request) {
 
   const flights = await getflights();
-// retrieve flight track if possible
+  // retrieve flight track if possible
 
 
   for (const r of flights) {
@@ -29,15 +29,24 @@ export async function GET(request: Request) {
     let today = new Date()
     let flightDate = new Date(r.scheduled_out)
     let diff = today.valueOf() - flightDate.valueOf()
-    if (!r.fa_flight_id &&  diff >0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
 
-      const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}&date=${r.scheduled_out}`, request);
+    if (diff > 0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
+
+      if (r.fa_flight_id) {
+        const res_track = await getFlightTrack(r.fa_flight_id);
+        let positions = res_track?.positions || null;
+        if (positions && JSON.parse(positions as string).length > 0) {
+          continue;
+        }
+      }
+
+      const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}`, request);
 
       const json_f = await res_f.json()
       console.log('flightsssssss:', json_f);
-      if ( json_f?.flights?.length > 0) {
+      if (json_f?.flights?.length > 0) {
 
-        for (let f of json_f.flights){
+        for (let f of json_f.flights) {
           console.log('fffffff fa_flight_id:');
           if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out)) {
             console.log('mmmmmmmmmmmmmatch fa_flight_id:', f);
@@ -55,7 +64,8 @@ export async function GET(request: Request) {
 
   // retrieve airports information
   const iatas = flights.map((f) => [f.origin_iata, f.destination_iata]);
-  const iataSet = Array.from(new Set(iatas.flat().filter(i => i!=null)));
+  const iataSet = Array.from(new Set(iatas.flat().filter(i => i != null)));
+
 
   const airports = await getAirports(iataSet)
   const airportMap: { [key: string]: any } = {};
@@ -82,8 +92,7 @@ export async function GET(request: Request) {
           };
 
         } else if (res2?.alternatives?.length) {
-          for (let index = 0; index < res2.alternatives.length; index++) {
-            let a = res2.alternatives[index];
+          for (let a of res2.alternatives) {
             if (a?.code_iata == i) {
               ap = {
                 iata: a.code_iata,
@@ -106,7 +115,11 @@ export async function GET(request: Request) {
     })
   );
 
-
+  const iata_couple = iatas.map(v => v.join('-'));
+  let route_counts: { [key: string]: number } = {};
+  for (let ic of iata_couple) {
+    route_counts[ic] = (route_counts[ic] || 0) + 1;
+  }
 
   const res = await Promise.all(flights.map(async (f) => {
     let positions = null;
@@ -115,10 +128,13 @@ export async function GET(request: Request) {
       positions = res_track?.positions || null;
     }
 
+    route_counts[`${f.origin_iata}-${f.destination_iata}`] -= 1;
+
     return {
       ...f,
       from_airport: airportMap[f.origin_iata || ""],
       to_airport: airportMap[f.destination_iata || ""],
+      route_count: route_counts[`${f.origin_iata}-${f.destination_iata}`] || 0,
       positions: positions
     };
   }));
@@ -189,25 +205,16 @@ export async function POST(request: Request) {
 
 
     for (const r of records) {
-      console.log('rrrrrr', r);
-
-
       let today = new Date()
       let flightDate = new Date(r.date)
       if (flightDate.valueOf() > today.valueOf() || today.valueOf() - flightDate.valueOf() > 10 * 24 * 60 * 60 * 1000) {
         withoutTrack(request, r,);
       } else {
-
         const res_f = await fetcherInternal(`/api/flight?id=${r.flight_number}&date=${r.date}`, request);
-
         const json_f = await res_f.json()
-        console.log('flightsssssss:', json_f);
         if (json_f && json_f.flights && json_f.flights.length > 0) {
-
           json_f.flights.forEach(async (f: any) => {
-            console.log('fffffff fa_flight_id:');
             if (f.origin.code_iata === r.departure_iata && f.destination.code_iata === r.arrival_iata && f.scheduled_out.startsWith(r.date)) {
-              console.log('mmmmmmmmmmmmmatch fa_flight_id:', f);
               const res = await fetcherInternal(`/api/flight`, request, {
                 method: "POST",
                 body: JSON.stringify(f),

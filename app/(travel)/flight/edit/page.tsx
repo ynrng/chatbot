@@ -1,7 +1,7 @@
 "use client";
 import { default as PageFlights } from "@/app/(travel)/flight/page";
 
-import React, {  useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -38,9 +38,9 @@ export default function Page() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('faaaaaaaaaaa',data);
+        console.log('faaaaaaaaaaa', data);
 
-        if (  data?.flights?.length) {
+        if (data?.flights?.length) {
           setFlights(data.flights);
         }
 
@@ -86,10 +86,10 @@ export default function Page() {
 
     const addPromise = fetch(`/api/flight/list`, {
       method: "POST",
-      body: JSON.stringify({path: `${window.location.origin}/csv/flight_history.csv`}),
+      body: JSON.stringify({ path: `${window.location.origin}/csv/flight_history.csv` }),
     });
   };
-
+ 
 
   return (
     <div className="h-screen w-full pt-12">
@@ -115,7 +115,7 @@ export default function Page() {
           </Button>
 
         </div>
-        {flights&& flights.map((f) => (
+        {flights && flights.map((f) => (
           <div
             className="flex flex-row justify-around items-center  p-2"
             key={f.fa_flight_id}
@@ -127,18 +127,21 @@ export default function Page() {
             <div>
               <div className="font-bold">{f.ident} </div>
               <div className="text-xs text-muted-foreground">
-              {f.origin.name}-{f.destination.name}
+                {f.origin.name}-{f.destination.name}
               </div>
               <div className="text-xs text-muted-foreground">{f.fa_flight_id}</div>
             </div>
 
-            <div>
-              <div className="text-xs text-muted-foreground">
-                {f.scheduled_out}{" "}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {f.actual_out || ""}
-              </div>
+            <div className="text-xs text-muted-foreground">
+              {new Intl.DateTimeFormat("en-GB", {
+                timeZoneName: 'short',
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                timeZone: f.origin?.timezone || "",
+              }).format(new Date(f.scheduled_out))}{" "}
             </div>
 
             <div className="text-xs text-muted-foreground">
@@ -156,7 +159,7 @@ export default function Page() {
           <AlertDialogHeader>
             <AlertDialogTitle>Hooray!</AlertDialogTitle>
             <AlertDialogDescription>
-              Add  {flight ? (flight.ident +' '+ flight.scheduled_out) : ''} to your flights history?
+              Add  {flight ? (flight.ident + ' ' + flight.scheduled_out) : ''} to your flights history?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
