@@ -11,7 +11,6 @@ import {
   text,
   jsonb,
   doublePrecision,
-  date
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
@@ -94,7 +93,7 @@ export type FlightTrack = InferSelectModel<typeof flightTrack>;
 // https://www.flightaware.com/aeroapi/portal/documentation#get-/flights/-ident-
 export const flights = pgTable("Flights", {
   fa_flight_id: text("fa_flight_id"),
-  scheduled_out: date("scheduled_out").notNull(),
+  scheduled_out: timestamp("scheduled_out").notNull(),
   origin_iata: text("origin_iata"),
   destination_iata: text("destination_iata"),
   ident: text("ident").notNull(),

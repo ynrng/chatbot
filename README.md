@@ -66,3 +66,7 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
+
+
+# Disclaimer:
+<a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport icons created by riajulislam - Flaticon</a>

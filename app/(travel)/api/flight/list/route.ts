@@ -23,11 +23,8 @@ export async function GET(request: Request) {
 
 
   for (const r of flights) {
-    console.log('rrrrrr', r);
-
-
     let today = new Date()
-    let flightDate = new Date(r.scheduled_out)
+    let flightDate =  r.scheduled_out
     let diff = today.valueOf() - flightDate.valueOf()
 
     if (diff > 0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
@@ -43,13 +40,10 @@ export async function GET(request: Request) {
       const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}`, request);
 
       const json_f = await res_f.json()
-      console.log('flightsssssss:', json_f);
       if (json_f?.flights?.length > 0) {
 
         for (let f of json_f.flights) {
-          console.log('fffffff fa_flight_id:');
-          if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out)) {
-            console.log('mmmmmmmmmmmmmatch fa_flight_id:', f);
+          if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out.toDateString())) {
             const res = await fetcherInternal(`/api/flight`, request, {
               method: "POST",
               body: JSON.stringify(f),
@@ -70,16 +64,15 @@ export async function GET(request: Request) {
   const airports = await getAirports(iataSet)
   const airportMap: { [key: string]: any } = {};
   airports.forEach((a) => {
-    airportMap[a.iata] = a;
+      airportMap[a.iata] = a;
   })
   const iatas_existing = Object.keys(airportMap);
+
 
   await Promise.all(
     iataSet.map(async (i) => {
       if (iatas_existing.indexOf(i) < 0) {
         const res2 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/airports/${i}`);
-
-        console.log('res2:', res2);
         let ap: Airport | null = null;
         if (res2?.code_iata == i) {
           ap = {
@@ -130,6 +123,9 @@ export async function GET(request: Request) {
 
     route_counts[`${f.origin_iata}-${f.destination_iata}`] -= 1;
 
+    airportMap[f.origin_iata || ""].count = (airportMap[f.origin_iata || ""].count || 0) + 1;
+    airportMap[f.destination_iata || ""].count = (airportMap[f.destination_iata || ""].count || 0) + 1;
+
     return {
       ...f,
       from_airport: airportMap[f.origin_iata || ""],
@@ -139,7 +135,9 @@ export async function GET(request: Request) {
     };
   }));
 
-  return Response.json(res);
+
+
+  return Response.json({flights:res, airports: Object.values(airportMap)});
 }
 
 function fetcherInternal(url: string, request: Request, option?: any) {

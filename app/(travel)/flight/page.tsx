@@ -5,14 +5,17 @@ import useSWR from "swr";
 
 import { fetcher } from "@/lib/utils";
 
-
-
 const Map = dynamic(() => import("@/components/travel/flightMap"), {
     ssr: false, // Disable SSR for Leaflet
 });
 const FlightPolyLine = dynamic(() => import("@/components/travel/flightPolyLine"), {
     ssr: false, // Disable SSR for Leaflet
 });
+const AirportMarker = dynamic(() => import("@/components/travel/airportMarker"), {
+    ssr: false, // Disable SSR for Leaflet
+});
+
+
 
 
 export default function Page() {
@@ -20,15 +23,19 @@ export default function Page() {
 
     const { data } = useSWR(`/api/flight/list`, fetcher);
 
+
     return (
         <div className="h-screen w-full">
             <Map>
                 {
-                    data && data.map((d: any) => (
-                        d.positions?.length > 0 ?
-                            <FlightPolyLine key={d.indent + d.scheduled_out} positions={d.positions} from={[d.from_airport?.latitude, d.from_airport?.longitude]} to={[d.to_airport?.latitude, d.to_airport?.longitude]}  />
-                            : <FlightPolyLine key={d.ident + d.scheduled_out} from={[d.from_airport?.latitude, d.from_airport?.longitude]} to={[d.to_airport?.latitude, d.to_airport?.longitude]} curvature={d.route_count} />)
-                    ) || null
+                    data?.flights?.map((f: any) => (
+                        <FlightPolyLine key={f.ident + f.scheduled_out} flight={f} />
+                    ))
+                }
+                {
+                    data?.airports?.map((a: any) => (
+                        <AirportMarker key={a.iata} airport={a}></AirportMarker>
+                    ))
                 }
             </Map>
         </div>

@@ -3,7 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 // Fix Leaflet's default marker icon path
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -45,11 +45,6 @@ export default function FlightMap({
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
-
-            <Marker position={edi_coords}>
-                <Popup>📍 I'm here.</Popup>
-            </Marker>
-            {/* {polylinePos.length && <Polyline positions={polylinePos} color="blue" />} */}
             {children}
         </MapContainer>
     );

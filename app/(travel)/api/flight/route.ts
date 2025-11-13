@@ -92,7 +92,7 @@ export async function POST(request: Request) {
 
   let f: Flights = {
     fa_flight_id: body.fa_flight_id || null,
-    scheduled_out: new Date(body.scheduled_out).toISOString(),
+    scheduled_out: new Date(body.scheduled_out),
     origin_iata: body.origin?.code_iata,
     destination_iata: body.destination?.code_iata,
     ident: body.ident,
