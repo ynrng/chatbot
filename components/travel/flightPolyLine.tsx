@@ -28,8 +28,6 @@ function generateBezierCurve(
     curvature: number = 1,
     segments: number = 51
 ): [number, number][] {
-    // const [lat1, lng1] = start;
-    // const [lat2, lng2] = end;
     if (!lat1 || !lat2 || !lng1 || !lng2) return [];
 
     const points: [number, number][] = [[lat1, lng1]];
@@ -70,8 +68,6 @@ function generateBezierCurve(
         points.push(unproject(bx, by));
     }
     points.push([lat2, lng2]);
-
-    console.log('bezier points:', points.length);
 
     return points; // filter out invalid points
 }

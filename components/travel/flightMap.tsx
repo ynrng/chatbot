@@ -3,7 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 // Fix Leaflet's default marker icon path
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -14,6 +14,26 @@ L.Icon.Default.mergeOptions({
 });
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
+function MyComponent() {
+
+    const outerBounds: L.LatLngBoundsLiteral = [
+        [38.39333888832238, -5.3173828125],
+        [57.124314084296216, 13.645019531250002],
+    ]
+    const map = useMap()
+
+    // const map = useMapEvents({
+    //     click: () => {
+    //         console.log('map bounds:', JSON.stringify(map.getBounds()))
+    //     },
+    //     locationfound: (location) => {
+    //         console.log('location found:', location)
+    //     },
+    // })
+
+    map.fitBounds(outerBounds)
+    return null
+}
 
 export default function FlightMap({
     children,
@@ -27,12 +47,13 @@ export default function FlightMap({
     const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
     const center_coords: [number, number] = [(edi_coords[0] + geneva_coords[0]) / 2, (edi_coords[1] + geneva_coords[1]) / 2];
 
-
     return (
         <MapContainer
             center={center_coords}
             zoom={5.5}
-            scrollWheelZoom={false}
+            minZoom={2.5}
+            maxZoom={10}
+            scrollWheelZoom={true}
             className="size-full flex flex-1 z-20"
         >
 
@@ -46,6 +67,7 @@ export default function FlightMap({
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             />
             {children}
+            <MyComponent />
         </MapContainer>
     );
 }
