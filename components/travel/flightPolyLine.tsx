@@ -4,7 +4,6 @@ import L, { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 
 import { Polyline, Popup, Tooltip, Marker, SVGOverlay, useMap, useMapEvents } from "react-leaflet";
-import { number } from "zod";
 
 
 
@@ -83,11 +82,11 @@ const arrowIcon = L.icon({
 
 
 export default function FlightPolyLine({
-    flight: f
+    flight: f,
+    zoom
 }: any) {
 
     const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
-    const [zoom, setZoom] = useState<number>(0);
 
     let from_dis = Math.abs(f.from_airport?.latitude - edi_coords[0]) + Math.abs(f.from_airport?.longitude - edi_coords[1])
     let to_dis = Math.abs(f.to_airport?.latitude - edi_coords[0]) + Math.abs(f.to_airport?.longitude - edi_coords[1])
@@ -135,23 +134,6 @@ export default function FlightPolyLine({
     const [m_lat1, m_lng1] = unproject(leftX, leftY);
     const [m_lat2, m_lng2] = unproject(rightX, rightY);
 
-    function MyComponent() {
-        const map = useMapEvents({
-            // https://leafletjs.com/reference.html#evented
-            zoom: () => {
-                console.log('zoom');
-                setZoom(map.getZoom());
-            },
-            // load: () => {
-            // does not work
-            //  }
-        });
-        if (zoom === 0) {
-            setZoom(map.getZoom());
-        }
-        return null
-    }
-
 
     return positions?.length && (
         <>
@@ -160,6 +142,7 @@ export default function FlightPolyLine({
                 pathOptions={{
                     color: color,
                     weight: 1,
+                    opacity: 0.8,
                     // renderer: L.canvas(), // force canvas rendering
                     className: "bg-cyan-500 shadow-lg shadow-cyan-500/50", //todo this is not working
                 }}
@@ -171,13 +154,12 @@ export default function FlightPolyLine({
                 pathOptions={{
                     color: color,
                     weight: 1,
-                    // renderer: L.canvas(), // force canvas rendering
+                    opacity: 0.8,
                     className: "bg-cyan-500 shadow-lg shadow-cyan-500/50 z-50", //todo this is not working
                 }}
             >
                 <Popup>{popupText}</Popup>
             </Polyline>
-            <MyComponent />
         </>
     ) || null;
 }
