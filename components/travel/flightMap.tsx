@@ -14,49 +14,43 @@ L.Icon.Default.mergeOptions({
 });
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
+const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+const pvg_coords: [number, number] = [31.1443, 121.8083]; // Shanghai Pudong International Airport coordinates
+const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
+const center_coords: [number, number] = [(edi_coords[0] + geneva_coords[0]) / 2, (edi_coords[1] + geneva_coords[1]) / 2];
+
+
+const defaultBounds: L.LatLngBoundsLiteral = [
+    edi_coords,
+    geneva_coords,
+]
+
+
 function MyComponent() {
 
-    const outerBounds: L.LatLngBoundsLiteral = [
-        [38.39333888832238, -5.3173828125],
-        [57.124314084296216, 13.645019531250002],
-    ]
-    const map = useMap()
+    const map = useMap();
+    // console.log('fitting bounds to defaultBounds');
+    map.fitBounds(defaultBounds)
 
-    // const map = useMapEvents({
-    //     click: () => {
-    //         console.log('map bounds:', JSON.stringify(map.getBounds()))
-    //     },
-    //     locationfound: (location) => {
-    //         console.log('location found:', location)
-    //     },
-    // })
-
-    map.fitBounds(outerBounds)
     return null
 }
 
 export default function FlightMap({
     children,
-    // polylinePositions,
 }: {
     children?: React.ReactNode,
-    // polylinePositions?: [any],
 }) {
-    const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
-    const pvg_coords: [number, number] = [31.1443, 121.8083]; // Shanghai Pudong International Airport coordinates
-    const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
-    const center_coords: [number, number] = [(edi_coords[0] + geneva_coords[0]) / 2, (edi_coords[1] + geneva_coords[1]) / 2];
 
     return (
         <MapContainer
             center={center_coords}
             zoom={5.5}
+            zoomDelta={0.5}
             minZoom={2.5}
-            maxZoom={10}
+            maxZoom={7}
             scrollWheelZoom={true}
             className="size-full flex flex-1 z-20"
         >
-
             {/* <TileLayer
                 attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"

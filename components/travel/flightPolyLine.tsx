@@ -1,9 +1,11 @@
 "use client";
 
 import L, { LatLngExpression } from "leaflet";
-import { Rotate3D } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { Polyline, Popup, Tooltip, Marker, SVGOverlay } from "react-leaflet";
+import { Polyline, Popup, Tooltip, Marker, SVGOverlay, useMap, useMapEvents } from "react-leaflet";
+import { number } from "zod";
+
 
 
 const R = 6378137;
@@ -85,6 +87,7 @@ export default function FlightPolyLine({
 }: any) {
 
     const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+    const [zoom, setZoom] = useState<number>(0);
 
     let from_dis = Math.abs(f.from_airport?.latitude - edi_coords[0]) + Math.abs(f.from_airport?.longitude - edi_coords[1])
     let to_dis = Math.abs(f.to_airport?.latitude - edi_coords[0]) + Math.abs(f.to_airport?.longitude - edi_coords[1])
@@ -94,68 +97,87 @@ export default function FlightPolyLine({
         <div>{`${f.from_airport?.name} - ${f.to_airport?.name}`}</div>
     </>)
     let popups = (<Tooltip opacity={1} sticky>{popupText}</Tooltip>)
+    let positions: [number, number][];
 
+    let lat1 = f.from_airport?.latitude || 0, lng1 = f.from_airport?.longitude || 0, lat2 = f.to_airport?.latitude || 0, lng2 = f.to_airport?.longitude || 0;
     if (f.positions?.length) {
-        const positionsPast: LatLngExpression[] = f.positions.map((p: any) => [p.latitude, p.longitude]);
-        return <Polyline color={color} positions={positionsPast} >{popups}</Polyline>;
+        positions = f.positions.map((p: any) => [p.latitude, p.longitude]);
     } else {
-        let lat1 = f.from_airport?.latitude || 0, lng1 = f.from_airport?.longitude || 0, lat2 = f.to_airport?.latitude || 0, lng2 = f.to_airport?.longitude || 0;
-        const positionsFuture = generateBezierCurve(lat1, lng1, lat2, lng2, f.route_count || 0);
-
-        const midP = positionsFuture[Math.floor((positionsFuture.length + 1) / 2)];
-
-        // compute arrow points in projected (meters) space for symmetry
-        const [x1, y1] = project(lat1, lng1);
-        const [x2, y2] = project(lat2, lng2);
-        const [mx, my] = project(midP[0], midP[1]);
-
-        let dirX = x2 - x1;
-        let dirY = y2 - y1;
-        let dirLen = (dirX ** 2 + dirY ** 2) ** 0.5
-        dirX /= dirLen;
-        dirY /= dirLen;
-
-        // perpendicular unit vector
-        let perpX = -dirY;
-        let perpY = dirX;
-        const halfWidth = 10000
-        const backLen =20000
-
-        // base points are behind the tip along -dir and offset by perpendicular for symmetry
-        const leftX = mx - dirX * backLen + perpX * halfWidth;
-        const leftY = my - dirY * backLen + perpY * halfWidth;
-        const rightX = mx - dirX * backLen - perpX * halfWidth;
-        const rightY = my - dirY * backLen - perpY * halfWidth;
-
-        const [m_lat1, m_lng1] = unproject(leftX, leftY);
-        const [m_lat2, m_lng2] = unproject(rightX, rightY);
-
-
-        return positionsFuture?.length && (
-            <>
-                <Polyline
-                    positions={positionsFuture}
-                    pathOptions={{
-                        color: color,
-                        weight: 1,
-                        // renderer: L.canvas(), // force canvas rendering
-                        className: "bg-cyan-500 shadow-lg shadow-cyan-500/50", //todo this is not working
-                    }}
-                >
-                    {popups}
-                </Polyline>
-                <Polyline
-                    positions={[[m_lat1, m_lng1], midP, [m_lat2, m_lng2]]}
-                    pathOptions={{
-                        color: color,
-                        weight: 1,
-                        // renderer: L.canvas(), // force canvas rendering
-                        className: "bg-cyan-500 shadow-lg shadow-cyan-500/50 z-50", //todo this is not working
-                    }}
-                >
-                    <Popup>{popupText}</Popup>
-                </Polyline>
-            </>
-        ) || null;
+        positions = generateBezierCurve(lat1, lng1, lat2, lng2, f.route_count || 0);
     }
+    const midP = positions[Math.floor((positions.length + 1) / 2)];
+
+    // compute arrow points in projected (meters) space for symmetry
+    const [x1, y1] = project(lat1, lng1);
+    const [x2, y2] = project(lat2, lng2);
+    const [mx, my] = project(midP[0], midP[1]);
+
+    let dirX = x2 - x1;
+    let dirY = y2 - y1;
+    let dirLen = (dirX ** 2 + dirY ** 2) ** 0.5
+    dirX /= dirLen;
+    dirY /= dirLen;
+
+    // perpendicular unit vector
+    let perpX = -dirY;
+    let perpY = dirX;
+    let a = zoom ? 2 ** (7 - zoom) : 0;
+
+    let halfWidth = 5000 * a
+    let backLen = 10000 * a
+
+    // base points are behind the tip along -dir and offset by perpendicular for symmetry
+    const leftX = mx - dirX * backLen + perpX * halfWidth;
+    const leftY = my - dirY * backLen + perpY * halfWidth;
+    const rightX = mx - dirX * backLen - perpX * halfWidth;
+    const rightY = my - dirY * backLen - perpY * halfWidth;
+
+    const [m_lat1, m_lng1] = unproject(leftX, leftY);
+    const [m_lat2, m_lng2] = unproject(rightX, rightY);
+
+    function MyComponent() {
+        const map = useMapEvents({
+            // https://leafletjs.com/reference.html#evented
+            zoom: () => {
+                console.log('zoom');
+                setZoom(map.getZoom());
+            },
+            // load: () => {
+            // does not work
+            //  }
+        });
+        if (zoom === 0) {
+            setZoom(map.getZoom());
+        }
+        return null
+    }
+
+
+    return positions?.length && (
+        <>
+            <Polyline
+                positions={positions}
+                pathOptions={{
+                    color: color,
+                    weight: 1,
+                    // renderer: L.canvas(), // force canvas rendering
+                    className: "bg-cyan-500 shadow-lg shadow-cyan-500/50", //todo this is not working
+                }}
+            >
+                {popups}
+            </Polyline>
+            <Polyline
+                positions={[[m_lat1, m_lng1], midP, [m_lat2, m_lng2]]}
+                pathOptions={{
+                    color: color,
+                    weight: 1,
+                    // renderer: L.canvas(), // force canvas rendering
+                    className: "bg-cyan-500 shadow-lg shadow-cyan-500/50 z-50", //todo this is not working
+                }}
+            >
+                <Popup>{popupText}</Popup>
+            </Polyline>
+            <MyComponent />
+        </>
+    ) || null;
 }
