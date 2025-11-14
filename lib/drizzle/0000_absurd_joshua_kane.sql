@@ -37,8 +37,8 @@ END $$;
 CREATE TABLE IF NOT EXISTS "Flights" (
 	"fa_flight_id" uuid PRIMARY KEY NOT NULL,
 	"scheduled_out" timestamp NOT NULL,
-	"origin_iata" varchar(8),
-	"destination_iata" varchar(8),
+	"origin_iata" text,
+	"destination_iata" text,
 	"userId" uuid NOT NULL
 );
 
@@ -75,4 +75,15 @@ CREATE TABLE IF NOT EXISTS "Flights" (
 	ident text not null,
 	constraint Flights_pkey primary key unique (scheduled_out, ident),
 	constraint Flights_userId_fkey foreign KEY ("userId") references "User" (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS "TrainStation" (
+	crsCode text PRIMARY KEY NOT NULL,
+	name text null,
+	classification text null,
+	latitude double precision null,
+	longitude double precision null,
+	operator text null,
+	postcode text null
 );

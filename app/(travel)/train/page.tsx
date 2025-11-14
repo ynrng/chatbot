@@ -8,12 +8,12 @@ import { fetcher } from "@/lib/utils";
 const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
     ssr: false, // Disable SSR for Leaflet
 });
-const FlightPolyLine = dynamic(() => import("@/components/travel/flightPolyLine"), {
-    ssr: false, // Disable SSR for Leaflet
-});
-const AirportMarker = dynamic(() => import("@/components/travel/airportMarker"), {
-    ssr: false, // Disable SSR for Leaflet
-});
+// const FlightPolyLine = dynamic(() => import("@/components/travel/flightPolyLine"), {
+//     ssr: false, // Disable SSR for Leaflet
+// });
+// const AirportMarker = dynamic(() => import("@/components/travel/airportMarker"), {
+//     ssr: false, // Disable SSR for Leaflet
+// });
 
 import { useMap, useMapEvents, } from "react-leaflet";
 import { useEffect, useState } from "react";
@@ -21,14 +21,12 @@ import { useEffect, useState } from "react";
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
 const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
-const pvg_coords: [number, number] = [31.1443, 121.8083]; // Shanghai Pudong International Airport coordinates
-const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
-const center_coords: [number, number] = [(edi_coords[0] + geneva_coords[0]) / 2, (edi_coords[1] + geneva_coords[1]) / 2];
+const london_coords: [number, number] = [51.4700, -0.4543]; // London Heathrow Airport coordinates
 
 
 const defaultBounds: L.LatLngBoundsLiteral = [
     edi_coords,
-    geneva_coords,
+    london_coords,
 ]
 
 export default function Page() {
@@ -47,16 +45,12 @@ export default function Page() {
             map.fitBounds(defaultBounds)
         }
         return null
-    }
-
-
-    const { data } = useSWR(`/api/flight/list`, fetcher);
-
+    } 
 
     return (
         <div className="h-screen w-full">
-            <FlightMap center_coords={center_coords}>
-                {
+            <FlightMap center_coords={edi_coords}>
+                {/* {
                     data?.flights?.map((f: any) => (
                         <FlightPolyLine key={f.ident + f.scheduled_out} flight={f} zoom={zoom} />
                     ))
@@ -65,7 +59,7 @@ export default function Page() {
                     data?.airports?.map((a: any) => (
                         <AirportMarker key={a.iata} airport={a} ></AirportMarker>
                     ))
-                }
+                } */}
                 <MyComponent />
             </FlightMap>
         </div>

@@ -21,6 +21,23 @@ interface ApplicationError extends Error {
   status: number;
 }
 
+export function fetcherInternal(url: string, request: Request, option?: any) {
+
+  const internalUrl = new URL(url, request.url).toString();
+  console.log('fetcherInternal url:', internalUrl);
+
+  return fetch(internalUrl, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      // forward client cookies / auth headers when needed
+      "cookie": request.headers.get("cookie") ?? "",
+      "authorization": request.headers.get("authorization") ?? "",
+    },
+    ...option,
+  });
+}
+
 export const fetcherFlight = async (url: string, headers?: any, options?: any) => {
   const apiKey = process.env.AERO_API_KEY;
   if (!apiKey) {

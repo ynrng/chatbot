@@ -1,5 +1,5 @@
 "use client";
-import { default as PageFlights } from "@/app/(travel)/flight/page";
+import { default as PageTrain } from "@/app/(travel)/train/page";
 
 import React, { useState, useCallback } from "react";
 import { toast } from "sonner";
@@ -31,60 +31,59 @@ export default function Page() {
     if (!keyword) {
       return;
     }
-    try {
-      const response = await fetch(
-        `/api/flight?id=${keyword}`
-      );
+    // try {
+    //   const response = await fetch(
+    //     `/api/flight?id=${keyword}`
+    //   );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('faaaaaaaaaaa', data);
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log('faaaaaaaaaaa', data);
 
-        if (data?.flights?.length) {
-          setFlights(data.flights);
-        }
+    //     if (data?.flights?.length) {
+    //       setFlights(data.flights);
+    //     }
 
-        // return flights;
-      } else {
-        const { error } = await response.json();
-        toast.error(error);
-      }
-    } catch (error) {
-      console.error("Errors!", error);
-    }
+    //     // return flights;
+    //   } else {
+    //     const { error } = await response.json();
+    //     toast.error(error);
+    //   }
+    // } catch (error) {
+    //   console.error("Errors!", error);
+    // }
   };
 
 
   const handleAdd = async () => {
 
-    const addPromise = fetch(`/api/flight`, {
-      method: "POST",
-      body: JSON.stringify(flight),
-    });
+    // const addPromise = fetch(`/api/flight`, {
+    //   method: "POST",
+    //   body: JSON.stringify(flight),
+    // });
 
-    toast.promise(addPromise, {
-      loading: "Adding flight...",
-      success: () => {
-        // mutate((history) => {
-        //   if (history) {
-        //     return history.filter((h) => h.id !== id);
-        //   }
-        // });
-        return "Flight addd successfully";
-      },
-      error: "Failed to add flight",
-    });
+    // toast.promise(addPromise, {
+    //   loading: "Adding flight...",
+    //   success: () => {
+    //     // mutate((history) => {
+    //     //   if (history) {
+    //     //     return history.filter((h) => h.id !== id);
+    //     //   }
+    //     // });
+    //     return "Flight addd successfully";
+    //   },
+    //   error: "Failed to add flight",
+    // });
 
-    setShowAddDialog(false);
-    setKeyword("");
-    setFlights([]);
-    setFlight(null);
+    // setShowAddDialog(false);
+    // setKeyword("");
+    // setFlights([]);
+    // setFlight(null);
   };
 
 
   const handleBatchAdd = async () => {
-
-    fetch(`/api/flight/list/csv`, {
+    fetch(`/api/train/stations/jsonfiles`, {
       method: "POST",
     });
   };
@@ -110,7 +109,7 @@ export default function Page() {
           <Button
             onClick={handleBatchAdd}
           >
-            Load from csv
+            Load from json files
           </Button>
 
         </div>
@@ -150,7 +149,7 @@ export default function Page() {
           </div>
         ))}
       </div>
-      <PageFlights />
+      <PageTrain />
 
 
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>

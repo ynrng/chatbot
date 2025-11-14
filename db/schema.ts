@@ -103,3 +103,15 @@ export const flights = pgTable("Flights", {
 });
 
 export type Flights = InferSelectModel<typeof flights>;
+
+export const trainStation = pgTable("TrainStation", {
+  crsCode: text("crs_code").primaryKey().notNull(),
+  name: text("name"),
+  classification: text("classification"),
+  latitude: doublePrecision("latitude"),
+  longitude: doublePrecision("longitude"),
+  operator: text("operator"),
+  postcode: text("postcode"),
+});
+
+export type TrainStation = InferSelectModel<typeof trainStation>;

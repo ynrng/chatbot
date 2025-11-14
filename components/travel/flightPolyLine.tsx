@@ -73,14 +73,6 @@ function generateBezierCurve(
     return points; // filter out invalid points
 }
 
-const arrowIcon = L.icon({
-    iconUrl: '/images/arrow.png',
-    iconSize: [16, 16], // size of the icon
-    iconAnchor: [8, 8], // point of the icon which will correspond to marker's location
-    popupAnchor: [0, -8] // point from which the popup should open relative to the iconAnchor
-});
-
-
 export default function FlightPolyLine({
     flight: f,
     zoom
