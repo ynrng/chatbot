@@ -90,7 +90,7 @@ export default function Page() {
     });
   };
   const handleBatchAddBookings = async () => {
-    fetch(`/api/train/bookings/jsons`, {
+    fetch(`/api/train/jsons`, {
       method: "POST",
     });
   };

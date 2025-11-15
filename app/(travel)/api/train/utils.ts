@@ -22,11 +22,6 @@ export async function fetchRRT(url: string ) {
   const token = Buffer.from(`${user}:${pwd}`).toString("base64");
 
   console.log('fetchRRT:', url);
-  // /json/search/<station>
-  // /json/search/<station>/to/<toStation>
-  // /json/search/<station>/<year>/<month>/<day>
-  // /json/search/<station>/<year>/<month>/<day>/<time>
-  // /json/service/<serviceUid>/<year>/<month>/<day>
   const res = await fetch(`https://api.rtt.io/api/v1${url}`, {
     headers: {
       "Authorization": `Basic ${token}`

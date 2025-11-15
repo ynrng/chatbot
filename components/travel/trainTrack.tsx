@@ -36,7 +36,6 @@ const defaultBounds: L.LatLngBoundsLiteral = [
 export default   function TrainTrackGeoJSON({data}: {data:any}) {
 
 
-    // const { data } = useSWR(`/api/train/bookings`, fetcher);
 
 
     return (

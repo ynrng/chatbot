@@ -83,7 +83,7 @@ export default function Page() {
 
   const handleBatchAdd = async () => {
 
-    fetch(`/api/flight/list/csv`, {
+    fetch(`/api/flight/csv`, {
       method: "POST",
     });
   };

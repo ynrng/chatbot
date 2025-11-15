@@ -5,13 +5,12 @@ import { getTrainStations, getTrains, updateTrain } from "@/db/queries";
 import { fetcherInternal } from "@/lib/utils";
 
 import { fetchRRT } from "@/app/(travel)/api/train/utils";
-// import { fetchTrainLocationsByUid } from "./jsons/route";
 import locs from './fake.locations.json';
 
 function fetchSegmentsByLocations(locations: any[]) {
   //   todo fetch segments based on locations
 
-  locations=locs
+  locations = locs
   return null;
 }
 
@@ -100,13 +99,6 @@ export async function GET(request: Request) {
             }
 
           } else if (day.valueOf() < today.valueOf()) {
-
-            // /json/search/<station>
-            // /json/search/<station>/to/<toStation>
-            // /json/search/<station>/<year>/<month>/<day>
-            // /json/search/<station>/<year>/<month>/<day>/<time>
-
-
             let url4 = `/json/search/${record.origin}/to/${record.destination}/${today.toISOString().split('T')[0].replaceAll('-', '/')}`;
             if (record.originTime != '0000') {
               url4 += '/' + record.originTime;
