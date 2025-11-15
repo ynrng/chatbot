@@ -21,6 +21,7 @@ interface ApplicationError extends Error {
   status: number;
 }
 
+
 export function fetcherInternal(url: string, request: Request, option?: any) {
 
   const internalUrl = new URL(url, request.url).toString();
@@ -37,33 +38,6 @@ export function fetcherInternal(url: string, request: Request, option?: any) {
     ...option,
   });
 }
-
-export const fetcherFlight = async (url: string, headers?: any, options?: any) => {
-  const apiKey = process.env.AERO_API_KEY;
-  if (!apiKey) {
-    return new Response("Server configuration error: missing AEROAPI_KEY", { status: 500 }).json();
-  }
-
-  const res2 = await rateLimitedFetch(url, {
-      headers: {
-        ...headers,
-        'x-apikey': apiKey,
-      },
-      ...options
-    },);
-  return res2.json();
-
-  // return fetcher(url,
-  //   {
-  //     headers: {
-  //       ...headers,
-  //       'x-apikey': apiKey,
-  //     },
-  //     ...options
-  //   },
-  // );
-
-};
 
 export const fetcher = async (url: string, ...options: any) => {
   console.log('fetcher url:', url, ...options); // todo fix this

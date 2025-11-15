@@ -67,6 +67,21 @@ pnpm dev
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
 
-
 # Disclaimer:
 <a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport icons created by riajulislam - Flaticon</a>
+
+# APIs
+## Realtime train
+> https://api.rtt.io/api/v1
+https://www.realtimetrains.co.uk/about/developer/pull/docs/locationlist/
+- Normal queries (live departures)
+`/json/search/<station>`
+- Normal queries filtered to a location
+`/json/search/<station>/to/<toStation>`
+- Queries for all services on a specific date
+`/json/search/<station>/<year>/<month>/<day>`
+- Queries for services on a specific date and time
+`/json/search/<station>/<year>/<month>/<day>/<time>`
+
+https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
+`/json/service/<serviceUid>/<year>/<month>/<day>`

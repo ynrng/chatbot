@@ -79,11 +79,25 @@ CREATE TABLE IF NOT EXISTS "Flights" (
 
 
 CREATE TABLE IF NOT EXISTS "TrainStation" (
-	crsCode text PRIMARY KEY NOT NULL,
+	crs_code text PRIMARY KEY NOT NULL,
 	name text null,
 	classification text null,
 	latitude double precision null,
 	longitude double precision null,
 	operator text null,
 	postcode text null
+);
+
+CREATE TABLE IF NOT EXISTS "Trains" (
+	service_uid text null,
+	run_date date not null,
+	origin text not null REFERENCES "TrainStation"(crs_code),
+	origin_time text not null,
+	destination text not null REFERENCES "TrainStation"(crs_code),
+	destination_time text null,
+	locations jsonb null,
+	segments jsonb null,
+	atoc_code text null,
+	transport_mode text null,
+	constraint Trains_pkey primary key (run_date, origin, origin_time),
 );

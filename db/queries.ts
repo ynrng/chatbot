@@ -1,11 +1,11 @@
 import "server-only";
 
 import { genSaltSync, hashSync } from "bcrypt-ts";
-import { desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { user, chat, User, reservation, flightTrack, FlightTrack, flights, Flights, airport, Airport , TrainStation, trainStation} from "./schema";
+import { user, chat, User, reservation, flightTrack, FlightTrack, flights, Flights, airport, Airport, TrainStation, trainStation, trains, Trains } from "./schema";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -13,6 +13,59 @@ import { user, chat, User, reservation, flightTrack, FlightTrack, flights, Fligh
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
 
+
+export async function deleteTrain(ts: any) {
+  try {
+    return await db.delete(trains).where(
+      and(
+        eq(trains.origin, ts.origin),
+        eq(trains.runDate, ts.runDate),
+        eq(trains.destination, ts.destination),
+        eq(trains.originTime, ts.originTime)
+      ));
+  } catch (error) {
+    console.error("Failed to delete trains in database");
+    throw error;
+  }
+}
+
+export async function updateTrain(ts: any) {
+  try {
+    for (let key in ts) {
+      if (ts[key] === undefined || ts[key] === null) {
+        delete ts[key];
+      }
+    }
+    return await db.update(trains).set(ts).where(
+      and(
+        eq(trains.origin, ts.origin),
+        eq(trains.runDate, ts.runDate),
+        eq(trains.destination, ts.destination),
+        ts.originTime == '0000' ? undefined : eq(trains.originTime, ts.originTime)
+      ));
+  } catch (error) {
+    console.error("Failed to update trains in database");
+    throw error;
+  }
+}
+
+export async function createTrain(ts: Trains) {
+  try {
+    return await db.insert(trains).values(ts);
+  } catch (error) {
+    console.error("Failed to create trains in database");
+    throw error;
+  }
+}
+
+export async function getTrains(): Promise<Array<Trains>> {
+  try {
+    return await db.select().from(trains);
+  } catch (error) {
+    console.error("Failed to get trains from database");
+    throw error;
+  }
+}
 
 export async function createTrainStations(tss: Array<TrainStation>) {
   try {
@@ -23,9 +76,13 @@ export async function createTrainStations(tss: Array<TrainStation>) {
   }
 }
 
-export async function getTrainStations(ids: Array<string>): Promise<Array<TrainStation>> {
+export async function getTrainStations(ids: Array<string> | null): Promise<Array<TrainStation>> {
   try {
-    return await db.select().from(trainStation).where(inArray(trainStation.crsCode, ids));
+    if (ids?.length) {
+      return await db.select().from(trainStation).where(inArray(trainStation.crsCode, ids));
+    } else {
+      return await db.select().from(trainStation)
+    }
   } catch (error) {
     console.error("Failed to get train stations from database");
     throw error;
@@ -65,7 +122,7 @@ export async function getFlightTrack(id: string): Promise<FlightTrack> {
   try {
     return await db.select().from(flightTrack).where(eq(flightTrack.fa_flight_id, id)).limit(1).then(res => res[0]);
   } catch (error) {
-    console.error("Failed to get flightTrack from database",id);
+    console.error("Failed to get flightTrack from database", id);
     throw error;
   }
 }

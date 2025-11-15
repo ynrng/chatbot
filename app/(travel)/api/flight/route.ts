@@ -24,7 +24,7 @@ import {
 import { Flights, Airport, FlightTrack } from "@/db/schema";
 
 
-import { fetcherFlight } from "@/lib/utils";
+import { fetcherFlight } from "@/app/(travel)/api/flight/utils";
 import data_get from './fake.get.json';
 
 
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
   const start = date?.split("T")[0] || "";
   if (start) {
     q += `&start=${start}`;
-    const end = start? `${start}T23%3A59%3A59Z`: ''
+    const end = start ? `${start}T23%3A59%3A59Z` : ''
     if (end) {
       q += `&end=${end}`;
     }
@@ -75,13 +75,9 @@ export async function POST(request: Request) {
     return new Response("Request body is empty", { status: 400 });
   }
 
-  console.log('11111 ',);
   let body: any;
   try {
     body = await request.json();
-
-
-  console.log('22222 ',body);
   } catch (error) {
     return new Response("Invalid JSON in request body", { status: 400 });
   }
@@ -98,11 +94,9 @@ export async function POST(request: Request) {
     ident: body.ident,
     userId: session?.user?.id || '',
   };
-  console.log('f f f f f ',f);
 
   try {
     await createFlight(f);
-  console.log('33333 ',);
   } catch (error) {
     console.error("Failed to save flight");
     return new Response("Failed to save flight", { status: 500 });
@@ -112,12 +106,11 @@ export async function POST(request: Request) {
 
     const res1 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/flights/${f.fa_flight_id}/track`);
     if (res1?.positions?.length) {
-      console.log("44444:", res1);
 
       await createFlightTrack({
         fa_flight_id: f.fa_flight_id,
         actual_distance: res1.actual_distance,
-        positions: JSON.stringify(res1.positions),
+        positions: res1.positions,
       });
     }
 
@@ -128,7 +121,7 @@ export async function POST(request: Request) {
   const airports = await getAirports(iatas)
   const iatas_existing = airports.map(a => a.iata)
 
-  console.log("55555:", iatas, iatas_existing,);
+  console.log("Fetching new iatas for airports:", iatas, iatas_existing,);
   await Promise.all(
     iatas.map(async (i) => {
       if (iatas_existing.indexOf(i) === -1) {

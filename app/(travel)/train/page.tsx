@@ -15,8 +15,12 @@ const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
 //     ssr: false, // Disable SSR for Leaflet
 // });
 
-import { useMap, useMapEvents, } from "react-leaflet";
-import { useEffect, useState } from "react";
+const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack"), {
+    ssr: false, // Disable SSR for Leaflet
+});
+
+// import { useMap, useMapEvents,GeoJSON } from "react-leaflet";
+// import { useEffect, useState } from "react";
 
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
@@ -31,21 +35,26 @@ const defaultBounds: L.LatLngBoundsLiteral = [
 
 export default function Page() {
 
-    const [zoom, setZoom] = useState<number>(0);
+    // const [zoom, setZoom] = useState<number>(0);
+    // const [booking, setBooking] = useState<any>(null);
 
-    function MyComponent() {
-        const map = useMapEvents({
-            // https://leafletjs.com/reference.html#evented
-            zoom: () => {
-                setZoom(map.getZoom());
-            },
-        });
-        if (0 == zoom) {
-            setZoom(map.getZoom());
-            map.fitBounds(defaultBounds)
-        }
-        return null
-    } 
+    // function MyComponent() {
+    //     const map = useMapEvents({
+    //         // https://leafletjs.com/reference.html#evented
+    //         zoom: () => {
+    //             setZoom(map.getZoom());
+    //         },
+    //     });
+    //     if (0 == zoom) {
+    //         setZoom(map.getZoom());
+    //         map.fitBounds(defaultBounds)
+    //     }
+    //     return null
+    // }
+
+    const { data } = useSWR(`/api/train/bookings`, fetcher);
+
+    console.log('3333222', data);
 
     return (
         <div className="h-screen w-full">
@@ -60,7 +69,8 @@ export default function Page() {
                         <AirportMarker key={a.iata} airport={a} ></AirportMarker>
                     ))
                 } */}
-                <MyComponent />
+                {/* {data && <TrainTrackGeoJSON data={data} />} */}
+                {/* <MyComponent /> */}
             </FlightMap>
         </div>
     );

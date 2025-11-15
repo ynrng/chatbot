@@ -38,7 +38,6 @@ export default function Page() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('faaaaaaaaaaa', data);
 
         if (data?.flights?.length) {
           setFlights(data.flights);

@@ -6,8 +6,7 @@ import path from "path";
 import { parse } from "csv-parse/sync";
 
 import { auth } from "@/app/(auth)/auth";
-import { fetcherFlight, fetcherInternal } from "@/lib/utils";
-import { Flights, Airport, FlightTrack } from "@/db/schema";
+import {  fetcherInternal } from "@/lib/utils";
 
 // import { Flights } from "@/db/schema";
 

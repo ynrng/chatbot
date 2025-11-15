@@ -1,0 +1,1537 @@
+{
+    "upcomingBookings": {
+        "results": [
+            {
+                "order": {
+                    "id": "77640acb-3444-5cb4-aa36-97f7662e16b2",
+                    "originalOrderId": "",
+                    "friendlyOrderId": "541791632044",
+                    "orderDate": "2025-11-05T11:10:48.876867Z",
+                    "type": null,
+                    "payment": {
+                        "date": "2025-11-05T11:10:48.876867Z",
+                        "paymentType": "Mastercard Credit",
+                        "paymentReference": "**** **** **** 8287",
+                        "paymentState": "Paid",
+                        "refunds": [],
+                        "currencyCode": "GBP",
+                        "fees": [
+                            {
+                                "type": "product",
+                                "price": {
+                                    "amount": 33.9,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "delivery-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "booking-fee",
+                                "vendor": "atoc",
+                                "price": {
+                                    "amount": 2.49,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "payment-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            }
+                        ],
+                        "paid": {
+                            "amount": 36.39,
+                            "currency": "GBP"
+                        },
+                        "railcardDiscount": {
+                            "amount": 0,
+                            "currency": "GBP"
+                        },
+                        "invoiceId": "6AAD9760FB9195AE8C8A6801E1696ED0"
+                    },
+                    "isGuest": true,
+                    "numberOfBookings": 1,
+                    "errors": [],
+                    "state": "COMPLETE",
+                    "refunds": [],
+                    "fulfilments": [
+                        {
+                            "productId": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                            "fulfilmentState": "Complete"
+                        }
+                    ],
+                    "invoices": [
+                        {
+                            "id": "6AAD9760FB9195AE8C8A6801E1696ED0",
+                            "currencyCode": "GBP",
+                            "lineItems": [
+                                {
+                                    "amount": 33.9,
+                                    "amountInRequestedCurrency": 33.9,
+                                    "subLineItems": [
+                                        {
+                                            "amount": 13.95,
+                                            "amountInRequestedCurrency": 13.95,
+                                            "reference": {
+                                                "id": "6e9e4916-563a-4645-91fd-9280d5feca72"
+                                            },
+                                            "type": "product-breakdown-item"
+                                        },
+                                        {
+                                            "amount": 19.95,
+                                            "amountInRequestedCurrency": 19.95,
+                                            "reference": {
+                                                "id": "8aac8495-f75d-42fd-925a-777eb3733a9e"
+                                            },
+                                            "type": "product-breakdown-item"
+                                        }
+                                    ],
+                                    "productId": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                                    "type": "product",
+                                    "productUri": "https://atocinventory.service.ttlprod.local/products/40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                                    "originalRetailPrice": {
+                                        "amount": 33.9,
+                                        "currencyCode": "GBP"
+                                    },
+                                    "originalRetailPriceInRequestedCurrency": {
+                                        "amount": 33.9,
+                                        "currencyCode": "GBP"
+                                    }
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "delivery-fee",
+                                    "option": "AtocETicket",
+                                    "products": [
+                                        "40edfa0d-63a7-49ae-80a6-dd6f776f5126"
+                                    ],
+                                    "uri": "https://deliveryoptions.service.ttlprod.local/delivery-options/AtocETicket"
+                                },
+                                {
+                                    "amount": 2.49,
+                                    "amountInRequestedCurrency": 2.49,
+                                    "type": "booking-fee",
+                                    "splitSaveFeeAmount": 2.49,
+                                    "splitSaveFeeAmountInRequestedCurrency": 2.49,
+                                    "bookingFeeOnlyAmount": 0,
+                                    "bookingFeeOnlyAmountInRequestedCurrency": 0,
+                                    "subLineItems": [
+                                        {
+                                            "amount": 2.49,
+                                            "amountInRequestedCurrency": 2.49,
+                                            "type": "booking-fee-breakdown-item",
+                                            "splitSaveFeeAmount": 2.49,
+                                            "splitSaveFeeAmountInRequestedCurrency": 2.49,
+                                            "bookingFeeOnlyAmount": 0,
+                                            "bookingFeeOnlyAmountInRequestedCurrency": 0,
+                                            "references": [
+                                                {
+                                                    "id": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                                                    "type": "product",
+                                                    "uri": "https://atocinventory.service.ttlprod.local/products/40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                                                    "vendor": "ATOC",
+                                                    "individualFeeAmount": 2.49,
+                                                    "individualBookingFeeAmount": 0,
+                                                    "individualSplitSaveFeeAmount": 2.49
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "payment-fee"
+                                }
+                            ],
+                            "paymentReference": "E43140B26F4EA23BCC1B3E9B4852E214",
+                            "totalAmount": 36.39,
+                            "seller": "Trainline",
+                            "vatSummary": {
+                                "invoiceNumber": "TTL439502612",
+                                "friendlyInvoiceNumber": "541791632044",
+                                "vatCalculations": [
+                                    {
+                                        "legalEntityId": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "country": "GB",
+                                        "lineItems": [
+                                            {
+                                                "grossPrice": {
+                                                    "amount": 2.49,
+                                                    "currencyCode": "GBP"
+                                                },
+                                                "vat": {
+                                                    "rate": 0,
+                                                    "value": {
+                                                        "amount": 0,
+                                                        "currencyCode": "GBP"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "totalAmount": {
+                                            "amount": 0,
+                                            "currencyCode": "GBP"
+                                        }
+                                    }
+                                ],
+                                "legalEntities": [
+                                    {
+                                        "id": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "legalName": "Trainline.com",
+                                        "address": "120 Holborn, London, United Kingdom, EC1N 2TD",
+                                        "vatNumber": "791726106"
+                                    }
+                                ]
+                            },
+                            "requestedPrice": {
+                                "amount": 36.39,
+                                "currencyCode": "GBP"
+                            }
+                        }
+                    ],
+                    "identityAuthenticated": "Recognised",
+                    "items": [
+                        {
+                            "listPrice": {
+                                "amount": 33.9,
+                                "currencyCode": "GBP"
+                            },
+                            "fullListPrice": {
+                                "amount": 51,
+                                "currencyCode": "GBP"
+                            },
+                            "settlementPrice": {
+                                "amount": 33.9,
+                                "currencyCode": "GBP"
+                            },
+                            "supportsAlternativeJourneySearch": {
+                                "inward": null,
+                                "outward": false
+                            },
+                            "inventoryReferences": [
+                                "9411614217",
+                                "TTG35KNP7WK",
+                                "TTG35KNP7WM"
+                            ],
+                            "originatingSearchData": {
+                                "itinerarySearchUrl": "https://itinerarysearchapi.service.ttlprod.local/search/b9a9120d-9845-456c-aec7-285658265334",
+                                "selectedAlternatives": [
+                                    "342e2cdc-1e41-487b-8fe8-11ad990b542a"
+                                ]
+                            },
+                            "createdAt": "2025-11-05T11:05:43.6755645Z",
+                            "state": "issued",
+                            "localAreaTransportType": null,
+                            "orderReference": "541791632044",
+                            "id": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                            "type": "product",
+                            "uri": "https://atocinventory.service.ttlprod.local/products/40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                            "locked": true,
+                            "productId": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                            "productType": "Travel",
+                            "fulfilmentStatus": "Complete"
+                        }
+                    ]
+                },
+                "booking": {
+                    "id": "40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                    "system": "ATOC",
+                    "origin": "Edinburgh (Waverley)",
+                    "destination": "Birmingham New Street",
+                    "reference": "",
+                    "passengerList": [],
+                    "passengerCount": {
+                        "inward": {},
+                        "outward": {
+                            "adult": 1
+                        },
+                        "booking": {
+                            "adult": 1
+                        }
+                    },
+                    "deliveryMethod": "ETicket",
+                    "state": "COMPLETE",
+                    "insurance": {},
+                    "vouchers": {},
+                    "outward": {
+                        "id": "a9289c78-ed52-417c-9389-70a1b5a21e77",
+                        "date": "2025-11-17T12:52:00+00:00",
+                        "duration": 254,
+                        "legs": [
+                            {
+                                "id": "7027f7f1-cd21-4488-ad6d-393c5f40eac6",
+                                "destination": {
+                                    "id": "4d66cd9d-bf74-4d94-b6d9-2db7b8e67a31",
+                                    "code": "urn:trainline:atoc:loc:BHM1127",
+                                    "nlc": "1127",
+                                    "crs": "BHM",
+                                    "locationType": "station",
+                                    "name": "Birmingham New Street",
+                                    "aliases": [
+                                        "BHM"
+                                    ],
+                                    "shortName": "BHM",
+                                    "longitude": -1.8984,
+                                    "latitude": 52.4782,
+                                    "timezone": "Europe/London",
+                                    "language": "en",
+                                    "countryCode": "GB",
+                                    "properties": [
+                                        {
+                                            "key": "subtitle",
+                                            "value": "City centre, Main"
+                                        }
+                                    ],
+                                    "parents": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "xName": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "xShortName": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "xProperties": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "links": {
+                                        "self": "https://ukrailreferencedataapi.service.ttlprod.local/location/4d66cd9d-bf74-4d94-b6d9-2db7b8e67a31"
+                                    },
+                                    "time": "2025-11-17T17:06:00+00:00"
+                                },
+                                "origin": {
+                                    "id": "df7e54e3-906c-4e3b-9adf-a15b150e9573",
+                                    "code": "urn:trainline:atoc:loc:EDB9328",
+                                    "nlc": "9328",
+                                    "crs": "EDB",
+                                    "locationType": "station",
+                                    "name": "Edinburgh (Waverley)",
+                                    "aliases": [
+                                        "EDB"
+                                    ],
+                                    "shortName": "EDB",
+                                    "longitude": -3.1882,
+                                    "latitude": 55.9524,
+                                    "timezone": "Europe/London",
+                                    "language": "en",
+                                    "countryCode": "GB",
+                                    "properties": [
+                                        {
+                                            "key": "subtitle",
+                                            "value": "City centre, Main"
+                                        }
+                                    ],
+                                    "parents": [],
+                                    "xName": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "xShortName": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "xProperties": [
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        },
+                                        {
+                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                        }
+                                    ],
+                                    "links": {
+                                        "self": "https://ukrailreferencedataapi.service.ttlprod.local/location/df7e54e3-906c-4e3b-9adf-a15b150e9573"
+                                    },
+                                    "time": "2025-11-17T12:52:00+00:00"
+                                },
+                                "transportMode": "train",
+                                "carrierName": "Avanti West Coast",
+                                "carrierCode": "urn:trainline:atoc:carrier:VT",
+                                "carrierId": "d96e6617-c090-4e49-8c1b-91b632cc7b8e",
+                                "sleeper": false,
+                                "duration": 254,
+                                "timetableId": "W10472",
+                                "transportDesignation": null,
+                                "route": null,
+                                "seatReservation": {
+                                    "data": [
+                                        {
+                                            "carriage": "F",
+                                            "position": "44",
+                                            "allocationType": "Window",
+                                            "allocationProperties": [
+                                                {
+                                                    "id": "bf04fd5c-9a7e-4ab3-afa1-e9b35357ace2",
+                                                    "code": "urn:trainline:atoc:allocpr:WINDOW",
+                                                    "propertyType": "window",
+                                                    "description": "Window",
+                                                    "xPropertyType": [
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        }
+                                                    ],
+                                                    "xDescription": [
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        }
+                                                    ],
+                                                    "links": {
+                                                        "self": {
+                                                            "href": "https://atocreferencedata.service.ttlprod.local/allocation-property/bf04fd5c-9a7e-4ab3-afa1-e9b35357ace2",
+                                                            "meta": {
+                                                                "method": "GET"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "code": "urn:trainline:atoc:allocty:SEAT"
+                                        },
+                                        {
+                                            "carriage": "F",
+                                            "position": "44",
+                                            "allocationType": "Window",
+                                            "allocationProperties": [
+                                                {
+                                                    "id": "bf04fd5c-9a7e-4ab3-afa1-e9b35357ace2",
+                                                    "code": "urn:trainline:atoc:allocpr:WINDOW",
+                                                    "propertyType": "window",
+                                                    "description": "Window",
+                                                    "xPropertyType": [
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        }
+                                                    ],
+                                                    "xDescription": [
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        },
+                                                        {
+                                                            "id": "16ed5adf63d76b776e21d5b886e8ea502bb1e0a5"
+                                                        }
+                                                    ],
+                                                    "links": {
+                                                        "self": {
+                                                            "href": "https://atocreferencedata.service.ttlprod.local/allocation-property/bf04fd5c-9a7e-4ab3-afa1-e9b35357ace2",
+                                                            "meta": {
+                                                                "method": "GET"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                            "code": "urn:trainline:atoc:allocty:SEAT"
+                                        }
+                                    ],
+                                    "unallocatedInfoUrl": "https://support.thetrainline.com/en/support/solutions/articles/78000000435",
+                                    "firstClass": false,
+                                    "standardClass": true
+                                }
+                            }
+                        ],
+                        "origin": {
+                            "name": "Edinburgh (Waverley)",
+                            "code": "EDB",
+                            "time": "2025-11-17T12:52:00+00:00",
+                            "timezone": "GMT",
+                            "id": "df7e54e3-906c-4e3b-9adf-a15b150e9573"
+                        },
+                        "destination": {
+                            "name": "Birmingham New Street",
+                            "code": "BHM",
+                            "time": "2025-11-17T17:06:00+00:00",
+                            "timezone": "GMT"
+                        },
+                        "type": "outward",
+                        "fares": [
+                            {
+                                "isSplit": true,
+                                "id": "ebcf8db7-a872-44d9-b1c8-5e51b8e580ca",
+                                "price": {
+                                    "amount": 13.95,
+                                    "currencyCode": "GBP"
+                                },
+                                "cards": [
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    }
+                                ],
+                                "fareType": {
+                                    "name": "Advance Single",
+                                    "description": "Non-refundable ticket, only valid for the date, time and trains specified.",
+                                    "conditions": [
+                                        {
+                                            "title": "DESCRIPTION",
+                                            "description": "Non-refundable ticket, only valid for the date, time and trains specified."
+                                        },
+                                        {
+                                            "title": "VALIDITY",
+                                            "description": "You must travel on the date, time and trains specified. You may not start, break and resume, or end your journey at any intermediate station except to change to/from connecting trains as shown on the ticket(s) or other valid travel itinerary."
+                                        },
+                                        {
+                                            "title": "BOOKING",
+                                            "description": "Tickets must be purchased in advance of travel, subject to availability."
+                                        },
+                                        {
+                                            "title": "REFUNDS",
+                                            "description": "No refunds available."
+                                        },
+                                        {
+                                            "title": "AMENDING YOUR BOOKING",
+                                            "description": "Yes - date/time of tickets can be changed up until time of departure subject to the payment up to GBP 10.00 fee per ticket per person and any difference in fares. If you change to a train on which a cheaper fare is available, the difference will not be refunded. Not possible to change the origin or destination."
+                                        },
+                                        {
+                                            "title": "DISCOUNTS",
+                                            "description": "Child discounts, 16-25 Railcard, Family and Friends Railcard (standard class only), Senior Railcard, Two Together Railcard, HM Forces and Disabled Persons Railcards discounts apply."
+                                        },
+                                        {
+                                            "title": "CODE",
+                                            "description": "V2M"
+                                        },
+                                        {
+                                            "title": "ACCESSIBILITY",
+                                            "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                        }
+                                    ],
+                                    "validityPeriods": {
+                                        "outward": "P1D"
+                                    }
+                                },
+                                "farePassengers": [
+                                    {
+                                        "farePassengerId": "6e9e4916-563a-4645-91fd-9280d5feca72",
+                                        "id": "a83e57f9-0c22-4dee-a3e2-8e0d184655d1",
+                                        "passengerId": "pid-0",
+                                        "fareType": {
+                                            "name": "Advance Single",
+                                            "description": "Non-refundable ticket, only valid for the date, time and trains specified.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Non-refundable ticket, only valid for the date, time and trains specified."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on the date, time and trains specified. You may not start, break and resume, or end your journey at any intermediate station except to change to/from connecting trains as shown on the ticket(s) or other valid travel itinerary."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Tickets must be purchased in advance of travel, subject to availability."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "No refunds available."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "Yes - date/time of tickets can be changed up until time of departure subject to the payment up to GBP 10.00 fee per ticket per person and any difference in fares. If you change to a train on which a cheaper fare is available, the difference will not be refunded. Not possible to change the origin or destination."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Child discounts, 16-25 Railcard, Family and Friends Railcard (standard class only), Senior Railcard, Two Together Railcard, HM Forces and Disabled Persons Railcards discounts apply."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "V2M"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    }
+                                ],
+                                "validFrom": {
+                                    "outward": "2025-11-17T00:00:00+00:00"
+                                },
+                                "validUntil": {
+                                    "outward": "2025-11-18T04:30:00+00:00"
+                                },
+                                "isGroupFare": false,
+                                "origin": "Edinburgh",
+                                "destination": "Penrith",
+                                "fareFullPrice": {
+                                    "amount": 21,
+                                    "currencyCode": "GBP"
+                                },
+                                "appliedDiscount": null,
+                                "fareTags": [
+                                    "flex:specified-only",
+                                    "refundable:no"
+                                ]
+                            },
+                            {
+                                "isSplit": true,
+                                "id": "f3256c8a-d44b-40b0-826e-dabd9b72b6fd",
+                                "price": {
+                                    "amount": 19.95,
+                                    "currencyCode": "GBP"
+                                },
+                                "cards": [
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    }
+                                ],
+                                "fareType": {
+                                    "name": "Advance Single",
+                                    "description": "Non-refundable ticket, only valid for the date, time and trains specified.",
+                                    "conditions": [
+                                        {
+                                            "title": "DESCRIPTION",
+                                            "description": "Non-refundable ticket, only valid for the date, time and trains specified."
+                                        },
+                                        {
+                                            "title": "VALIDITY",
+                                            "description": "You must travel on the date, time and trains specified. You may not start, break and resume, or end your journey at any intermediate station except to change to/from connecting trains as shown on the ticket(s) or other valid travel itinerary."
+                                        },
+                                        {
+                                            "title": "BOOKING",
+                                            "description": "Tickets must be purchased in advance of travel, subject to availability."
+                                        },
+                                        {
+                                            "title": "REFUNDS",
+                                            "description": "No refunds available."
+                                        },
+                                        {
+                                            "title": "AMENDING YOUR BOOKING",
+                                            "description": "Yes - date/time of tickets can be changed up until time of departure subject to the payment up to GBP 10.00 fee per ticket per person and any difference in fares. If you change to a train on which a cheaper fare is available, the difference will not be refunded. Not possible to change the origin or destination."
+                                        },
+                                        {
+                                            "title": "DISCOUNTS",
+                                            "description": "Child discounts, 16-25 Railcard, Family and Friends Railcard (standard class only), Senior Railcard, Two Together Railcard, HM Forces and Disabled Persons Railcards discounts apply."
+                                        },
+                                        {
+                                            "title": "CODE",
+                                            "description": "V2M"
+                                        },
+                                        {
+                                            "title": "ACCESSIBILITY",
+                                            "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                        }
+                                    ],
+                                    "validityPeriods": {
+                                        "outward": "P1D"
+                                    }
+                                },
+                                "farePassengers": [
+                                    {
+                                        "farePassengerId": "8aac8495-f75d-42fd-925a-777eb3733a9e",
+                                        "id": "333c2bc6-8323-4e4a-bd25-9cf46a2b9935",
+                                        "passengerId": "pid-0",
+                                        "fareType": {
+                                            "name": "Advance Single",
+                                            "description": "Non-refundable ticket, only valid for the date, time and trains specified.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Non-refundable ticket, only valid for the date, time and trains specified."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on the date, time and trains specified. You may not start, break and resume, or end your journey at any intermediate station except to change to/from connecting trains as shown on the ticket(s) or other valid travel itinerary."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Tickets must be purchased in advance of travel, subject to availability."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "No refunds available."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "Yes - date/time of tickets can be changed up until time of departure subject to the payment up to GBP 10.00 fee per ticket per person and any difference in fares. If you change to a train on which a cheaper fare is available, the difference will not be refunded. Not possible to change the origin or destination."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Child discounts, 16-25 Railcard, Family and Friends Railcard (standard class only), Senior Railcard, Two Together Railcard, HM Forces and Disabled Persons Railcards discounts apply."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "V2M"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    }
+                                ],
+                                "validFrom": {
+                                    "outward": "2025-11-17T00:00:00+00:00"
+                                },
+                                "validUntil": {
+                                    "outward": "2025-11-18T04:30:00+00:00"
+                                },
+                                "isGroupFare": false,
+                                "origin": "Penrith",
+                                "destination": "Birmingham New Street",
+                                "fareFullPrice": {
+                                    "amount": 30,
+                                    "currencyCode": "GBP"
+                                },
+                                "appliedDiscount": null,
+                                "fareTags": [
+                                    "flex:specified-only",
+                                    "refundable:no"
+                                ]
+                            }
+                        ],
+                        "composition": [
+                            "directsplit"
+                        ],
+                        "validUntil": "2025-11-18T04:30:00+00:00",
+                        "expiresAt": "2025-11-17T04:30:00.000Z",
+                        "hasTravellingGroup": false
+                    },
+                    "inward": null,
+                    "railcards": {
+                        "urn:trainline:atoc:card:YNG": 2
+                    },
+                    "sameFare": false,
+                    "price": {
+                        "amount": 33.9,
+                        "currencyCode": "GBP"
+                    },
+                    "travelExtras": [],
+                    "noOfTickets": 2,
+                    "recipient": {
+                        "name": null,
+                        "email": "suga_e@outlook.com",
+                        "address1": null,
+                        "address2": null,
+                        "address3": null,
+                        "address4": null,
+                        "address5": null,
+                        "postCode": null
+                    },
+                    "carriers": [
+                        {
+                            "id": "d96e6617-c090-4e49-8c1b-91b632cc7b8e",
+                            "name": "nationalrail",
+                            "code": "urn:trainline:atoc:carrier:VT"
+                        }
+                    ],
+                    "isEuBooking": false,
+                    "isSeasonBooking": false,
+                    "isETARequired": false,
+                    "onDemandDeliveryId": null,
+                    "alterables": [],
+                    "isFullyRefunded": true,
+                    "isPartialRefunded": false,
+                    "fulfilment": {
+                        "state": "Complete"
+                    },
+                    "self": "https://atocinventory.service.ttlprod.local/products/40edfa0d-63a7-49ae-80a6-dd6f776f5126",
+                    "refund": null,
+                    "composition": [
+                        "directsplit"
+                    ],
+                    "smartcard": null,
+                    "partnerships": {
+                        "supported": true
+                    },
+                    "orderDate": "2025-11-05T11:10:48.876867Z",
+                    "orderId": "77640acb-3444-5cb4-aa36-97f7662e16b2",
+                    "deliveryState": "fulfilled",
+                    "localAreaProducts": [],
+                    "needsData": false,
+                    "includesFlexibleFare": false,
+                    "miscDocuments": []
+                }
+            },
+            {
+                "order": {
+                    "id": "052c607a-bca6-5d01-ad80-df952285d852",
+                    "originalOrderId": "",
+                    "friendlyOrderId": "135358312062",
+                    "orderDate": "2025-10-31T17:12:13.1574349Z",
+                    "type": null,
+                    "payment": {
+                        "date": "2025-10-31T17:12:13.1574349Z",
+                        "paymentType": "Mastercard Credit",
+                        "paymentReference": "**** **** **** 8287",
+                        "paymentState": "Paid",
+                        "refunds": [],
+                        "currencyCode": "GBP",
+                        "fees": [
+                            {
+                                "type": "product",
+                                "price": {
+                                    "amount": 37.4,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "delivery-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "booking-fee",
+                                "vendor": "sncf pao",
+                                "price": {
+                                    "amount": 1.89,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "payment-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            }
+                        ],
+                        "paid": {
+                            "amount": 39.29,
+                            "currency": "GBP"
+                        },
+                        "railcardDiscount": {
+                            "amount": 0,
+                            "currency": "GBP"
+                        },
+                        "invoiceId": "9D1430E759BC86545BCEDD4885CDF69A"
+                    },
+                    "isGuest": true,
+                    "numberOfBookings": 1,
+                    "errors": [],
+                    "state": "COMPLETE",
+                    "refunds": [],
+                    "fulfilments": [
+                        {
+                            "productId": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                            "fulfilmentState": "Complete"
+                        }
+                    ],
+                    "invoices": [
+                        {
+                            "id": "9D1430E759BC86545BCEDD4885CDF69A",
+                            "currencyCode": "GBP",
+                            "lineItems": [
+                                {
+                                    "amount": 37.4,
+                                    "amountInRequestedCurrency": 37.4,
+                                    "subLineItems": [],
+                                    "productId": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                                    "type": "product",
+                                    "productUri": "https://eu-travelprotocolapi.service.ttlprod.local/products/4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                                    "originalRetailPrice": {
+                                        "amount": 37.4,
+                                        "currencyCode": "GBP"
+                                    },
+                                    "originalRetailPriceInRequestedCurrency": {
+                                        "amount": 37.4,
+                                        "currencyCode": "GBP"
+                                    }
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "delivery-fee",
+                                    "option": "SNCFPrintYourOwn",
+                                    "products": [
+                                        "4d6f51e7-e268-47fc-bfdb-0a899f9a087e"
+                                    ],
+                                    "uri": "https://deliveryoptions.service.ttlprod.local/delivery-options/SNCFPrintYourOwn"
+                                },
+                                {
+                                    "amount": 1.89,
+                                    "amountInRequestedCurrency": 1.89,
+                                    "type": "booking-fee",
+                                    "splitSaveFeeAmount": 0,
+                                    "splitSaveFeeAmountInRequestedCurrency": 0,
+                                    "bookingFeeOnlyAmount": 1.89,
+                                    "bookingFeeOnlyAmountInRequestedCurrency": 1.89,
+                                    "subLineItems": [
+                                        {
+                                            "amount": 1.89,
+                                            "amountInRequestedCurrency": 1.89,
+                                            "type": "booking-fee-breakdown-item",
+                                            "splitSaveFeeAmount": 0,
+                                            "splitSaveFeeAmountInRequestedCurrency": 0,
+                                            "bookingFeeOnlyAmount": 1.89,
+                                            "bookingFeeOnlyAmountInRequestedCurrency": 1.89,
+                                            "references": [
+                                                {
+                                                    "id": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                                                    "type": "product",
+                                                    "uri": "https://eu-travelprotocolapi.service.ttlprod.local/products/4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                                                    "vendor": "SNCF PAO",
+                                                    "individualFeeAmount": 1.89,
+                                                    "individualBookingFeeAmount": 1.89,
+                                                    "individualSplitSaveFeeAmount": 0
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "payment-fee"
+                                }
+                            ],
+                            "paymentReference": "94EB0EE5A2244CBA36CB1FCA9609B3F5",
+                            "totalAmount": 39.29,
+                            "seller": "Trainline",
+                            "vatSummary": {
+                                "invoiceNumber": "TTL436629744",
+                                "friendlyInvoiceNumber": "135358312062",
+                                "vatCalculations": [
+                                    {
+                                        "legalEntityId": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "country": "FR",
+                                        "lineItems": [
+                                            {
+                                                "grossPrice": {
+                                                    "amount": 1.89,
+                                                    "currencyCode": "GBP"
+                                                },
+                                                "vat": {
+                                                    "rate": 0.2,
+                                                    "value": {
+                                                        "amount": 0.36,
+                                                        "currencyCode": "EUR"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "totalAmount": {
+                                            "amount": 0.36,
+                                            "currencyCode": "EUR"
+                                        }
+                                    }
+                                ],
+                                "legalEntities": [
+                                    {
+                                        "id": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "legalName": "Trainline.com",
+                                        "address": "120 Holborn, London, United Kingdom, EC1N 2TD",
+                                        "vatNumber": "791726106"
+                                    }
+                                ]
+                            },
+                            "requestedPrice": {
+                                "amount": 39.29,
+                                "currencyCode": "GBP"
+                            }
+                        }
+                    ],
+                    "identityAuthenticated": "Recognised",
+                    "items": [
+                        {
+                            "state": "issued",
+                            "inventoryReferences": [
+                                "MFTD5D",
+                                "HR8JMQ",
+                                "011686517"
+                            ],
+                            "subVendor": "ETOIL_B2C_UNITED_KINGDOM",
+                            "isPrmBooking": false,
+                            "composition": [],
+                            "orderReference": "135358312062",
+                            "pnrHash": null,
+                            "isSubscribedForNotifications": false,
+                            "issuingContextUri": "https://context.service.ttlprod.local/contexts/fe8bf336-0232-4c64-b93b-d6e8fcc5a191",
+                            "createdAt": "2025-10-31T17:11:00.000Z",
+                            "listPrice": {
+                                "amount": 40.4,
+                                "currencyCode": "EUR"
+                            },
+                            "requestedPrice": {
+                                "amount": 40.4,
+                                "currencyCode": "EUR"
+                            },
+                            "calculatedPrice": null,
+                            "id": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                            "type": "product",
+                            "uri": "https://eu-travelprotocolapi.service.ttlprod.local/products/4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                            "locked": true,
+                            "productId": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                            "productType": "Travel",
+                            "fulfilmentStatus": "Complete"
+                        }
+                    ]
+                },
+                "booking": {
+                    "id": "4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                    "system": "SNCF PAO",
+                    "origin": "Bourg-St-Maurice",
+                    "destination": "Lyon Part-Dieu",
+                    "reference": "",
+                    "passengerList": [
+                        {
+                            "isLeadPassenger": false,
+                            "firstName": "Yanrong",
+                            "lastName": "Wang",
+                            "passengerId": "pid-0",
+                            "gender": "male",
+                            "title": null,
+                            "dateOfBirth": "1994-02-26",
+                            "isAccountHolder": null
+                        }
+                    ],
+                    "passengerCount": {
+                        "inward": {},
+                        "outward": {
+                            "adult": 1
+                        },
+                        "booking": {
+                            "adult": 1
+                        }
+                    },
+                    "deliveryMethod": "SNCFPrintYourOwn",
+                    "state": "COMPLETE",
+                    "insurance": {},
+                    "vouchers": {},
+                    "outward": {
+                        "id": "0f1f4289-578b-4c7d-84b2-d0b9f5b12af0",
+                        "date": "2026-01-03T14:37:00.000+01:00",
+                        "duration": 213,
+                        "legs": [
+                            {
+                                "id": "leg-428eaf1a-f9b1-41a5-8601-40dae6797759",
+                                "destination": {
+                                    "id": "b49cd21510c02077b9e40ee3b75abc98e9a3aa1e",
+                                    "code": "urn:trainline:sncf:loc:FRLPD",
+                                    "locationType": "station",
+                                    "name": "Lyon Part-Dieu",
+                                    "shortName": null,
+                                    "latitude": 45.7606,
+                                    "longitude": 4.8594,
+                                    "timezone": "Europe/Paris",
+                                    "countryCode": "FR",
+                                    "language": null,
+                                    "address": null,
+                                    "isMainStation": true,
+                                    "isAirport": false,
+                                    "aliases": null,
+                                    "properties": null,
+                                    "xName": [
+                                        {
+                                            "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                        }
+                                    ],
+                                    "xShortName": [],
+                                    "xProperties": [],
+                                    "parents": [
+                                        {
+                                            "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                        }
+                                    ],
+                                    "links": {
+                                        "self": "https://traveldataapi.service.ttlprod.local/api/locations/b49cd21510c02077b9e40ee3b75abc98e9a3aa1e"
+                                    },
+                                    "time": "2026-01-03T18:10:00.000+01:00"
+                                },
+                                "origin": {
+                                    "id": "fe8d59329cbeec2be47c888c88e08ac155c4b84c",
+                                    "code": "urn:trainline:sncf:loc:FRQBM",
+                                    "locationType": "station",
+                                    "name": "Bourg-St-Maurice",
+                                    "shortName": null,
+                                    "latitude": 45.619,
+                                    "longitude": 6.7713,
+                                    "timezone": "Europe/Paris",
+                                    "countryCode": "FR",
+                                    "language": null,
+                                    "address": null,
+                                    "isMainStation": false,
+                                    "isAirport": false,
+                                    "aliases": null,
+                                    "properties": null,
+                                    "xName": [],
+                                    "xShortName": [],
+                                    "xProperties": [],
+                                    "parents": [],
+                                    "links": {
+                                        "self": "https://traveldataapi.service.ttlprod.local/api/locations/fe8d59329cbeec2be47c888c88e08ac155c4b84c"
+                                    },
+                                    "time": "2026-01-03T14:37:00.000+01:00"
+                                },
+                                "transportMode": "train",
+                                "carrierName": "SNCF Voyageurs",
+                                "carrierCode": "urn:trainline:sncf:carrier:sncf",
+                                "carrierId": "a5d5dd37e99ec680a65bd4711b401b2f3f7bb8d7",
+                                "carrierRicsCode": "1187",
+                                "brandName": "ter",
+                                "brandCode": "urn:trainline:sncf:brand:ter",
+                                "brandId": "286fec87bb1f11278b91480917b160503aa7c878",
+                                "sleeper": false,
+                                "duration": 213,
+                                "timetableId": "883278",
+                                "transportDesignation": "TRAIN TER",
+                                "route": null,
+                                "shouldShowDetails": [
+                                    "carrier",
+                                    "route"
+                                ],
+                                "seatReservation": {
+                                    "data": null,
+                                    "unallocatedInfoUrl": "https://support.thetrainline.com/en/support/solutions/articles/78000000435",
+                                    "firstClass": false,
+                                    "standardClass": true
+                                },
+                                "reservationType": "none"
+                            }
+                        ],
+                        "origin": {
+                            "name": "Bourg-St-Maurice",
+                            "code": "BOU",
+                            "time": "2026-01-03T14:37:00.000+01:00",
+                            "timezone": "CET",
+                            "id": "fe8d59329cbeec2be47c888c88e08ac155c4b84c"
+                        },
+                        "destination": {
+                            "name": "Lyon Part-Dieu",
+                            "code": "LYO",
+                            "time": "2026-01-03T18:10:00.000+01:00",
+                            "timezone": "CET"
+                        },
+                        "type": "outward",
+                        "fares": [
+                            {
+                                "isSplit": false,
+                                "id": "c8456eb6-50c8-414e-bad7-a7b6594de0f8",
+                                "price": null,
+                                "cards": null,
+                                "fareType": {
+                                    "name": "Billet Tarif Normal Régional",
+                                    "description": "Valid solely on TER trains. for the selected date of travel. Ticket non-exchangeable. Refundable, until the day before departure on the purchase channel.",
+                                    "conditions": [
+                                        {
+                                            "title": "DESCRIPTION",
+                                            "description": "Valid solely on TER trains. for the selected date of travel. Ticket non-exchangeable. Refundable, until the day before departure on the purchase channel."
+                                        }
+                                    ],
+                                    "validityPeriods": null
+                                },
+                                "farePassengers": [
+                                    {
+                                        "farePassengerId": "fare-passenger-ca2447af-8c1b-408c-87ac-61f74421038b",
+                                        "id": "typed-fare-passenger-b8effaa2-2dc3-49d9-9570-4364f01d242c",
+                                        "passengerId": "pid-0",
+                                        "fareType": {
+                                            "name": "Billet Tarif Normal Régional",
+                                            "description": "Valable sur TER uniquement\npour la date de voyage choisie.\nNon échangeable. Remboursable jusqu'à \nla veille du Départ auprès du canal d'achat.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Valable sur TER uniquement\npour la date de voyage choisie.\nNon échangeable. Remboursable jusqu'à \nla veille du Départ auprès du canal d'achat."
+                                                }
+                                            ],
+                                            "validityPeriods": null
+                                        },
+                                        "group": "adult"
+                                    }
+                                ],
+                                "validFrom": {
+                                    "outward": "2026-01-03T00:00:00.000+01:00"
+                                },
+                                "validUntil": {
+                                    "outward": "2026-01-03T23:59:59.000+01:00"
+                                },
+                                "isGroupFare": false,
+                                "origin": "Bourg-St-Maurice",
+                                "destination": "Lyon Part-Dieu",
+                                "vouchers": [],
+                                "fareTags": [
+                                    "regionalRate"
+                                ]
+                            }
+                        ],
+                        "composition": [],
+                        "validUntil": "2026-01-03T23:59:59.000+01:00",
+                        "expiresAt": "2026-01-02T22:59:59.000Z",
+                        "hasTravellingGroup": false
+                    },
+                    "inward": null,
+                    "railcards": {},
+                    "sameFare": false,
+                    "price": {
+                        "amount": 37.4,
+                        "currencyCode": "GBP"
+                    },
+                    "travelExtras": [
+                        {
+                            "totalPrice": {
+                                "amount": 0,
+                                "currencyCode": "EUR"
+                            },
+                            "title": "Espace vélo",
+                            "selectedQuantity": 1,
+                            "code": "urn:trainline:sncf:extra:bicycle_without_reservation-7452c9b4700188bd4c97029d27f634c9",
+                            "group": "bicycle",
+                            "legs": [
+                                {
+                                    "id": "leg-428eaf1a-f9b1-41a5-8601-40dae6797759",
+                                    "transportMode": "train",
+                                    "timetableId": "883278",
+                                    "route": null,
+                                    "transportDesignation": "TRAIN TER",
+                                    "finalDestinationDisplayName": null,
+                                    "co2EmissionInGramsPerPassenger": 5200,
+                                    "co2EstimationMethod": "vendorSupplied",
+                                    "distanceInKm": 217,
+                                    "bikeRestrictionStatus": "notAllowed",
+                                    "vehicleAttributes": [
+                                        "regional"
+                                    ],
+                                    "routeColour": null,
+                                    "rollingStockDesignation": null,
+                                    "shouldShowDetails": [
+                                        "carrier",
+                                        "route"
+                                    ],
+                                    "localArriveAt": "2026-01-03T18:10:00.000+01:00",
+                                    "localDepartAt": "2026-01-03T14:37:00.000+01:00",
+                                    "hash": "f79e473d845a3b4ee4115ac53ab18985fe79e3a2",
+                                    "destination": {
+                                        "id": "b49cd21510c02077b9e40ee3b75abc98e9a3aa1e",
+                                        "code": "urn:trainline:sncf:loc:FRLPD",
+                                        "locationType": "station",
+                                        "name": "Lyon Part-Dieu",
+                                        "shortName": null,
+                                        "latitude": 45.7606,
+                                        "longitude": 4.8594,
+                                        "timezone": "Europe/Paris",
+                                        "countryCode": "FR",
+                                        "language": null,
+                                        "address": null,
+                                        "isMainStation": true,
+                                        "isAirport": false,
+                                        "aliases": null,
+                                        "properties": null,
+                                        "xName": [
+                                            {
+                                                "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                            }
+                                        ],
+                                        "xShortName": [],
+                                        "xProperties": [],
+                                        "parents": [
+                                            {
+                                                "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                            }
+                                        ],
+                                        "links": {
+                                            "self": "https://traveldataapi.service.ttlprod.local/api/locations/b49cd21510c02077b9e40ee3b75abc98e9a3aa1e"
+                                        }
+                                    },
+                                    "origin": {
+                                        "id": "fe8d59329cbeec2be47c888c88e08ac155c4b84c",
+                                        "code": "urn:trainline:sncf:loc:FRQBM",
+                                        "locationType": "station",
+                                        "name": "Bourg-St-Maurice",
+                                        "shortName": null,
+                                        "latitude": 45.619,
+                                        "longitude": 6.7713,
+                                        "timezone": "Europe/Paris",
+                                        "countryCode": "FR",
+                                        "language": null,
+                                        "address": null,
+                                        "isMainStation": false,
+                                        "isAirport": false,
+                                        "aliases": null,
+                                        "properties": null,
+                                        "xName": [],
+                                        "xShortName": [],
+                                        "xProperties": [],
+                                        "parents": [],
+                                        "links": {
+                                            "self": "https://traveldataapi.service.ttlprod.local/api/locations/fe8d59329cbeec2be47c888c88e08ac155c4b84c"
+                                        }
+                                    },
+                                    "brand": {
+                                        "id": "286fec87bb1f11278b91480917b160503aa7c878",
+                                        "code": "urn:trainline:sncf:brand:ter",
+                                        "name": "ter",
+                                        "language": null,
+                                        "xName": [],
+                                        "links": {
+                                            "self": "https://traveldataapi.service.ttlprod.local/api/brands/286fec87bb1f11278b91480917b160503aa7c878"
+                                        }
+                                    },
+                                    "carrier": {
+                                        "id": "a5d5dd37e99ec680a65bd4711b401b2f3f7bb8d7",
+                                        "code": "urn:trainline:sncf:carrier:sncf",
+                                        "name": "SNCF Voyageurs",
+                                        "ricsCode": "1187",
+                                        "arriveBeforeRecommended": null,
+                                        "boardBeforeGuaranteed": null,
+                                        "language": "en",
+                                        "xName": [
+                                            {
+                                                "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                            }
+                                        ],
+                                        "links": {
+                                            "self": "https://traveldataapi.service.ttlprod.local/api/carriers/a5d5dd37e99ec680a65bd4711b401b2f3f7bb8d7"
+                                        }
+                                    },
+                                    "transportModeEntity": {
+                                        "id": "84b2733a6d050a7408469f99e1b3c797ddbd1bd9",
+                                        "code": "urn:trainline:sncf:tramod:train",
+                                        "name": "Train",
+                                        "mode": "train",
+                                        "language": "en",
+                                        "xName": [
+                                            {
+                                                "id": "51f1f415f419eeb808c2ccb0783f2625480b6174"
+                                            }
+                                        ],
+                                        "links": {
+                                            "self": "https://traveldataapi.service.ttlprod.local/api/transport-modes/84b2733a6d050a7408469f99e1b3c797ddbd1bd9"
+                                        }
+                                    },
+                                    "comforts": [],
+                                    "finalDestinations": []
+                                }
+                            ]
+                        }
+                    ],
+                    "noOfTickets": 1,
+                    "recipient": {
+                        "name": null,
+                        "email": "suga_e@outlook.com",
+                        "address1": null,
+                        "address2": null,
+                        "address3": null,
+                        "address4": null,
+                        "address5": null,
+                        "postCode": null
+                    },
+                    "carriers": [
+                        {
+                            "id": "a5d5dd37e99ec680a65bd4711b401b2f3f7bb8d7",
+                            "name": "sncf",
+                            "code": "urn:trainline:sncf:brand:ter"
+                        }
+                    ],
+                    "isEuBooking": true,
+                    "isSeasonBooking": false,
+                    "isETARequired": false,
+                    "onDemandDeliveryId": null,
+                    "alterables": [],
+                    "isPartialRefunded": false,
+                    "isFullyRefunded": false,
+                    "supersedes": [],
+                    "superseders": [],
+                    "fulfilment": {
+                        "state": "Complete"
+                    },
+                    "afterSaleSystem": null,
+                    "self": "https://eu-travelprotocolapi.service.ttlprod.local/products/4d6f51e7-e268-47fc-bfdb-0a899f9a087e",
+                    "refund": null,
+                    "composition": [],
+                    "smartcard": null,
+                    "partnerships": {
+                        "supported": false,
+                        "errorMessage": "non-atoc-system"
+                    },
+                    "orderDate": "2025-10-31T17:12:13.1574349Z",
+                    "orderId": "052c607a-bca6-5d01-ad80-df952285d852",
+                    "deliveryState": "fulfilled",
+                    "localAreaProducts": [],
+                    "needsData": false,
+                    "includesFlexibleFare": true,
+                    "miscDocuments": []
+                }
+            }
+        ],
+        "total": 2,
+        "totalErrors": 0
+    },
+    "hasGuestBookings": true
+}

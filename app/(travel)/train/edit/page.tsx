@@ -1,6 +1,10 @@
 "use client";
 import { default as PageTrain } from "@/app/(travel)/train/page";
 
+import useSWR from "swr";
+
+import { fetcher } from "@/lib/utils";
+
 import React, { useState, useCallback } from "react";
 import { toast } from "sonner";
 
@@ -38,7 +42,6 @@ export default function Page() {
 
     //   if (response.ok) {
     //     const data = await response.json();
-    //     console.log('faaaaaaaaaaa', data);
 
     //     if (data?.flights?.length) {
     //       setFlights(data.flights);
@@ -59,7 +62,6 @@ export default function Page() {
 
     // const addPromise = fetch(`/api/flight`, {
     //   method: "POST",
-    //   body: JSON.stringify(flight),
     // });
 
     // toast.promise(addPromise, {
@@ -82,18 +84,34 @@ export default function Page() {
   };
 
 
-  const handleBatchAdd = async () => {
-    fetch(`/api/train/stations/jsonfiles`, {
+  const handleBatchAddStations = async () => {
+    fetch(`/api/train/stations`, {
       method: "POST",
     });
   };
+  const handleBatchAddBookings = async () => {
+    fetch(`/api/train/bookings/jsons`, {
+      method: "POST",
+    });
+  };
+
+  const getBooking = async () => {
+    fetch(`/api/train/bookings`, {
+      // method: "GET",
+    });
+  }
+
+
+
+    // const { data } = useSWR(`/api/train/bookings`, fetcher);
+
 
 
   return (
     <div className="h-screen w-full pt-12">
       <div className="flex flex-col justify-center pb-4 md:pb-8 bg-background">
-        <div className="flex flex-row justify-between items-center gap-4">
-          <Input
+        <div className="flex flex-row flex-wrap  items-center gap-4">
+          {/* <Input
             // ref={searchRef}
             placeholder="Send a message..."
             value={keyword}
@@ -105,11 +123,21 @@ export default function Page() {
                 onInputChange();
               }
             }}
-          />
+          /> */}
           <Button
-            onClick={handleBatchAdd}
+            onClick={handleBatchAddStations}
           >
-            Load from json files
+            Load train stations from json files
+          </Button>
+          <Button
+            onClick={handleBatchAddBookings}
+          >
+            Load trainline bookings from json files
+          </Button>
+          <Button
+            onClick={getBooking}
+          >
+            Fetch booking
           </Button>
 
         </div>
@@ -149,7 +177,7 @@ export default function Page() {
           </div>
         ))}
       </div>
-      <PageTrain />
+      {/* <PageTrain /> */}
 
 
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>

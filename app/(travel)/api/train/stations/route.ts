@@ -1,8 +1,5 @@
-// import { auth } from "@/app/(auth)/auth";
-import { getTrainStations, createTrainStations } from "@/db/queries";
-
-
 import { auth } from "@/app/(auth)/auth";
+import { getTrainStations, createTrainStations } from "@/db/queries";
 import { fetcherInternal } from "@/lib/utils";
 
 
@@ -17,7 +14,7 @@ export async function POST(request: Request) {
   try {
     // abcdefghijklmnopqrstuvwxyz
     const promises = 'abcdefghijklmnopqrstuvwxyz'.split('').map(async (ele) => {
-      const resp = await fetcherInternal(`/stationPicker/${ele}.json`, request);
+      const resp = await fetcherInternal(`/train/station-picker/${ele}.json`, request);
       const res = await resp.json();
       return res.payload.stations;
     });
@@ -42,6 +39,5 @@ export async function POST(request: Request) {
     return new Response("Failed to read CSV", { status: 500 });
   }
 
-  // optionally transform fields/types here
   return Response.json({});
 }

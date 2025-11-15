@@ -11,6 +11,7 @@ import {
   text,
   jsonb,
   doublePrecision,
+  date,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("User", {
@@ -115,3 +116,22 @@ export const trainStation = pgTable("TrainStation", {
 });
 
 export type TrainStation = InferSelectModel<typeof trainStation>;
+
+export const trains = pgTable("Trains", {
+  serviceUid: text("service_uid"),
+  runDate: date("run_date").notNull(),
+  origin: text("origin").notNull().references(() => trainStation.crsCode),
+  originTime: text("origin_time").notNull(),
+  destination: text("destination").references(() => trainStation.crsCode),
+  destinationTime: text("destination_time"),
+  locations: jsonb("locations"),
+  segments: jsonb("segments"),
+  atocCode: text("atoc_code"),
+  transportMode: text("transport_mode"),
+});
+export type Trains = Omit<InferSelectModel<typeof trains>, "locations" | "segments" | "serviceUid" | "destinationTime"> & {
+  locations?: any;
+  segments?: any;
+  serviceUid?: string;
+  destinationTime?: string;
+};
