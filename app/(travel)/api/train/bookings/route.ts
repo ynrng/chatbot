@@ -5,12 +5,10 @@ import { getTrainStations, getTrains, updateTrain } from "@/db/queries";
 import { fetcherInternal } from "@/lib/utils";
 
 import { fetchRRT } from "@/app/(travel)/api/train/utils";
-import locs from './fake.locations.json';
 
 function fetchSegmentsByLocations(locations: any[]) {
   //   todo fetch segments based on locations
 
-  locations = locs
   return null;
 }
 
@@ -54,11 +52,6 @@ export async function GET(request: Request) {
     records = records.sort((a, b) => new Date(b.runDate).valueOf() - new Date(a.runDate).valueOf());
     console.log("train records:", records.length);
 
-    let stations = await getTrainStations(null);
-    let stationMap: Record<string, any> = {};
-    stations.forEach((s) => {
-      stationMap[s.crsCode] = s;
-    });
 
     for (let record of records) {
       if (record.transportMode != 'train') {
@@ -128,14 +121,6 @@ export async function GET(request: Request) {
         await updateTrain(record)
       }
       if (Array.isArray(record.locations) && record.locations.length) {
-        record.locations = record.locations.map((loc: any) => (
-          loc.crs ? {
-            tiploc: loc.tiploc,
-            description: loc.description,
-            crs: loc.crs,
-            ...(stationMap[loc.crs] || {}),
-          } : loc
-        ))
         record.segments = fetchSegmentsByLocations(record.locations as any[])
       }
     }

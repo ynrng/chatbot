@@ -10,7 +10,6 @@ import { twMerge } from "tailwind-merge";
 
 import { Chat } from "@/db/schema";
 // import { headers } from "next/headers";
-import {rateLimitedFetch} from "@/lib/rateLimiter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -157,3 +156,34 @@ export function getTitleFromChat(chat: Chat) {
 
   return firstMessage.content;
 }
+
+
+export function osmToGeoJSON(osm: any) {
+  const features = [];
+  if(osm) {
+
+  for (const el of osm.elements) {
+    if (el.type !== "way") continue;
+
+    features.push({
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: el.geometry.map((g: any) => [g.lon, g.lat])
+      },
+    });
+  }}
+
+  return {
+    type: "FeatureCollection",
+    features,
+    properties: osm.osm3s
+  };
+}
+
+
+// TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
+export const edi_coords = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+const pvg_coords: [number, number] = [31.1443, 121.8083]; // Shanghai Pudong International Airport coordinates
+const geneva_coords: [number, number] = [46.2381, 6.1083]; // Geneva Airport coordinates
+export const center_coords: [number, number] = [(edi_coords[0] + geneva_coords[0]) / 2, (edi_coords[1] + geneva_coords[1]) / 2];

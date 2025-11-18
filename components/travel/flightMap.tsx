@@ -15,11 +15,15 @@ L.Icon.Default.mergeOptions({
 
 
 export default function FlightMap({
-    center_coords,
+    center_coords = [55.9500, -3.3725],
     children,
+    minZoom=2.5,
+    maxZoom=7
 }: {
-    center_coords: [number, number],
+    center_coords?: [number, number],
     children?: React.ReactNode,
+    minZoom?: number,
+    maxZoom?: number
 }) {
 
     return (
@@ -27,8 +31,8 @@ export default function FlightMap({
             center={center_coords}
             zoom={5.5}
             zoomDelta={0.5}
-            minZoom={2.5}
-            maxZoom={7}
+            minZoom={minZoom || 2.5}
+            maxZoom={maxZoom || 7}
             scrollWheelZoom={true}
             className="size-full flex flex-1 z-20"
         >

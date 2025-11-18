@@ -23,14 +23,14 @@ export async function POST(request: Request) {
     let record_set: any = {};
     for (let r of records) {
       if (!record_set[r.crsCode] && r.latitude && r.longitude) {
-        record_set[r.crsCode] = r;
+        record_set[r.crsCode] = {...r, 'crs': r.crsCode};
       }
     }
     let existings = await getTrainStations(Object.keys(record_set));
-    let existing_keys = existings.map(e => e.crsCode);
+    let existing_keys = existings.map(e => e.crs);
 
-    let new_stations: any = Object.values(record_set).filter((r: any) => !existing_keys.includes(r.crsCode));
-    console.log("existings:", existings.length, existing_keys, '\nnew:', new_stations.length, new_stations.map((e: any) => e.crsCode));
+    let new_stations: any = Object.values(record_set).filter((r: any) => !existing_keys.includes(r.crs));
+    console.log("existings:", existings.length, existing_keys, '\nnew:', new_stations.length);
     if (new_stations.length) {
       createTrainStations(new_stations);
     }

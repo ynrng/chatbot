@@ -1,0 +1,178 @@
+[
+    {
+        "crs": "NUN",
+        "tiploc": "NNTN",
+        "description": "Nuneaton"
+    },
+    {
+        "crs": "HNK",
+        "tiploc": "HINCKLY",
+        "description": "Hinckley"
+    },
+    {
+        "tiploc": "CROFTS",
+        "description": "Croft"
+    },
+    {
+        "tiploc": "WGSTNNJ",
+        "description": "Wigston North Jn"
+    },
+    {
+        "crs": "LEI",
+        "tiploc": "LESTER",
+        "description": "Leicester"
+    },
+    {
+        "tiploc": "SYSTNSJ",
+        "description": "Syston South Jn"
+    },
+    {
+        "tiploc": "SYSTNEJ",
+        "description": "Syston East Jn"
+    },
+    {
+        "tiploc": "MLTNFBY",
+        "description": "Frisby"
+    },
+    {
+        "crs": "MMO",
+        "tiploc": "MLTNSDG",
+        "description": "Melton Mowbray"
+    },
+    {
+        "tiploc": "MLTNS54",
+        "description": "Melton Mowbray Signal Mn54"
+    },
+    {
+        "tiploc": "MLTNWHI",
+        "description": "Whissendine L.C."
+    },
+    {
+        "tiploc": "OAKHASH",
+        "description": "Ashwell L.C."
+    },
+    {
+        "tiploc": "LAGHJN",
+        "description": "Langham Jn."
+    },
+    {
+        "crs": "OKM",
+        "tiploc": "OAKHAM",
+        "description": "Oakham"
+    },
+    {
+        "crs": "XMJ",
+        "tiploc": "MANTONJ",
+        "description": "Manton Jn"
+    },
+    {
+        "tiploc": "MANTLFF",
+        "description": "Luffenham"
+    },
+    {
+        "tiploc": "KETTON",
+        "description": "Ketton S.B."
+    },
+    {
+        "crs": "SMD",
+        "tiploc": "STAMFD",
+        "description": "Stamford"
+    },
+    {
+        "tiploc": "STAMUFF",
+        "description": "Uffington Sb (Lincs)"
+    },
+    {
+        "tiploc": "HELPSTN",
+        "description": "Helpston Jn."
+    },
+    {
+        "tiploc": "MRHLMJN",
+        "description": "Marholm Junction"
+    },
+    {
+        "crs": "PBO",
+        "tiploc": "PBRO",
+        "description": "Peterborough"
+    },
+    {
+        "tiploc": "PBROE",
+        "description": "Peterborough East Jn."
+    },
+    {
+        "tiploc": "KGSDYKE",
+        "description": "Kings Dyke"
+    },
+    {
+        "crs": "WLE",
+        "tiploc": "WHTLSEA",
+        "description": "Whittlesea"
+    },
+    {
+        "tiploc": "WHTLW6",
+        "description": "Eastrea Signal W6"
+    },
+    {
+        "tiploc": "THRHRSH",
+        "description": "Three Horse Shoes"
+    },
+    {
+        "tiploc": "MRCHWJN",
+        "description": "March West Jn"
+    },
+    {
+        "crs": "MCH",
+        "tiploc": "MRCH",
+        "description": "March"
+    },
+    {
+        "tiploc": "MRCH934",
+        "description": "March South Signal Ms934"
+    },
+    {
+        "tiploc": "STNA",
+        "description": "Stonea"
+    },
+    {
+        "crs": "MNE",
+        "tiploc": "MANEA",
+        "description": "Manea"
+    },
+    {
+        "tiploc": "MANE924",
+        "description": "Manea Signal Ca924"
+    },
+    {
+        "crs": "XYE",
+        "tiploc": "ELYYNJN",
+        "description": "Ely North Jn"
+    },
+    {
+        "crs": "ELY",
+        "tiploc": "ELYY",
+        "description": "Ely"
+    },
+    {
+        "tiploc": "ELYYDLN",
+        "description": "Ely Dock Jn"
+    },
+    {
+        "crs": "WBC",
+        "tiploc": "WATBECH",
+        "description": "Waterbeach"
+    },
+    {
+        "crs": "CMB",
+        "tiploc": "CAMBNTH",
+        "description": "Cambridge North"
+    },
+    {
+        "tiploc": "CLDHMLJ",
+        "description": "Coldham Lane Jn"
+    },
+    {
+        "crs": "CBG",
+        "tiploc": "CAMBDGE",
+        "description": "Cambridge"
+    }
+]

@@ -1,15 +1,26 @@
 "use client";
-import { default as PageTrain } from "@/app/(travel)/train/page";
-
-import useSWR from "swr";
-
-import { fetcher } from "@/lib/utils";
 
 import React, { useState, useCallback } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+// import FlightMap from "@/components/travel/flightMap";
+// import TrainTrackGeoJSON from "@/components/travel/trainTrack";
+
+
+import dynamic from "next/dynamic";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
+
+const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
+    ssr: false, // Disable SSR for Leaflet
+});
+
+const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack"), {
+    ssr: false, // Disable SSR for Leaflet
+});
 
 
 import {
@@ -102,8 +113,11 @@ export default function Page() {
   }
 
 
-
-    // const { data } = useSWR(`/api/train/bookings`, fetcher);
+  const fetchOsmUK = async () => {
+    fetch(`/api/train/overpass`, {
+      method: "POST",
+    });
+  }
 
 
 
@@ -138,6 +152,11 @@ export default function Page() {
             onClick={getBooking}
           >
             Fetch booking
+          </Button>
+          <Button
+            onClick={fetchOsmUK}
+          >
+            Fetch OSM data UK
           </Button>
 
         </div>
@@ -177,7 +196,15 @@ export default function Page() {
           </div>
         ))}
       </div>
-      {/* <PageTrain /> */}
+{/*
+      <div className="h-screen w-full">
+          <FlightMap
+              minZoom={ 2.5}
+              maxZoom={20}
+          >
+              <TrainTrackGeoJSON   data={true} />
+          </FlightMap>
+      </div> */}
 
 
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>

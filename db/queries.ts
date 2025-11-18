@@ -5,13 +5,36 @@ import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { user, chat, User, reservation, flightTrack, FlightTrack, flights, Flights, airport, Airport, TrainStation, trainStation, trains, Trains } from "./schema";
+import {
+  user, chat, User, reservation,
+  flightTrack, FlightTrack, flights, Flights, airport, Airport,
+  TrainStation, trainStation, trains, Trains, trainLegs, TrainLegs,
+} from "./schema";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
 // https://authjs.dev/reference/adapter/drizzle
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
+
+
+export async function createTrainLegs(ts: TrainLegs) {
+  try {
+    return await db.insert(trainLegs).values(ts);
+  } catch (error) {
+    console.error("Failed to create trainLegs in database");
+    throw error;
+  }
+}
+
+export async function getTrainLegs( ): Promise<Array<TrainLegs>> {
+  try {
+    return await db.select().from(trainLegs)
+  } catch (error) {
+    console.error("Failed to get trainLegs from database");
+    throw error;
+  }
+}
 
 
 export async function deleteTrain(ts: any) {
@@ -76,10 +99,10 @@ export async function createTrainStations(tss: Array<TrainStation>) {
   }
 }
 
-export async function getTrainStations(ids: Array<string> | null): Promise<Array<TrainStation>> {
+export async function getTrainStations(ids: Array<string> | undefined): Promise<Array<TrainStation>> {
   try {
     if (ids?.length) {
-      return await db.select().from(trainStation).where(inArray(trainStation.crsCode, ids));
+      return await db.select().from(trainStation).where(inArray(trainStation.crs, ids));
     } else {
       return await db.select().from(trainStation)
     }

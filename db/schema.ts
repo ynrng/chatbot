@@ -106,7 +106,7 @@ export const flights = pgTable("Flights", {
 export type Flights = InferSelectModel<typeof flights>;
 
 export const trainStation = pgTable("TrainStation", {
-  crsCode: text("crs_code").primaryKey().notNull(),
+  crs: text("crs").primaryKey().notNull(),
   name: text("name"),
   classification: text("classification"),
   latitude: doublePrecision("latitude"),
@@ -120,9 +120,9 @@ export type TrainStation = InferSelectModel<typeof trainStation>;
 export const trains = pgTable("Trains", {
   serviceUid: text("service_uid"),
   runDate: date("run_date").notNull(),
-  origin: text("origin").notNull().references(() => trainStation.crsCode),
+  origin: text("origin").notNull().references(() => trainStation.crs),
   originTime: text("origin_time").notNull(),
-  destination: text("destination").references(() => trainStation.crsCode),
+  destination: text("destination").references(() => trainStation.crs),
   destinationTime: text("destination_time"),
   locations: jsonb("locations"),
   segments: jsonb("segments"),
@@ -135,3 +135,10 @@ export type Trains = Omit<InferSelectModel<typeof trains>, "locations" | "segmen
   serviceUid?: string;
   destinationTime?: string;
 };
+
+export const trainLegs  = pgTable("TrainLegs", {
+  start: text("start").notNull().references(() => trainStation.crs),
+  end: text("end").notNull().references(() => trainStation.crs),
+  segments: jsonb("segments"),
+})
+export type TrainLegs = InferSelectModel<typeof trainLegs>;

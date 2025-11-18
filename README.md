@@ -85,3 +85,9 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/locationlist/
 
 https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 `/json/service/<serviceUid>/<year>/<month>/<day>`
+
+## Map related
+[geojson docs](https://stevage.github.io/geojson-spec/#section-3.3)
+
+## Library usage
+-  [supabase database connection with python](https://supabase.com/docs/reference/python/eq)
