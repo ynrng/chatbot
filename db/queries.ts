@@ -81,7 +81,7 @@ export async function createTrain(ts: Trains) {
   }
 }
 
-export async function getTrains(): Promise<Array<Trains>> {
+export async function getTrains(): Promise<Array<any>> {
   try {
     return await db.select().from(trains);
   } catch (error) {
