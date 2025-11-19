@@ -27,10 +27,9 @@ async function fetchServiceByRecord(s: any, record: any,) {
     }
 
     if (start > -1 && end > start) {
-      record.locations = res2.locations.slice(start, end + 1).map((v: any) => ({
-        tiploc: v.tiploc,
+      record.locations = res2.locations.slice(start, end + 1).filter((v:any)=>v.crs).map((v: any) => ({
         description: v.description,
-        ...(v.crs ? { crs: v.crs, } : null)
+        crs: v.crs,
       }))
 
       if (!record.destinationTime || (record.destinationTime && record.destinationTime == res2.locations[end].gbttBookedArrival)) {

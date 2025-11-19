@@ -91,3 +91,4 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 
 ## Library usage
 -  [supabase database connection with python](https://supabase.com/docs/reference/python/eq)
+-  https://wiki.openstreetmap.org/wiki/Railways_in_the_United_Kingdom 

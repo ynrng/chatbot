@@ -11,8 +11,7 @@ const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack")
     ssr: false, // Disable SSR for Leaflet
 });
 
-import { useMap, useMapEvents,GeoJSON } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { useMap, } from "react-leaflet";
 
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
@@ -27,19 +26,10 @@ const defaultBounds: L.LatLngBoundsLiteral = [
 
 export default function Page() {
 
-    const [zoom, setZoom] = useState<number>(0);
 
     function MyComponent() {
-        const map = useMapEvents({
-            // https://leafletjs.com/reference.html#evented
-            zoom: () => {
-                setZoom(map.getZoom());
-            },
-        });
-        if (0 == zoom) {
-            setZoom(map.getZoom());
-            map.fitBounds(defaultBounds)
-        }
+        const map = useMap();
+        map.fitBounds(defaultBounds)
         return null
     }
 
@@ -53,7 +43,7 @@ export default function Page() {
                 // minZoom={minZoom || 2.5}
                 maxZoom={20}
             >
-                {data  && <TrainTrackGeoJSON data={data}  />}
+                {data && <TrainTrackGeoJSON data={data} />}
                 <MyComponent />
             </FlightMap>
         </div>

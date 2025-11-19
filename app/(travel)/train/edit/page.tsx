@@ -21,6 +21,7 @@ const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
 const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack"), {
     ssr: false, // Disable SSR for Leaflet
 });
+const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
 
 
 import {
@@ -36,16 +37,28 @@ import {
 
 export default function Page() {
 
-  let [keyword, setKeyword] = useState<string>("");
+  let { data:aaa } = useSWR(`/api/train/rails`, fetcher);
+
+  let [keyword, setKeyword] = useState<string>('28');
   let [flights, setFlights] = useState<Array<any>>([]);
   let [flight, setFlight] = useState<any>();
+  let [data, setData] = useState<any>(aaa);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
 
   const onInputChange = async () => {
-    if (!keyword) {
+
+    if (keyword.trim() == '') {
+      setData(aaa)
       return;
     }
+
+    console.log('3333222', keyword, aaa.features[keyword].properties.crs);
+    setData(
+      aaa.features[keyword]
+    )
+
+
     // try {
     //   const response = await fetch(
     //     `/api/flight?id=${keyword}`
@@ -120,14 +133,17 @@ export default function Page() {
   }
 
 
+  // setData(aaaa);
+  console.log('3333222', data);
+
+
 
   return (
     <div className="h-screen w-full pt-12">
       <div className="flex flex-col justify-center pb-4 md:pb-8 bg-background">
         <div className="flex flex-row flex-wrap  items-center gap-4">
-          {/* <Input
-            // ref={searchRef}
-            placeholder="Send a message..."
+          <Input
+            placeholder="select index for train"
             value={keyword}
             onChange={(e) => setKeyword(e.currentTarget.value)}
             className="min-h-[24px] overflow-hidden resize-none rounded-lg text-base bg-muted border-none"
@@ -137,7 +153,7 @@ export default function Page() {
                 onInputChange();
               }
             }}
-          /> */}
+          />
           <Button
             onClick={handleBatchAddStations}
           >
@@ -196,16 +212,15 @@ export default function Page() {
           </div>
         ))}
       </div>
-{/*
-      <div className="h-screen w-full">
-          <FlightMap
-              minZoom={ 2.5}
-              maxZoom={20}
-          >
-              <TrainTrackGeoJSON   data={true} />
-          </FlightMap>
-      </div> */}
 
+        <div className="h-screen w-full">
+            <FlightMap center_coords={edi_coords}
+                // minZoom={minZoom || 2.5}
+                maxZoom={20}
+            >
+                {data && <TrainTrackGeoJSON data={data} key={keyword || -1} />}
+            </FlightMap>
+        </div>
 
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <AlertDialogContent>

@@ -9,7 +9,7 @@ const OSM_FILE_PATH = "/train/osm/"; //rail.uk.json
 
 export async function GET(request: Request) {
 
-  let res = await fetcherInternal(OSM_FILE_PATH+'train.uk.json', request);
+  let res = await fetcherInternal(OSM_FILE_PATH+'rail.uk.json', request);
   const osm = await res.json()
   console.log('osm data:', osm.elements.length);
 
@@ -17,21 +17,36 @@ export async function GET(request: Request) {
 }
 
 const q = {
-  "rail":`
-      [out:json][timeout:600];
-      area["ISO3166-1"="GB"][admin_level=2]->.uk;
-      (
-        way["railway"="rail"](area.uk);
-      );
-      out geom;
-`,
-'station':`
-      [out:json][timeout:600];
-      area["ISO3166-1"="GB"][admin_level=2]->.uk;
-      (
-        node["railway"="station"](area.uk);
-      );
-      out geom;
+//   "rail":`
+//       [out:json][timeout:600];
+//       area["ISO3166-1"="GB"][admin_level=2]->.uk;
+//       (
+//         way["railway"="rail"](area.uk);
+//       );
+//       out geom;
+// `,
+// 'station':`
+//       [out:json][timeout:600];
+//       area["ISO3166-1"="GB"][admin_level=2]->.uk;
+//       (
+//         node["railway"="station"](area.uk);
+//       );
+//       out geom;
+// `,
+// 'routenr04':`
+// [out:json][timeout:120];
+// area["ISO3166-1"="GB"][admin_level=2]->.uk;
+// relation["ref"="NR 04"];
+// (._;>;);
+// out geom;
+// `,
+
+'route':`
+[out:json][timeout:600];
+area["ISO3166-1"="GB"]->.uk;
+relation["type"="route"]["route"="train"](area.uk);
+(._;>;);
+out meta;
 `
 }
 

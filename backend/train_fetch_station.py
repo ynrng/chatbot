@@ -8,20 +8,6 @@ import json
 
 from db import connect_db
 
-def db_select_from_train(supabase: Client):
-
-    response = (
-        supabase.table("Trains")
-        .select("*", count="exact")
-        .neq("locations", 'null')
-        .eq("transport_mode", 'train')
-        .order('run_date', desc=True)
-        .execute()
-    )
-    t = [v['locations'] for v in response.data]
-    print('db_select_from_train',len(t), t[0])
-    return t
-
 
 def db_select_from_station(supabase: Client):
 
@@ -175,10 +161,31 @@ def get_path_between_stations(locations: list, nodes, edges):
         else:
             print("!!!No path found between", A['crs'], "and", B['crs'])
 
+def db_select_from_train(supabase: Client):
+
+    response = (
+        supabase.table("Trains")
+        .select("*", count="exact")
+        .neq("locations", 'null')
+        .eq("transport_mode", 'train')
+        .order('run_date', desc=True)
+        .execute()
+    )
+    t = [v['locations'] for v in response.data]
+    print('db_select_from_train',len(t), t[0])
+    return response.data
+
+def db_upsert_train_leg(supabase: Client, tr: dict):
+    response = (
+        supabase.table("Trains")
+        .upsert(tr)
+        .execute()
+    )
+    return response
 
 
 def main():
-
+    # todo not finished
     load_dotenv('/Users/yan/code/chatbot/.env.local')
     global db
     db = connect_db()
@@ -187,14 +194,27 @@ def main():
     locations = [[s.get('crs')  for s in t if s.get('crs') in stations] for t in trains]
     locations = [loc for sublist in locations for loc in sublist if loc]
     print("Total train routes to process:", locations)
-    # with open('/Users/yan/code/chatbot/public/train/osm/rail.uk.json', 'r') as f:
-    #     osm_data = json.load(f)
+    with open('/Users/yan/code/chatbot/public/train/osm/station.uk.json', 'r') as f:
+        osm_data = json.load(f)
 
+    a = [el.get('tags').get('ref:crs') for el in osm_data['elements']]
+    distinct_a = list(set(a)    )
+    print('OSM data loaded:', len(osm_data['elements']), len(a), osm_data['elements'][0],  distinct_a, len(distinct_a))
     # nodes, edges = overpass_to_graph(osm_data['elements'])
     # # paths = []
     # for l in locations:
     #     get_path_between_stations(l, nodes, edges)
         # print("Path found with", len(path), "edges.")
+
+
+# def main2():
+#     global db
+#     db = connect_db()
+#     trains = db_select_from_train(db)
+#     for i in trains:
+#         l = i['locations']
+#         i['locations'] = [{"crs": x.get('crs'), 'description': x.get('description')}  for x in l if x.get('crs') is not None]
+#         db_upsert_train_leg(db, i)
 
 
 if __name__ == "__main__":

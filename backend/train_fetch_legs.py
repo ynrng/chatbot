@@ -48,7 +48,7 @@ def db_select_train_legs_by(supabase: Client, from_crs: str, to_crs: str):
     )
     if response.data and len(response.data) > 0:
         a = response.data
-        a.sort(key=lambda x: len(x['segments']), reverse=True)
+        # a.sort(key=lambda x: len(x.get('segments')))
         return a[0]
     return None
 
@@ -155,7 +155,18 @@ def get_path_between_stations(locations: list, nodes, edges):
         A = B
         B = locations[i+1]
         leg = db_select_train_legs_by(db, A['crs'], B['crs'])
-        if leg and leg.get('segments') and len(leg['segments']) > 2: # have more than start and end stations
+        leg_reverse = db_select_train_legs_by(db, B['crs'], A['crs'])
+        if leg and leg.get('segments') and len(leg.get('segments')) > 2: # have more than start and end stations
+
+            if leg_reverse and len(leg_reverse.get('segments')) < len(leg.get('segments')):
+
+                print({"start": A['crs'], "end": B['crs'], "segments": len(leg_reverse.get('segments'))})
+                db_upsert_train_leg(db, {
+                    "start": A['crs'],
+                    "end": B['crs'],
+                    "segments": leg_reverse.get('segments')[::-1],
+                    "created_at": "now()"
+                })
             continue
 
         start = end
@@ -164,7 +175,19 @@ def get_path_between_stations(locations: list, nodes, edges):
         p, c = astar(nodes, edges, start, end)
 
         seg =  [[nodes[id]['lon'], nodes[id]['lat']] for id in p]
+        # len(leg_reverse.get('segments'))
         if len(seg) > 2:
+            if leg_reverse and len(leg_reverse.get('segments')) > 2 and len(leg_reverse.get('segments')) < len(seg):
+                seg = leg_reverse.get('segments')[::-1]
+            elif leg_reverse and  len(leg_reverse.get('segments')) > len(seg):
+                print({"start": B['crs'], "end": ['crs'], "segments": len(seg)})
+                db_upsert_train_leg(db, {
+                    "start": B['crs'],
+                    "end": A['crs'],
+                    "segments": seg[::-1],
+                    "created_at": "now()"
+                })
+
             print({"start": A['crs'], "end": B['crs'], "segments": len(seg)})
             db_upsert_train_leg(db, {
                 "start": A['crs'],
