@@ -15,13 +15,13 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 
 const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
-    ssr: false, // Disable SSR for Leaflet
+  ssr: false, // Disable SSR for Leaflet
 });
 
 const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack"), {
-    ssr: false, // Disable SSR for Leaflet
+  ssr: false, // Disable SSR for Leaflet
 });
-const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+const edi_coords: [number, number] = [54.9500, -3.3725]; // Edinburgh Airport coordinates
 
 
 import {
@@ -37,9 +37,10 @@ import {
 
 export default function Page() {
 
-  let { data:aaa } = useSWR(`/api/train/rails`, fetcher);
+  let { data: aaa } = useSWR(`/api/train/rails?legonly=1`, fetcher);
 
-  let [keyword, setKeyword] = useState<string>('28');
+  let [keyword, setKeyword] = useState<string>('');
+  let [mapkey, setMapkey] = useState<string>('');
   let [flights, setFlights] = useState<Array<any>>([]);
   let [flight, setFlight] = useState<any>();
   let [data, setData] = useState<any>(aaa);
@@ -49,13 +50,22 @@ export default function Page() {
   const onInputChange = async () => {
 
     if (keyword.trim() == '') {
-      setData(aaa)
+      // setData(aaa)
       return;
     }
 
-    console.log('3333222', keyword, aaa.features[keyword].properties.crs);
+    console.log('3333222', keyword, aaa[keyword].properties.crs );
+
+    //  && v.segments.length>500
+    let paths: any = aaa[keyword]
+    // let res = {
+    //   "type": "FeatureCollection",
+    //   "features": paths.filter((p: any) => p !== null),
+    // }
+
+
     setData(
-      aaa.features[keyword]
+      paths
     )
 
 
@@ -213,14 +223,15 @@ export default function Page() {
         ))}
       </div>
 
-        <div className="h-screen w-full">
-            <FlightMap center_coords={edi_coords}
-                // minZoom={minZoom || 2.5}
-                maxZoom={20}
-            >
-                {data && <TrainTrackGeoJSON data={data} key={keyword || -1} />}
-            </FlightMap>
-        </div>
+      <div className="h-screen w-full">
+        <FlightMap center_coords={edi_coords}
+          // minZoom={minZoom || 2.5}
+          maxZoom={20}
+          key={mapkey || ''}
+        >
+          {data && <TrainTrackGeoJSON data={data} key={keyword || -1} />}
+        </FlightMap>
+      </div>
 
       <AlertDialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <AlertDialogContent>

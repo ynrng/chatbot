@@ -33,13 +33,13 @@ const q = {
 //       );
 //       out geom;
 // `,
-// 'routenr04':`
-// [out:json][timeout:120];
-// area["ISO3166-1"="GB"][admin_level=2]->.uk;
-// relation["ref"="NR 04"];
-// (._;>;);
-// out geom;
-// `,
+'routenr04':`
+  [out:json][timeout:600];
+  area["ISO3166-1"="GB"]->.uk;
+  relation["type"="route"]["route"="train"]["from"="Newcastle"]["to"="Carlisle"](area.uk);
+  (._;>;);
+  out geom;
+`,
 
 'route':`
 [out:json][timeout:600];

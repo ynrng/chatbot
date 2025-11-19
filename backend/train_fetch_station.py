@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 import json
 
-from db import connect_db
+from utils import connect_db
 
 
 def db_select_from_station(supabase: Client):

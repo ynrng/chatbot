@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 import json
 
-from db import connect_db
+from utils import connect_db
 
 def db_select_from_train(supabase: Client):
 
@@ -202,7 +202,6 @@ def get_path_between_stations(locations: list, nodes, edges):
 
 def main():
 
-    load_dotenv('/Users/yan/code/chatbot/.env.local')
     global db
     db = connect_db()
     trains = db_select_from_train(db)
