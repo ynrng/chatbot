@@ -205,8 +205,22 @@ def main():
     global db
     db = connect_db()
     trains = db_select_from_train(db)
+
+    # mock_list = [ 'PNR', 'LAN',  ]
+    # mock_list = [ 'MKC','WFJ'  ]
+    # mock_list = [ 'LIN', 'HYM', ]
+    # mock_list = [ 'PBO', 'MCH', ]
+    # mock_list = [ 'TAM', 'BHM', ]
+    # mock_list = [ 'BHM', 'TAM', ]
+    mock_list = [[ 'CHC', 'GLQ', ],[ 'GLQ', 'CHC', ]]
+
+
+    trains = [[{"crs": a} for b in mock_list for a in b]]
+
     stations = db_select_from_station(db)
     locations = [[stations.get(s.get('crs')) for s in t if s.get('crs') in stations] for t in trains]
+
+    # print('sss', stations['EDB'],   stations['PNR'],   stations['LAN'])
 
     with open('/Users/yan/code/chatbot/public/train/osm/rail.uk.json', 'r') as f:
         osm_data = json.load(f)

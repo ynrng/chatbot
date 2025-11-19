@@ -37,7 +37,7 @@ import {
 
 export default function Page() {
 
-  let { data: aaa } = useSWR(`/api/train/rails?legonly=1`, fetcher);
+  let { data: aaa } = useSWR(`/api/train/rails?debug=2`, fetcher);
 
   let [keyword, setKeyword] = useState<string>('');
   let [mapkey, setMapkey] = useState<string>('');
