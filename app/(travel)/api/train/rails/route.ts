@@ -1,6 +1,5 @@
 
 
-import { auth } from "@/app/(auth)/auth";
 import { getTrainLegs, getTrains, } from "@/db/queries";
 
 function pathToGeoJSON(path: any, crs: any) {
@@ -19,11 +18,6 @@ function pathToGeoJSON(path: any, crs: any) {
 
 
 export async function GET(request: Request) {
-
-  const session = await auth();
-  if (!session) {
-    return new Response("Unauthorized", { status: 401 });
-  }
 
   try {
 
