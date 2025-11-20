@@ -73,7 +73,7 @@ export async function GET(request: Request) {
   await Promise.all(
     iataSet.map(async (i) => {
       if (iatas_existing.indexOf(i) < 0) {
-        const res2 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/airports/${i}`);
+        const res2 = await fetcherFlight(`/airports/${i}`);
         let ap: Airport | null = null;
         if (res2?.code_iata == i) {
           ap = {

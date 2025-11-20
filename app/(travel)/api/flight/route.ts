@@ -53,7 +53,7 @@ export async function GET(request: Request) {
   }
 
   const res = await fetcherFlight(
-    `https://aeroapi.flightaware.com/aeroapi/flights/${id}?ident_type=fa_flight_id${q}`
+    `/flights/${id}?ident_type=fa_flight_id${q}`
   );
   // const res = Response.json(data_get.flights);
 
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
 
   if (f.fa_flight_id) {
 
-    const res1 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/flights/${f.fa_flight_id}/track`);
+    const res1 = await fetcherFlight(`/flights/${f.fa_flight_id}/track`);
     if (res1?.positions?.length) {
 
       await createFlightTrack({
@@ -125,7 +125,7 @@ export async function POST(request: Request) {
   await Promise.all(
     iatas.map(async (i) => {
       if (iatas_existing.indexOf(i) === -1) {
-        const res2 = await fetcherFlight(`https://aeroapi.flightaware.com/aeroapi/airports/${i}`);
+        const res2 = await fetcherFlight(`/airports/${i}`);
 
         let ap: Airport | null = null;
         if (res2?.code_iata == i) {

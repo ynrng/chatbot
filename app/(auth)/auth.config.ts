@@ -15,6 +15,7 @@ export const authConfig = {
       let isOnChat = nextUrl.pathname.startsWith("/chat");
       let isOnRegister = nextUrl.pathname.startsWith("/register");
       let isOnLogin = nextUrl.pathname.startsWith("/login");
+      let isAdminPage = nextUrl.pathname.indexOf("/edit") !== -1;
 
       if (isLoggedIn && (isOnLogin || isOnRegister)) {
         return Response.redirect(new URL("/", nextUrl));
@@ -24,7 +25,7 @@ export const authConfig = {
         return true; // Always allow access to register and login pages
       }
 
-      if (isOnChat) {
+      if (isOnChat || isAdminPage) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       }
