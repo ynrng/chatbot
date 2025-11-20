@@ -1,26 +1,10 @@
 
 ===========
 
-https://chat.yanrong.wang/
+online at https://chat.yanrong.wang/
 
 ===========
 
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Next.js Gemini Chatbot</h1>
-</a>
-
-<p align="center">
-  An Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel.
-</p>
-
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
-</p>
-<br/>
 
 ## Features
 
@@ -67,11 +51,15 @@ pnpm dev
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
 
-# Disclaimer:
+## Disclaimer:
 <a href="https://www.flaticon.com/free-icons/airport" title="airport icons">Airport icons created by riajulislam - Flaticon</a>
 
-# APIs
-## Realtime train
+## APIs and Docs
+### Flight
+- [AeroAPI Doc](https://www.flightaware.com/aeroapi/portal/documentation)
+- [AeroApi usage](https://www.flightaware.com/aeroapi/portal/usage) : 5 dollars per month free quota
+
+### Realtime train
 > https://api.rtt.io/api/v1
 https://www.realtimetrains.co.uk/about/developer/pull/docs/locationlist/
 - Normal queries (live departures)
@@ -86,9 +74,16 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/locationlist/
 https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 `/json/service/<serviceUid>/<year>/<month>/<day>`
 
-## Map related
+### Map related
 [geojson docs](https://stevage.github.io/geojson-spec/#section-3.3)
 
-## Library usage
+### Library usage
 -  [supabase database connection with python](https://supabase.com/docs/reference/python/eq)
--  https://wiki.openstreetmap.org/wiki/Railways_in_the_United_Kingdom 
+-  https://wiki.openstreetmap.org/wiki/Railways_in_the_United_Kingdom
+-
+
+## Todos Tracking
+1. [flight] check if /api/flight works
+2. [train] legs (might) need to be fixed: `TAM-BHM` ; `CHC-GLQ` ; `GLQ-HST` ; `HST-GLQ` ; `GLQ-CHC`
+3. [train] might want to actually read from route.
+4. Move all writing data to python script
