@@ -212,10 +212,8 @@ def main():
     # mock_list = [ 'PBO', 'MCH', ]
     # mock_list = [ 'TAM', 'BHM', ]
     # mock_list = [ 'BHM', 'TAM', ]
-    mock_list = [[ 'CHC', 'GLQ', ],[ 'GLQ', 'CHC', ]]
-
-
-    trains = [[{"crs": a} for b in mock_list for a in b]]
+    # mock_list = [[ 'CHC', 'GLQ', ],[ 'GLQ', 'CHC', ]]
+    # trains = [[{"crs": a} for b in mock_list for a in b]]
 
     stations = db_select_from_station(db)
     locations = [[stations.get(s.get('crs')) for s in t if s.get('crs') in stations] for t in trains]

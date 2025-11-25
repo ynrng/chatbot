@@ -39,9 +39,10 @@ def db_upsert_train(supabase: Client, train: dict):
 
 def read_into_db_train():
     paths = [
-        {"name": "past-scot",   "key": "pastBookings"},
-        {"name": "past",        "key": "pastBookings"},
-        {"name": "upcoming",    "key": "upcomingBookings"}
+        # {"name": "past-scot",   "key": "pastBookings"},
+        # {"name": "past",        "key": "pastBookings"},
+        # {"name": "upcoming",    "key": "upcomingBookings"},
+        {"name": "upcoming-scot",    "key": "upcomingBookings"},
     ]
 
     bookings = []
@@ -78,8 +79,8 @@ def read_into_db_train():
                         'atoc_code': carrierCodes[-1],
                         'transport_mode': trip['transportMode'],
                     }
-                    if trip.get('timetableId'):
-                        train['service_uid'] = trip.get('timetableId')
+                    # if trip.get('timetableId'):
+                    #     train['service_uid'] = trip.get('timetableId')
                     trains.append(train)
                     db_upsert_train(db, train)
             else:
@@ -164,13 +165,24 @@ def fetch_rrt_search(record, ):
     today = datetime.now()
 
     if abs((day - today).total_seconds()) < 7 * 24 * 60 * 60:  # within 7 days
-        res_ser = fetch_rrt(f"/json/search/{record['origin']}/to/{record['destination']}/{record['run_date'].replace('-', '/')}/{record['origin_time']}")
+
+        url4 = f"/json/search/{record['origin']}/to/{record['destination']}/{record['run_date'].replace('-', '/')}"
+        if record['origin_time'] != '0000':
+            url4 += f"/{record['origin_time']}"
+        res_ser = fetch_rrt(url4)
 
         if res_ser and res_ser.get('services'):
-            timefiltered = [
-                s for s in res_ser['services']
-                if s.get('serviceUid') and s['locationDetail']['gbttBookedDeparture'] == record['origin_time']
-            ]
+            if record['origin_time'] == '0000':
+                timefiltered = [
+                    s for s in res_ser['services']
+                    if s.get('serviceUid') and s['atocCode'] == record['atoc_code']
+                ]
+            else:
+                timefiltered = [
+                    s for s in res_ser['services']
+                    if s.get('serviceUid') and s['locationDetail']['gbttBookedDeparture'] == record['origin_time']
+                ]
+
             if len(timefiltered):
                 for s in timefiltered:
                     res2 = fetch_rrt_service({

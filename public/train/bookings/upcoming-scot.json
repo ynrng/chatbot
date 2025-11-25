@@ -1,0 +1,977 @@
+{
+    "upcomingBookings": {
+        "results": [
+            {
+                "order": {
+                    "id": "2b214321-af4b-5c45-a56e-37706015d457",
+                    "originalOrderId": "",
+                    "friendlyOrderId": "124637448433",
+                    "orderDate": "2025-11-24T20:29:39.9420333Z",
+                    "type": null,
+                    "payment": {
+                        "date": "2025-11-24T20:29:39.9420333Z",
+                        "paymentType": "Mastercard Credit",
+                        "paymentReference": "**** **** **** 8287",
+                        "paymentState": "Paid",
+                        "refunds": [],
+                        "currencyCode": "GBP",
+                        "fees": [
+                            {
+                                "type": "product",
+                                "price": {
+                                    "amount": 43.2,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "delivery-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "booking-fee",
+                                "vendor": "atoc",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            },
+                            {
+                                "type": "payment-fee",
+                                "price": {
+                                    "amount": 0,
+                                    "currency": "GBP"
+                                }
+                            }
+                        ],
+                        "paid": {
+                            "amount": 43.2,
+                            "currency": "GBP"
+                        },
+                        "railcardDiscount": {
+                            "amount": 0,
+                            "currency": "GBP"
+                        },
+                        "invoiceId": "C126C31EE1E3D6DE031ED1C498048282"
+                    },
+                    "isGuest": true,
+                    "numberOfBookings": 1,
+                    "errors": [],
+                    "state": "COMPLETE",
+                    "refunds": [],
+                    "fulfilments": [
+                        {
+                            "productId": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                            "fulfilmentState": "Complete"
+                        }
+                    ],
+                    "invoices": [
+                        {
+                            "id": "C126C31EE1E3D6DE031ED1C498048282",
+                            "currencyCode": "GBP",
+                            "lineItems": [
+                                {
+                                    "amount": 43.2,
+                                    "amountInRequestedCurrency": 43.2,
+                                    "subLineItems": [
+                                        {
+                                            "amount": 21.6,
+                                            "amountInRequestedCurrency": 21.6,
+                                            "reference": {
+                                                "id": "a8f75247-460b-4d7a-9c0b-1b000adb24a0"
+                                            },
+                                            "type": "product-breakdown-item"
+                                        },
+                                        {
+                                            "amount": 21.6,
+                                            "amountInRequestedCurrency": 21.6,
+                                            "reference": {
+                                                "id": "fc132b85-9b92-4b19-b5b4-f1f0317a689d"
+                                            },
+                                            "type": "product-breakdown-item"
+                                        }
+                                    ],
+                                    "productId": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                                    "type": "product",
+                                    "productUri": "https://atocinventory.service.ttlprod.local/products/72259682-f8fd-42dc-aa63-6937d1a8836b",
+                                    "originalRetailPrice": {
+                                        "amount": 43.2,
+                                        "currencyCode": "GBP"
+                                    },
+                                    "originalRetailPriceInRequestedCurrency": {
+                                        "amount": 43.2,
+                                        "currencyCode": "GBP"
+                                    }
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "delivery-fee",
+                                    "option": "AtocMTicket",
+                                    "products": [
+                                        "72259682-f8fd-42dc-aa63-6937d1a8836b"
+                                    ],
+                                    "uri": "https://deliveryoptions.service.ttlprod.local/delivery-options/AtocMTicket"
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "booking-fee",
+                                    "splitSaveFeeAmount": 0,
+                                    "splitSaveFeeAmountInRequestedCurrency": 0,
+                                    "bookingFeeOnlyAmount": 0,
+                                    "bookingFeeOnlyAmountInRequestedCurrency": 0,
+                                    "subLineItems": [
+                                        {
+                                            "amount": 0,
+                                            "amountInRequestedCurrency": 0,
+                                            "type": "booking-fee-breakdown-item",
+                                            "splitSaveFeeAmount": 0,
+                                            "splitSaveFeeAmountInRequestedCurrency": 0,
+                                            "bookingFeeOnlyAmount": 0,
+                                            "bookingFeeOnlyAmountInRequestedCurrency": 0,
+                                            "references": [
+                                                {
+                                                    "id": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                                                    "type": "product",
+                                                    "uri": "https://atocinventory.service.ttlprod.local/products/72259682-f8fd-42dc-aa63-6937d1a8836b",
+                                                    "vendor": "ATOC",
+                                                    "individualFeeAmount": 0,
+                                                    "individualBookingFeeAmount": 0,
+                                                    "individualSplitSaveFeeAmount": 0
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "amount": 0,
+                                    "amountInRequestedCurrency": 0,
+                                    "type": "payment-fee"
+                                }
+                            ],
+                            "paymentReference": "66B2E8A25C89B72378E5180B3AEF516B",
+                            "totalAmount": 43.2,
+                            "seller": "Trainline",
+                            "vatSummary": {
+                                "invoiceNumber": "TTL451439444",
+                                "friendlyInvoiceNumber": "124637448433",
+                                "vatCalculations": [
+                                    {
+                                        "legalEntityId": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "country": "GB",
+                                        "lineItems": [
+                                            {
+                                                "grossPrice": {
+                                                    "amount": 0,
+                                                    "currencyCode": "GBP"
+                                                },
+                                                "vat": {
+                                                    "rate": 0,
+                                                    "value": {
+                                                        "amount": 0,
+                                                        "currencyCode": "GBP"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "totalAmount": {
+                                            "amount": 0,
+                                            "currencyCode": "GBP"
+                                        }
+                                    }
+                                ],
+                                "legalEntities": [
+                                    {
+                                        "id": "BA0E25F3AC24E4D29A90C5ED466AE553",
+                                        "legalName": "Trainline.com",
+                                        "address": "120 Holborn, London, United Kingdom, EC1N 2TD",
+                                        "vatNumber": "791726106"
+                                    }
+                                ]
+                            },
+                            "requestedPrice": {
+                                "amount": 43.2,
+                                "currencyCode": "GBP"
+                            }
+                        }
+                    ],
+                    "identityAuthenticated": "Recognised",
+                    "items": [
+                        {
+                            "listPrice": {
+                                "amount": 43.2,
+                                "currencyCode": "GBP"
+                            },
+                            "fullListPrice": {
+                                "amount": 65,
+                                "currencyCode": "GBP"
+                            },
+                            "settlementPrice": {
+                                "amount": 43.2,
+                                "currencyCode": "GBP"
+                            },
+                            "supportsAlternativeJourneySearch": {
+                                "inward": null,
+                                "outward": true
+                            },
+                            "inventoryReferences": [
+                                "2952573565",
+                                "TTG5YH28W24",
+                                "TTG5YH28W25"
+                            ],
+                            "originatingSearchData": {
+                                "itinerarySearchUrl": "https://itinerarysearchapi.service.ttlprod.local/search/71b7046a-f58c-44be-8a95-2f232243eac9",
+                                "selectedAlternatives": [
+                                    "983ba9f3-b6ee-4b9d-bd52-be9f8fc6bb94"
+                                ]
+                            },
+                            "createdAt": "2025-11-24T20:19:23.331285Z",
+                            "state": "issued",
+                            "localAreaTransportType": null,
+                            "orderReference": "124637448433",
+                            "id": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                            "type": "product",
+                            "uri": "https://atocinventory.service.ttlprod.local/products/72259682-f8fd-42dc-aa63-6937d1a8836b",
+                            "locked": true,
+                            "productId": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                            "productType": "Travel",
+                            "fulfilmentStatus": "Complete"
+                        }
+                    ]
+                },
+                "booking": {
+                    "id": "72259682-f8fd-42dc-aa63-6937d1a8836b",
+                    "system": "ATOC",
+                    "origin": "Cambridge",
+                    "destination": "London Kings Cross",
+                    "reference": "",
+                    "passengerList": [],
+                    "passengerCount": {
+                        "inward": {
+                            "adult": 2
+                        },
+                        "outward": {
+                            "adult": 2
+                        },
+                        "booking": {
+                            "adult": 2
+                        }
+                    },
+                    "deliveryMethod": "Mobile",
+                    "state": "COMPLETE",
+                    "insurance": {},
+                    "vouchers": {},
+                    "outward": {
+                        "id": "2ec1c6b3-9790-495e-83b1-2953cd00dc72",
+                        "date": "2025-11-25T16:44:00+00:00",
+                        "duration": 48,
+                        "legs": [
+                            {
+                                "id": "7f294790-ea07-4bd6-9c2f-96777053b332",
+                                "destination": {
+                                    "id": "81714ada-0257-40e3-8df9-97bbb25ed502",
+                                    "code": "urn:trainline:atoc:loc:KGX6121",
+                                    "nlc": "6121",
+                                    "crs": "KGX",
+                                    "locationType": "station",
+                                    "name": "London Kings Cross",
+                                    "aliases": [
+                                        "KGX"
+                                    ],
+                                    "shortName": "KGX",
+                                    "longitude": -0.1229,
+                                    "latitude": 51.5309,
+                                    "timezone": "Europe/London",
+                                    "language": "en",
+                                    "countryCode": "GB",
+                                    "properties": [],
+                                    "parents": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "xName": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "xShortName": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "xProperties": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "links": {
+                                        "self": "https://ukrailreferencedataapi.service.ttlprod.local/location/81714ada-0257-40e3-8df9-97bbb25ed502"
+                                    },
+                                    "time": "2025-11-25T17:32:00+00:00"
+                                },
+                                "origin": {
+                                    "id": "1b95c318-ca8c-4ce2-997d-9bf55ed9420b",
+                                    "code": "urn:trainline:atoc:loc:CBG7022",
+                                    "nlc": "7022",
+                                    "crs": "CBG",
+                                    "locationType": "station",
+                                    "name": "Cambridge",
+                                    "aliases": [
+                                        "CBG"
+                                    ],
+                                    "shortName": "CBG",
+                                    "longitude": 0.1376,
+                                    "latitude": 52.1946,
+                                    "timezone": "Europe/London",
+                                    "language": "en",
+                                    "countryCode": "GB",
+                                    "properties": [],
+                                    "parents": [],
+                                    "xName": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "xShortName": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        },
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "xProperties": [
+                                        {
+                                            "id": "8c63b41134ca53ec56a9e270f2dbd1976529321d"
+                                        }
+                                    ],
+                                    "links": {
+                                        "self": "https://ukrailreferencedataapi.service.ttlprod.local/location/1b95c318-ca8c-4ce2-997d-9bf55ed9420b"
+                                    },
+                                    "time": "2025-11-25T16:44:00+00:00"
+                                },
+                                "transportMode": "train",
+                                "carrierName": "Great Northern",
+                                "carrierCode": "urn:trainline:atoc:carrier:GN",
+                                "carrierId": "3306789e-335c-47fc-bf03-d4d17537b557",
+                                "sleeper": false,
+                                "duration": 48,
+                                "timetableId": "Y30329",
+                                "transportDesignation": null,
+                                "route": null,
+                                "seatReservation": {
+                                    "data": null,
+                                    "unallocatedInfoUrl": "https://scotrail.train-help.com/en/support/solutions/articles/78000000330-how-do-i-reserve-a-seat-",
+                                    "firstClass": false,
+                                    "standardClass": true
+                                }
+                            }
+                        ],
+                        "origin": {
+                            "name": "Cambridge",
+                            "code": "CBG",
+                            "time": "2025-11-25T16:44:00+00:00",
+                            "timezone": "GMT",
+                            "id": "1b95c318-ca8c-4ce2-997d-9bf55ed9420b"
+                        },
+                        "destination": {
+                            "name": "London Kings Cross",
+                            "code": "KGX",
+                            "time": "2025-11-25T17:32:00+00:00",
+                            "timezone": "GMT"
+                        },
+                        "type": "outward",
+                        "fares": [
+                            {
+                                "isSplit": false,
+                                "id": "e6ef5395-921b-499d-bbef-2ec66decc337",
+                                "price": {
+                                    "amount": 21.6,
+                                    "currencyCode": "GBP"
+                                },
+                                "cards": [
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    },
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    }
+                                ],
+                                "fareType": {
+                                    "name": "Super Off-Peak Day Return",
+                                    "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                    "conditions": [
+                                        {
+                                            "title": "DESCRIPTION",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                        },
+                                        {
+                                            "title": "VALIDITY",
+                                            "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                        },
+                                        {
+                                            "title": "BOOKING",
+                                            "description": "Can be booked in advance or purchased on the day of travel."
+                                        },
+                                        {
+                                            "title": "REFUNDS",
+                                            "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                        },
+                                        {
+                                            "title": "AMENDING YOUR BOOKING",
+                                            "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                        },
+                                        {
+                                            "title": "DISCOUNTS",
+                                            "description": "Yes - normal railcard and child discounts available."
+                                        },
+                                        {
+                                            "title": "BREAK OF JOURNEY",
+                                            "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                        },
+                                        {
+                                            "title": "OTHER CONDITIONS",
+                                            "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                        },
+                                        {
+                                            "title": "CODE",
+                                            "description": "PDR"
+                                        },
+                                        {
+                                            "title": "ACCESSIBILITY",
+                                            "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                        }
+                                    ],
+                                    "validityPeriods": {
+                                        "inward": "P1D",
+                                        "outward": "P1D"
+                                    }
+                                },
+                                "farePassengers": [
+                                    {
+                                        "farePassengerId": "a8f75247-460b-4d7a-9c0b-1b000adb24a0",
+                                        "id": "3681a6aa-3bb7-40a5-afb3-0be7d3e8bdac",
+                                        "passengerId": "f131667e-0ba6-4520-8eff-27d1118840aa",
+                                        "fareType": {
+                                            "name": "Super Off-Peak Day Return",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Can be booked in advance or purchased on the day of travel."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Yes - normal railcard and child discounts available."
+                                                },
+                                                {
+                                                    "title": "BREAK OF JOURNEY",
+                                                    "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                                },
+                                                {
+                                                    "title": "OTHER CONDITIONS",
+                                                    "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "PDR"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "inward": "P1D",
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    },
+                                    {
+                                        "farePassengerId": "fc132b85-9b92-4b19-b5b4-f1f0317a689d",
+                                        "id": "39f6a7cc-d100-4366-840a-a5919e1ff12d",
+                                        "passengerId": "6bf308af-cb80-4791-ac20-fbeb73a0b280",
+                                        "fareType": {
+                                            "name": "Super Off-Peak Day Return",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Can be booked in advance or purchased on the day of travel."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Yes - normal railcard and child discounts available."
+                                                },
+                                                {
+                                                    "title": "BREAK OF JOURNEY",
+                                                    "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                                },
+                                                {
+                                                    "title": "OTHER CONDITIONS",
+                                                    "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "PDR"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "inward": "P1D",
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    }
+                                ],
+                                "validFrom": {
+                                    "inward": "2025-11-25T00:00:00+00:00",
+                                    "outward": "2025-11-25T00:00:00+00:00"
+                                },
+                                "validUntil": {
+                                    "inward": "2025-11-26T04:30:00+00:00",
+                                    "outward": "2025-11-26T04:30:00+00:00"
+                                },
+                                "isGroupFare": false,
+                                "origin": "Cambridge",
+                                "destination": "London Terminals",
+                                "fareFullPrice": {
+                                    "amount": 32.5,
+                                    "currencyCode": "GBP"
+                                },
+                                "appliedDiscount": null,
+                                "fareTags": [
+                                    "flex:selected-off-peak",
+                                    "return:same-day",
+                                    "refundable:yes"
+                                ]
+                            }
+                        ],
+                        "composition": [],
+                        "validUntil": "2025-11-26T04:30:00+00:00",
+                        "expiresAt": "2025-11-25T04:30:00.000Z",
+                        "hasTravellingGroup": false
+                    },
+                    "inward": {
+                        "id": "eb697d8c-b24b-44e7-9ed6-1b9ab0d5a834",
+                        "origin": {
+                            "name": "London Kings Cross",
+                            "code": "KGX",
+                            "id": "81714ada-0257-40e3-8df9-97bbb25ed502"
+                        },
+                        "destination": {
+                            "name": "Cambridge",
+                            "code": "CBG"
+                        },
+                        "type": "inward",
+                        "fares": [
+                            {
+                                "isSplit": false,
+                                "id": "e6ef5395-921b-499d-bbef-2ec66decc337",
+                                "price": {
+                                    "amount": 21.6,
+                                    "currencyCode": "GBP"
+                                },
+                                "cards": [
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    },
+                                    {
+                                        "id": "b84c91f7-dd8d-46db-bdcb-3141fb0682c7",
+                                        "code": "urn:trainline:atoc:card:YNG",
+                                        "industryCode": "YNG",
+                                        "description": "16-25 Railcard",
+                                        "name": "16-25 Railcard",
+                                        "termsAndConditions": {
+                                            "summary": "A 16-25 Railcard gives you 1/3 off rail fares across Britain. Your discount covers the following fares and more: \n\n- Standard Anytime, Off-Peak and Super Off-Peak  \n- Standard and First Class Advance  \n- Anytime Day Travelcard Zones 1-9 when bought as part of ticket to London from outside London (min fare £19.10) \n- Gatwick Express, Stansted Express and Heathrow Express \n\nYou can travel anytime on weekends, public holidays and during the week, but a minimum fare of £12 applies to all journeys made before 10:00 Monday to Friday.",
+                                            "trainlineResourceUrl": "https://www.thetrainline.com/terms#railcards"
+                                        },
+                                        "links": {
+                                            "self": "https://ukrailreferencedataapi.service.ttlprod.local/cardtype/b84c91f7-dd8d-46db-bdcb-3141fb0682c7"
+                                        }
+                                    }
+                                ],
+                                "fareType": {
+                                    "name": "Super Off-Peak Day Return",
+                                    "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                    "conditions": [
+                                        {
+                                            "title": "DESCRIPTION",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                        },
+                                        {
+                                            "title": "VALIDITY",
+                                            "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                        },
+                                        {
+                                            "title": "BOOKING",
+                                            "description": "Can be booked in advance or purchased on the day of travel."
+                                        },
+                                        {
+                                            "title": "REFUNDS",
+                                            "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                        },
+                                        {
+                                            "title": "AMENDING YOUR BOOKING",
+                                            "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                        },
+                                        {
+                                            "title": "DISCOUNTS",
+                                            "description": "Yes - normal railcard and child discounts available."
+                                        },
+                                        {
+                                            "title": "BREAK OF JOURNEY",
+                                            "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                        },
+                                        {
+                                            "title": "OTHER CONDITIONS",
+                                            "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                        },
+                                        {
+                                            "title": "CODE",
+                                            "description": "PDR"
+                                        },
+                                        {
+                                            "title": "ACCESSIBILITY",
+                                            "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                        }
+                                    ],
+                                    "validityPeriods": {
+                                        "inward": "P1D",
+                                        "outward": "P1D"
+                                    }
+                                },
+                                "farePassengers": [
+                                    {
+                                        "farePassengerId": "a8f75247-460b-4d7a-9c0b-1b000adb24a0",
+                                        "id": "3681a6aa-3bb7-40a5-afb3-0be7d3e8bdac",
+                                        "passengerId": "f131667e-0ba6-4520-8eff-27d1118840aa",
+                                        "fareType": {
+                                            "name": "Super Off-Peak Day Return",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Can be booked in advance or purchased on the day of travel."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Yes - normal railcard and child discounts available."
+                                                },
+                                                {
+                                                    "title": "BREAK OF JOURNEY",
+                                                    "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                                },
+                                                {
+                                                    "title": "OTHER CONDITIONS",
+                                                    "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "PDR"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "inward": "P1D",
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    },
+                                    {
+                                        "farePassengerId": "fc132b85-9b92-4b19-b5b4-f1f0317a689d",
+                                        "id": "39f6a7cc-d100-4366-840a-a5919e1ff12d",
+                                        "passengerId": "6bf308af-cb80-4791-ac20-fbeb73a0b280",
+                                        "fareType": {
+                                            "name": "Super Off-Peak Day Return",
+                                            "description": "Flexible ticket only valid at specific off-peak times of the day.",
+                                            "conditions": [
+                                                {
+                                                    "title": "DESCRIPTION",
+                                                    "description": "Flexible ticket only valid at specific off-peak times of the day."
+                                                },
+                                                {
+                                                    "title": "VALIDITY",
+                                                    "description": "You must travel on super off-peak trains on the date specified. Super off-peak times vary by route - our journey planner only shows super off-peak tickets on trains for which they are valid."
+                                                },
+                                                {
+                                                    "title": "BOOKING",
+                                                    "description": "Can be booked in advance or purchased on the day of travel."
+                                                },
+                                                {
+                                                    "title": "REFUNDS",
+                                                    "description": "If you decide not to use your ticket to make all or part of your intended journey then you can apply for a refund within 28 days of expiry of the ticket. Please note, the outward portion cannot be refunded if the return portion has been used. An admin fee will apply and the amount of the refund will take into account any use you have made of the ticket and in some circumstances no refund will be paid."
+                                                },
+                                                {
+                                                    "title": "AMENDING YOUR BOOKING",
+                                                    "description": "You can change the time of your outward and/or return journey without changing your tickets. If you wish to change your date of travel or Class of ticket, you will need to buy a new ticket and apply for a refund on your current ticket."
+                                                },
+                                                {
+                                                    "title": "DISCOUNTS",
+                                                    "description": "Yes - normal railcard and child discounts available."
+                                                },
+                                                {
+                                                    "title": "BREAK OF JOURNEY",
+                                                    "description": "You may start, break and resume, or end your journey at any intermediate station along the route of travel."
+                                                },
+                                                {
+                                                    "title": "OTHER CONDITIONS",
+                                                    "description": "The outward portion of a Super Off-Peak Return ticket is only valid for travel when accompanied by an unused return portion."
+                                                },
+                                                {
+                                                    "title": "CODE",
+                                                    "description": "PDR"
+                                                },
+                                                {
+                                                    "title": "ACCESSIBILITY",
+                                                    "description": "View information about wheelchair spaces and accessibility on board your train here www.nationalrail.co.uk/on-the-train/accessible-train-travel-and-facilities. Find out how to book travel assistance here www.nationalrail.co.uk/help-and-assistance/passenger-assist."
+                                                }
+                                            ],
+                                            "validityPeriods": {
+                                                "inward": "P1D",
+                                                "outward": "P1D"
+                                            }
+                                        },
+                                        "group": "adult"
+                                    }
+                                ],
+                                "validFrom": {
+                                    "inward": "2025-11-25T00:00:00+00:00",
+                                    "outward": "2025-11-25T00:00:00+00:00"
+                                },
+                                "validUntil": {
+                                    "inward": "2025-11-26T04:30:00+00:00",
+                                    "outward": "2025-11-26T04:30:00+00:00"
+                                },
+                                "isGroupFare": false,
+                                "origin": "Cambridge",
+                                "destination": "London Terminals",
+                                "fareFullPrice": {
+                                    "amount": 32.5,
+                                    "currencyCode": "GBP"
+                                },
+                                "appliedDiscount": null,
+                                "fareTags": [
+                                    "flex:selected-off-peak",
+                                    "return:same-day",
+                                    "refundable:yes"
+                                ]
+                            }
+                        ],
+                        "legs": [
+                            {
+                                "origin": {
+                                    "name": "London Kings Cross",
+                                    "code": "KGX"
+                                },
+                                "destination": {
+                                    "name": "Cambridge",
+                                    "code": "CBG"
+                                },
+                                "openReturn": true,
+                                "seatReservation": {
+                                    "data": null,
+                                    "unallocatedInfoUrl": "https://scotrail.train-help.com/en/support/solutions/articles/78000000330-how-do-i-reserve-a-seat-",
+                                    "firstClass": false,
+                                    "standardClass": true
+                                }
+                            }
+                        ],
+                        "openReturn": true,
+                        "composition": [],
+                        "validUntil": "2025-11-26T04:30:00+00:00",
+                        "expiresAt": "2025-11-25T04:30:00.000Z"
+                    },
+                    "railcards": {
+                        "urn:trainline:atoc:card:YNG": 2
+                    },
+                    "sameFare": true,
+                    "price": {
+                        "amount": 43.2,
+                        "currencyCode": "GBP"
+                    },
+                    "travelExtras": [],
+                    "noOfTickets": 0,
+                    "recipient": null,
+                    "carriers": [
+                        {
+                            "id": "3306789e-335c-47fc-bf03-d4d17537b557",
+                            "name": "nationalrail",
+                            "code": "urn:trainline:atoc:carrier:GN"
+                        }
+                    ],
+                    "isEuBooking": false,
+                    "isSeasonBooking": false,
+                    "isETARequired": false,
+                    "onDemandDeliveryId": null,
+                    "alterables": [],
+                    "isFullyRefunded": true,
+                    "isPartialRefunded": false,
+                    "fulfilment": {
+                        "state": "Complete"
+                    },
+                    "self": "https://atocinventory.service.ttlprod.local/products/72259682-f8fd-42dc-aa63-6937d1a8836b",
+                    "refund": null,
+                    "composition": [],
+                    "smartcard": null,
+                    "partnerships": {
+                        "supported": false,
+                        "errorMessage": "same-day-return"
+                    },
+                    "orderDate": "2025-11-24T20:29:39.9420333Z",
+                    "orderId": "2b214321-af4b-5c45-a56e-37706015d457",
+                    "deliveryState": "fulfilled",
+                    "localAreaProducts": [],
+                    "needsData": false,
+                    "includesFlexibleFare": true,
+                    "miscDocuments": []
+                }
+            }
+        ],
+        "total": 1,
+        "totalErrors": 0
+    },
+    "hasGuestBookings": true
+}
