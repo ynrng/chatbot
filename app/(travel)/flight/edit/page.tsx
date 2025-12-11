@@ -62,7 +62,7 @@ export default function Page() {
 
     toast.promise(addPromise, {
       loading: "Adding flight...",
-      success: () => { 
+      success: () => {
         return "Flight addd successfully";
       },
       error: "Failed to add flight",

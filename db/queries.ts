@@ -151,7 +151,7 @@ export async function getFlightTrack(id: string): Promise<FlightTrack> {
 }
 export async function getflights(): Promise<Array<Flights>> {
   try {
-    return await db.select().from(flights);
+    return await db.select().from(flights).orderBy(desc(flights.scheduled_out));
   } catch (error) {
     console.error("Failed to get flights from database");
     throw error;

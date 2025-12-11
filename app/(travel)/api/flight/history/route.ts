@@ -23,39 +23,39 @@ export async function GET(request: Request) {
   // retrieve flight track if possible
 
 
-  for (const r of flights) {
-    let today = new Date()
-    let flightDate = r.scheduled_out
-    let diff = today.valueOf() - flightDate.valueOf()
+  // for (const r of flights) {
+  //   let today = new Date()
+  //   let flightDate = r.scheduled_out
+  //   let diff = today.valueOf() - flightDate.valueOf()
 
-    if (diff > 0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
+  //   if (diff > 0 && today.valueOf() - flightDate.valueOf() < 10 * 24 * 60 * 60 * 1000) {
 
-      if (r.fa_flight_id) {
-        const res_track = await getFlightTrack(r.fa_flight_id);
-        let positions = Array.isArray(res_track?.positions) ? res_track.positions : [];
-        if (positions.length > 0) {
-          continue;
-        }
-      }
+  //     if (r.fa_flight_id) {
+  //       const res_track = await getFlightTrack(r.fa_flight_id);
+  //       let positions = Array.isArray(res_track?.positions) ? res_track.positions : [];
+  //       if (positions.length > 0) {
+  //         continue;
+  //       }
+  //     }
 
-      const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}`, request);
+  //     const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}`, request);
 
-      const json_f = await res_f.json()
-      if (json_f?.flights?.length > 0) {
+  //     const json_f = await res_f.json()
+  //     if (json_f?.flights?.length > 0) {
 
-        for (let f of json_f.flights) {
-          if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out.toISOString().split('T')[0])) {
-            const res = await fetcherInternal(`/api/flight`, request, {
-              method: "POST",
-              body: JSON.stringify(f),
-            });
-            break;
-          }
-        }
+  //       for (let f of json_f.flights) {
+  //         if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out.toISOString().split('T')[0])) {
+  //           const res = await fetcherInternal(`/api/flight`, request, {
+  //             method: "POST",
+  //             body: JSON.stringify(f),
+  //           });
+  //           break;
+  //         }
+  //       }
 
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 
   // retrieve airports information
   const iatas = flights.map((f) => [f.origin_iata, f.destination_iata]);

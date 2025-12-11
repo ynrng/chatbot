@@ -22,7 +22,7 @@ export default function Page({ params }: { params: any }) {
         }, 60000);
 
         return () => clearInterval(interval);
-    }, [targetDate]);
+    }, [targetDate, calculateRemainingDays]);
 
     return (
 

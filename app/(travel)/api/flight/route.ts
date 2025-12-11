@@ -167,13 +167,13 @@ export async function DELETE(request: Request) {
   }
 
   try {
-    const chat = await getChatById({ id });
+    // const chat = await getChatById({ id });
 
-    if (chat.userId !== session.user.id) {
-      return new Response("Unauthorized", { status: 401 });
-    }
+    // if (chat.userId !== session.user.id) {
+    //   return new Response("Unauthorized", { status: 401 });
+    // }
 
-    await deleteChatById({ id });
+    // await deleteChatById({ id });
 
     return new Response("Chat deleted", { status: 200 });
   } catch (error) {

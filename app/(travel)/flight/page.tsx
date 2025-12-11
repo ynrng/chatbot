@@ -50,7 +50,7 @@ export default function Page() {
     }
 
 
-    const { data } = useSWR(`/api/flight/list`, fetcher);
+    const { data } = useSWR(`/api/flight/history`, fetcher);
 
 
     return (
