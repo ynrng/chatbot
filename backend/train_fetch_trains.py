@@ -6,9 +6,7 @@ from dotenv import load_dotenv
 
 import json
 
-from utils import connect_db
-from requests.auth import HTTPBasicAuth
-import requests
+from utils import connect_db, fetch_rrt 
 from datetime import datetime, timedelta
 
 
@@ -110,19 +108,6 @@ def read_into_db_train():
             db_upsert_train(db, train)
 
     print('all', len(trains))
-
-def fetch_rrt(url: str):
-    user: str = os.getenv("RRT_API_USER")
-    pwd: str = os.getenv("RRT_API_PWD")
-    auth = HTTPBasicAuth(user, pwd)
-
-    response = requests.get('https://api.rtt.io/api/v1'+url, auth=auth)
-    print('fetch_rrt', 'https://api.rtt.io/api/v1'+url)
-
-    if response.ok:
-        return response.json()
-    else:
-        raise requests.HTTPError("Request to {} failed ({}, {})".format(url, response.status_code, response.reason))
 
 
 def fetch_rrt_service(s: dict, record: dict):

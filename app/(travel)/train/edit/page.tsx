@@ -68,27 +68,6 @@ export default function Page() {
       paths
     )
 
-
-    // try {
-    //   const response = await fetch(
-    //     `/api/flight?id=${keyword}`
-    //   );
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-
-    //     if (data?.flights?.length) {
-    //       setFlights(data.flights);
-    //     }
-
-    //     // return flights;
-    //   } else {
-    //     const { error } = await response.json();
-    //     toast.error(error);
-    //   }
-    // } catch (error) {
-    //   console.error("Errors!", error);
-    // }
   };
 
 

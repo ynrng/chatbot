@@ -1,7 +1,7 @@
 "use client";
 import { default as PageFlights } from "@/app/(travel)/flight/page";
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -43,7 +43,6 @@ export default function Page() {
           setFlights(data.flights);
         }
 
-        // return flights;
       } else {
         const { error } = await response.json();
         toast.error(error);
@@ -63,12 +62,7 @@ export default function Page() {
 
     toast.promise(addPromise, {
       loading: "Adding flight...",
-      success: () => {
-        // mutate((history) => {
-        //   if (history) {
-        //     return history.filter((h) => h.id !== id);
-        //   }
-        // });
+      success: () => { 
         return "Flight addd successfully";
       },
       error: "Failed to add flight",

@@ -1,37 +1,20 @@
-import { convertToCoreMessages, Message, streamText } from "ai";
-import { z } from "zod";
 
-import { geminiProModel } from "@/ai";
-import {
-  generateReservationPrice,
-  generateSampleFlightSearchResults,
-  generateSampleFlightStatus,
-  generateSampleSeatSelection,
-} from "@/ai/actions";
 import { auth } from "@/app/(auth)/auth";
 import {
-  createReservation,
   deleteChatById,
   getChatById,
-  getReservationById,
-  saveChat,
   createFlight,
   getAirports,
   createAirport,
   createFlightTrack,
-
 } from "@/db/queries";
 import { Flights, Airport, FlightTrack } from "@/db/schema";
 
 
 import { fetcherFlight } from "@/app/(travel)/api/flight/utils";
-import data_get from './fake.get.json';
-
 
 
 export async function GET(request: Request) {
-
-
 
   const session = await auth();
 
@@ -41,6 +24,9 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
+  if (!id || id =='null') {
+    return new Response("No Id Read from data", { status: 404 });
+  }
   const date = searchParams.get("date");
   let q = '';
   const start = date?.split("T")[0] || "";
@@ -55,7 +41,6 @@ export async function GET(request: Request) {
   const res = await fetcherFlight(
     `/flights/${id}?ident_type=fa_flight_id${q}`
   );
-  // const res = Response.json(data_get.flights);
 
   return Response.json(res)
 }
@@ -82,8 +67,6 @@ export async function POST(request: Request) {
     return new Response("Invalid JSON in request body", { status: 400 });
   }
 
-
-  // const res = Response.json(data_get.flights);
 
 
   let f: Flights = {
