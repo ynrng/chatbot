@@ -31,7 +31,7 @@ function generateBezierCurve(
 ): [number, number][] {
     if (!lat1 || !lat2 || !lng1 || !lng2) return [];
 
-    const points: [number, number][] = [[lat1, lng1]];
+    const points: [number, number][] = [];
 
     // Web Mercator projection <-> geographic helpers
     // project endpoints to meters
@@ -68,7 +68,7 @@ function generateBezierCurve(
         const by = (1 - t) ** 2 * y1 + 2 * (1 - t) * t * cy + t ** 2 * y2;
         points.push(unproject(bx, by));
     }
-    points.push([lat2, lng2]);
+    // points.push([lat2, lng2]);
 
     return points; // filter out invalid points
 }
@@ -88,7 +88,7 @@ export default function FlightPolyLine({
         <div>{`${f.from_airport?.name} - ${f.to_airport?.name}`}</div>
     </>)
     let popups = (<Tooltip opacity={1} sticky>{popupText}</Tooltip>)
-    let positions: [number, number][];
+    let positions: any[];
 
     let lat1 = f.from_airport?.latitude || 0, lng1 = f.from_airport?.longitude || 0, lat2 = f.to_airport?.latitude || 0, lng2 = f.to_airport?.longitude || 0;
     if (f.positions?.length) {
@@ -96,6 +96,8 @@ export default function FlightPolyLine({
     } else {
         positions = generateBezierCurve(lat1, lng1, lat2, lng2, f.route_count || 0);
     }
+
+    positions = [[lat1, lng1]].concat(positions, [[lat2, lng2]]);
     const midP = positions[Math.floor((positions.length + 1) / 2)];
 
     // compute arrow points in projected (meters) space for symmetry

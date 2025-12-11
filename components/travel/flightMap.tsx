@@ -18,7 +18,7 @@ export default function FlightMap({
     center_coords = [55.9500, -3.3725],
     children,
     minZoom=2.5,
-    maxZoom=7
+    maxZoom=10
 }: {
     center_coords?: [number, number],
     children?: React.ReactNode,
