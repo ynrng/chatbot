@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 import json
 
-from utils import connect_db, fetch_rrt 
+from utils import connect_db, fetch_rrt
 from datetime import datetime, timedelta
 
 
@@ -37,7 +37,7 @@ def db_upsert_train(supabase: Client, train: dict):
 
 def read_into_db_train():
     paths = [
-        # {"name": "past-scot",   "key": "pastBookings"},
+        {"name": "past-scot",   "key": "pastBookings"},
         # {"name": "past",        "key": "pastBookings"},
         # {"name": "upcoming",    "key": "upcomingBookings"},
         {"name": "upcoming-scot",    "key": "upcomingBookings"},
@@ -213,7 +213,7 @@ def main():
     global db
     db = connect_db()
 
-    # read_into_db_train()
+    read_into_db_train()
 
     records = db_select_trains(db)
     for record in records:

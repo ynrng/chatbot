@@ -173,7 +173,7 @@ def get_path_between_stations(locations: list, nodes, edges):
 
         p, c = astar(nodes, edges, start, end)
 
-        seg =  [[nodes[id]['lon'], nodes[id]['lat']] for id in p] 
+        seg =  [[nodes[id]['lon'], nodes[id]['lat']] for id in p]
         if len(seg) > 2:
             if leg_reverse and len(leg_reverse.get('segments')) > 2 and len(leg_reverse.get('segments')) < len(seg):
                 seg = leg_reverse.get('segments')[::-1]
