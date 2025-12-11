@@ -2,6 +2,7 @@
 
 import L, { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
+import cx from "classnames";
 
 import { Polyline, Popup, Tooltip, Marker, SVGOverlay, useMap, useMapEvents } from "react-leaflet";
 
@@ -73,36 +74,14 @@ function generateBezierCurve(
     return points; // filter out invalid points
 }
 
-export default function FlightPolyLine({
-    flight: f,
-    zoom
-}: any) {
+function getArrowPoints(positions: any, zoom?: number) {
 
-    const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
-
-    let from_dis = Math.abs(f.from_airport?.latitude - edi_coords[0]) + Math.abs(f.from_airport?.longitude - edi_coords[1])
-    let to_dis = Math.abs(f.to_airport?.latitude - edi_coords[0]) + Math.abs(f.to_airport?.longitude - edi_coords[1])
-    let color = from_dis > to_dis ? "green" : "deepskyblue";
-    let popupText = (<>
-        <div>{`${f.scheduled_out.split('T')[0]} ${f.ident}`} </div>
-        <div>{`${f.from_airport?.name} - ${f.to_airport?.name}`}</div>
-    </>)
-    let popups = (<Tooltip opacity={1} sticky>{popupText}</Tooltip>)
-    let positions: any[];
-
-    let lat1 = f.from_airport?.latitude || 0, lng1 = f.from_airport?.longitude || 0, lat2 = f.to_airport?.latitude || 0, lng2 = f.to_airport?.longitude || 0;
-    if (f.positions?.length) {
-        positions = f.positions.map((p: any) => [p.latitude, p.longitude]);
-    } else {
-        positions = generateBezierCurve(lat1, lng1, lat2, lng2, f.route_count || 0);
-    }
-
-    positions = [[lat1, lng1]].concat(positions, [[lat2, lng2]]);
-    const midP = positions[Math.floor((positions.length + 1) / 2)];
+    let midi = Math.floor((positions.length + 1) / 2)
+    const midP = positions[midi];
 
     // compute arrow points in projected (meters) space for symmetry
-    const [x1, y1] = project(lat1, lng1);
-    const [x2, y2] = project(lat2, lng2);
+    const [x1, y1] = project(...(positions[midi - 1] as [number, number]));
+    const [x2, y2] = project(...(positions[midi + 1] as [number, number]));
     const [mx, my] = project(midP[0], midP[1]);
 
     let dirX = x2 - x1;
@@ -128,29 +107,75 @@ export default function FlightPolyLine({
     const [m_lat1, m_lng1] = unproject(leftX, leftY);
     const [m_lat2, m_lng2] = unproject(rightX, rightY);
 
+    return [[m_lat1, m_lng1], midP, [m_lat2, m_lng2]];
+
+}
+
+export default function FlightPolyLine({
+    flight: f,
+    zoom
+}: {
+    flight: any,
+    zoom?: number
+}) {
+
+    const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
+
+    let from_dis = Math.abs(f.from_airport?.latitude - edi_coords[0]) + Math.abs(f.from_airport?.longitude - edi_coords[1])
+    let to_dis = Math.abs(f.to_airport?.latitude - edi_coords[0]) + Math.abs(f.to_airport?.longitude - edi_coords[1])
+    let color = from_dis > to_dis ? "green" : "deepskyblue";
+    let popupText = (<>
+        <div>{`${f.scheduled_out.split('T')[0]} ${f.ident}`} </div>
+        <div>{`${f.from_airport?.name} - ${f.to_airport?.name}`}</div>
+    </>)
+    let popups = (<Tooltip opacity={1} sticky>{popupText}</Tooltip>)
+    let positions: any[];
+
+    let lat1 = f.from_airport?.latitude || 0, lng1 = f.from_airport?.longitude || 0, lat2 = f.to_airport?.latitude || 0, lng2 = f.to_airport?.longitude || 0;
+    if (f.positions?.length) {
+        positions = f.positions.map((p: any) => [p.latitude, p.longitude]);
+    } else {
+        positions = generateBezierCurve(lat1, lng1, lat2, lng2, f.route_count || 0);
+    }
+
+    positions = [[lat1, lng1]].concat(positions, [[lat2, lng2]]);
+    let midi = Math.floor((positions.length + 1) / 2)
+    const midP = positions[midi];
+
+    const [highlight, setHighlight] = useState(false);
+    const arrowPos = getArrowPoints(positions, (zoom || 1) * (highlight ? 0.9 : 1));
+
+    let pathOptions = {
+        color: color,
+        weight: highlight ? 5 : 1,
+        opacity: highlight ? 1 : 0.8,
+        // renderer: L.canvas(), // force canvas rendering
+        className: cx(
+            "bg-cyan-500 shadow-lg shadow-cyan-500/50",
+            highlight ? 'z-50' : ''
+        ), //todo this is not working
+    }
 
     return positions?.length && (
         <>
             <Polyline
                 positions={positions}
-                pathOptions={{
-                    color: color,
-                    weight: 1,
-                    opacity: 0.8,
-                    // renderer: L.canvas(), // force canvas rendering
-                    className: "bg-cyan-500 shadow-lg shadow-cyan-500/50", //todo this is not working
+                pathOptions={pathOptions}
+                eventHandlers={{
+                    mouseover: (e) => {
+                        console.log("Mouse over polyline", f, e.target);
+                        setHighlight(true);
+                    },
+                    mouseout: (e) => {
+                        setHighlight(false);
+                    }
                 }}
             >
                 {popups}
             </Polyline>
             <Polyline
-                positions={[[m_lat1, m_lng1], midP, [m_lat2, m_lng2]]}
-                pathOptions={{
-                    color: color,
-                    weight: 1,
-                    opacity: 0.8,
-                    className: "bg-cyan-500 shadow-lg shadow-cyan-500/50 z-50", //todo this is not working
-                }}
+                positions={arrowPos}
+                pathOptions={pathOptions}
             >
                 <Popup>{popupText}</Popup>
             </Polyline>
