@@ -47,7 +47,7 @@ import {
 
 export const History = ({ user }: { user: User | undefined }) => {
   const { id } = useParams();
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const {
@@ -58,11 +58,9 @@ export const History = ({ user }: { user: User | undefined }) => {
     fallbackData: {},
   });
 
-  console.log("history:", history);
-
-  useEffect(() => {
-    mutate();
-  }, [pathname, mutate]);
+  // useEffect(() => {
+  //   mutate();
+  // }, [pathname, mutate]);
 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);

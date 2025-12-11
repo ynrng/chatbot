@@ -125,13 +125,11 @@ export const trains = pgTable("Trains", {
   destination: text("destination").references(() => trainStation.crs),
   destinationTime: text("destination_time"),
   locations: jsonb("locations"),
-  segments: jsonb("segments"),
   atocCode: text("atoc_code"),
   transportMode: text("transport_mode"),
 });
-export type Trains = Omit<InferSelectModel<typeof trains>, "locations" | "segments" | "serviceUid" | "destinationTime"> & {
+export type Trains = Omit<InferSelectModel<typeof trains>, "locations"  | "serviceUid" | "destinationTime"> & {
   locations?: any;
-  segments?: any;
   serviceUid?: string;
   destinationTime?: string;
 };

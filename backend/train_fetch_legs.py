@@ -48,7 +48,6 @@ def db_select_train_legs_by(supabase: Client, from_crs: str, to_crs: str):
     )
     if response.data and len(response.data) > 0:
         a = response.data
-        # a.sort(key=lambda x: len(x.get('segments')))
         return a[0]
     return None
 
@@ -174,8 +173,7 @@ def get_path_between_stations(locations: list, nodes, edges):
 
         p, c = astar(nodes, edges, start, end)
 
-        seg =  [[nodes[id]['lon'], nodes[id]['lat']] for id in p]
-        # len(leg_reverse.get('segments'))
+        seg =  [[nodes[id]['lon'], nodes[id]['lat']] for id in p] 
         if len(seg) > 2:
             if leg_reverse and len(leg_reverse.get('segments')) > 2 and len(leg_reverse.get('segments')) < len(seg):
                 seg = leg_reverse.get('segments')[::-1]

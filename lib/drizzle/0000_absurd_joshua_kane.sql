@@ -96,7 +96,6 @@ CREATE TABLE IF NOT EXISTS "Trains" (
 	destination text not null REFERENCES "TrainStation"(crs),
 	destination_time text null,
 	locations jsonb null,
-	segments jsonb null,
 	atoc_code text null,
 	transport_mode text null,
 	constraint Trains_pkey primary key (run_date, origin, origin_time),

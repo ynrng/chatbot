@@ -56,7 +56,6 @@ export default function Page() {
 
     console.log('3333222', keyword, aaa[keyword].properties.crs );
 
-    //  && v.segments.length>500
     let paths: any = aaa[keyword]
     // let res = {
     //   "type": "FeatureCollection",

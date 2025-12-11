@@ -7,6 +7,32 @@ import requests
 
 from rate_limiter import api_rate_limiter, rate_limited
 
+airline_iata_map = {
+    '9C': 'CQH',
+    'AF': 'AFR',  # Air France
+    'CA': 'CCA',
+    'HU': 'CHH',
+    'DS': 'EZS',  # Easyjet
+    'U2': 'EZY',  # Easyjet
+    'EK': 'UAE',  # Emirates
+    'EW': 'EWG',  # Eurowings
+    'FM': 'CSH',  # Shanghai Airlines
+    'HO': 'DKH',  # Juneyao Airlines
+    'JD': 'CBJ',  # Beijing Capital Airlines
+    'KL': 'KLM',  # KLM
+    'LH': 'DLH',  # Lufthansa
+    'MF': 'CXA',  # XiamenAir
+    'MM': 'APJ',  # Peach Aviation
+    'MU': 'CES',  # China Eastern
+    'RK': 'RUK',  # Ryanair
+    'FR': 'RYR',  # Ryanair
+    'CZ': 'CZN',  # China Southern Airlines
+    'SQ': 'SIA',  # Singapore Airlines
+    'W9': 'WUK',  # Wizz Air
+    'Z2': 'APG',  # Philippines AirAsia
+    'ZH': 'CSZ',  # Shenzhen Airlines
+}
+
 
 def connect_db():
     load_dotenv('/Users/yan/code/chatbot/.env.local')
@@ -47,7 +73,7 @@ def fetch_flightaware(url: str):
         'x-apikey': api_key
     }
 
-    response = requests.get('https://aeroapi.flightaware.com/aeroapi' + url, headers=headers )
+    response = requests.get('https://aeroapi.flightaware.com/aeroapi' + url, headers=headers)
 
     if response.ok:
         return response.json()

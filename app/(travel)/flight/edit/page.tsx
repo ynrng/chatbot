@@ -75,13 +75,6 @@ export default function Page() {
   };
 
 
-  const handleBatchAdd = async () => {
-
-    fetch(`/api/flight/csv`, {
-      method: "POST",
-    });
-  };
-
 
   return (
     <div className="h-screen w-full pt-12">
@@ -100,11 +93,6 @@ export default function Page() {
               }
             }}
           />
-          <Button
-            onClick={handleBatchAdd}
-          >
-            Load from csv
-          </Button>
 
         </div>
         {flights && flights.map((f) => (
