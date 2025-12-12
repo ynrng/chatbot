@@ -83,7 +83,7 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 -
 
 ## Todos Tracking
-1. [flight] check if /api/flight works
+1. [SOLVED][flight] check if /api/flight works
 2. [train] legs (might) need to be fixed: `TAM-BHM` ; `CHC-GLQ` ; `GLQ-HST` ; `HST-GLQ` ; `GLQ-CHC`
 3. [train] might want to actually read from route.
 4. Move all writing data to python script

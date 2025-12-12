@@ -29,6 +29,7 @@ export default function Page() {
 
   const onInputChange = async () => {
     if (!keyword) {
+      setFlights([]);
       return;
     }
     try {

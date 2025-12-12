@@ -3,6 +3,7 @@ import { auth } from "@/app/(auth)/auth";
 import {
   deleteChatById,
   getChatById,
+  deleteFlightByIdAndDate,
   createFlight,
   getAirports,
   createAirport,
@@ -12,6 +13,7 @@ import { Flights, Airport, FlightTrack } from "@/db/schema";
 
 
 import { fetcherFlight } from "@/app/(travel)/api/flight/utils";
+import { fetcherInternal } from "@/lib/utils";
 
 
 export async function GET(request: Request) {
@@ -75,9 +77,11 @@ export async function POST(request: Request) {
     origin_iata: body.origin?.code_iata,
     destination_iata: body.destination?.code_iata,
     ident: body.ident,
+    ident_iata: body.ident_iata || null,
     userId: session?.user?.id || '',
   };
 
+  console.log("Saving flight:", f, body);
   try {
     await createFlight(f);
   } catch (error) {
@@ -85,19 +89,21 @@ export async function POST(request: Request) {
     return new Response("Failed to save flight", { status: 500 });
   }
 
-  if (f.fa_flight_id) {
 
-    const res1 = await fetcherFlight(`/flights/${f.fa_flight_id}/track`);
-    if (res1?.positions?.length) {
+    // const res1 = await fetcherFlight(`/flights/${f.fa_flight_id}/track`);
+    // if (res1?.positions?.length) {
 
-      await createFlightTrack({
-        fa_flight_id: f.fa_flight_id,
-        actual_distance: res1.actual_distance,
-        positions: res1.positions,
-      });
-    }
+    //   await createFlightTrack({
+    //     fa_flight_id: f.fa_flight_id,
+    //     actual_distance: res1.actual_distance,
+    //     positions: res1.positions,
+    //   });
+    // }
 
-  }
+    fetcherInternal(`/api/flight/track`,request, {
+      method: "POST",
+      body: JSON.stringify(f),
+    });
 
 
   const iatas = [f.origin_iata || "", f.destination_iata || ""].filter(i => i !== "");
@@ -154,9 +160,8 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
 
-  if (!id) {
+  if (!request.body) {
     return new Response("Not Found", { status: 404 });
   }
 
@@ -167,13 +172,22 @@ export async function DELETE(request: Request) {
   }
 
   try {
+
+    let flight = await request.json();
+    // if (flight.fa_flight_id)
+    // {
+    //   await deleteFlight({ "fa_flight_id": flight.fa_flight_id });
+    // }
+    if(flight.scheduled_out && flight.ident){
+      await deleteFlightByIdAndDate({ "scheduled_out": flight.scheduled_out, "ident": flight.ident });
+    }
+
     // const chat = await getChatById({ id });
 
     // if (chat.userId !== session.user.id) {
     //   return new Response("Unauthorized", { status: 401 });
     // }
 
-    // await deleteChatById({ id });
 
     return new Response("Chat deleted", { status: 200 });
   } catch (error) {

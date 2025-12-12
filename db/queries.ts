@@ -22,16 +22,16 @@ export async function createTrainLegs(ts: TrainLegs) {
   try {
     return await db.insert(trainLegs).values(ts);
   } catch (error) {
-    console.error("Failed to create trainLegs in database");
+    console.error("Failed to create trainLegs in database", error);
     throw error;
   }
 }
 
-export async function getTrainLegs( ): Promise<Array<TrainLegs>> {
+export async function getTrainLegs(): Promise<Array<TrainLegs>> {
   try {
     return await db.select().from(trainLegs)
   } catch (error) {
-    console.error("Failed to get trainLegs from database");
+    console.error("Failed to get trainLegs from database", error);
     throw error;
   }
 }
@@ -47,7 +47,7 @@ export async function deleteTrain(ts: any) {
         eq(trains.originTime, ts.originTime)
       ));
   } catch (error) {
-    console.error("Failed to delete trains in database");
+    console.error("Failed to delete trains in database", error);
     throw error;
   }
 }
@@ -67,7 +67,7 @@ export async function updateTrain(ts: any) {
         ts.originTime == '0000' ? undefined : eq(trains.originTime, ts.originTime)
       ));
   } catch (error) {
-    console.error("Failed to update trains in database");
+    console.error("Failed to update trains in database", error);
     throw error;
   }
 }
@@ -76,7 +76,7 @@ export async function createTrain(ts: Trains) {
   try {
     return await db.insert(trains).values(ts);
   } catch (error) {
-    console.error("Failed to create trains in database");
+    console.error("Failed to create trains in database", error);
     throw error;
   }
 }
@@ -85,7 +85,7 @@ export async function getTrains(): Promise<Array<any>> {
   try {
     return await db.select().from(trains);
   } catch (error) {
-    console.error("Failed to get trains from database");
+    console.error("Failed to get trains from database", error);
     throw error;
   }
 }
@@ -94,7 +94,7 @@ export async function createTrainStations(tss: Array<TrainStation>) {
   try {
     return await db.insert(trainStation).values(tss);
   } catch (error) {
-    console.error("Failed to create train station in database");
+    console.error("Failed to create train station in database", error);
     throw error;
   }
 }
@@ -107,7 +107,7 @@ export async function getTrainStations(ids: Array<string> | undefined): Promise<
       return await db.select().from(trainStation)
     }
   } catch (error) {
-    console.error("Failed to get train stations from database");
+    console.error("Failed to get train stations from database", error);
     throw error;
   }
 }
@@ -116,7 +116,7 @@ export async function createAirport(ap: Airport) {
   try {
     return await db.insert(airport).values(ap);
   } catch (error) {
-    console.error("Failed to create airport in database");
+    console.error("Failed to create airport in database", error);
     throw error;
   }
 }
@@ -126,7 +126,7 @@ export async function getAirports(ids: string[]): Promise<Array<Airport>> {
     if (!ids || ids.length === 0) return [];
     return await db.select().from(airport).where(inArray(airport.iata, ids));
   } catch (error) {
-    console.error("Failed to get airport from database");
+    console.error("Failed to get airport from database", error);
     throw error;
   }
 }
@@ -135,7 +135,7 @@ export async function createFlightTrack(track: FlightTrack) {
   try {
     return await db.insert(flightTrack).values(track);
   } catch (error) {
-    console.error("Failed to create track in database");
+    console.error("Failed to create track in database", error);
     throw error;
   }
 }
@@ -153,34 +153,46 @@ export async function getflights(): Promise<Array<Flights>> {
   try {
     return await db.select().from(flights).orderBy(desc(flights.scheduled_out));
   } catch (error) {
-    console.error("Failed to get flights from database");
+    console.error("Failed to get flights from database", error);
+    throw error;
+  }
+}
+
+export async function updateFlight(flight1: any, f: any) {
+  try {
+    return await db.update(flights)
+        .set(flight1)
+        .where(and(eq(flights.ident, f.ident), eq(flights.scheduled_out, new Date(f.scheduled_out))));
+  } catch (error) {
+    console.error("Failed to create flight in database", error);
     throw error;
   }
 }
 
 export async function createFlight(flight: Flights) {
   try {
+    console.log("Creating flight in database:", flight);
     return await db.insert(flights).values(flight);
   } catch (error) {
-    console.error("Failed to create flight in database");
+    console.error("Failed to create flight in database", error);
     throw error;
   }
 }
 
-// export async function deleteFlight(id: string) {
-//   try {
-//     return await db.delete(flights).where(eq(flights.fa_flight_id, id));
-//   } catch (error) {
-//     console.error("Failed to delete flight track from database");
-//     throw error;
-//   }
-// }
+export async function deleteFlightByIdAndDate(f: any) {
+  try {
+    return await db.delete(flights).where(and(eq(flights.ident, f.ident), eq(flights.scheduled_out, new Date(f.scheduled_out))));
+  } catch (error) {
+    console.error("Failed to delete flight from database", error);
+    throw error;
+  }
+}
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {
     return await db.select().from(user).where(eq(user.email, email));
   } catch (error) {
-    console.error("Failed to get user from database");
+    console.error("Failed to get user from database", error);
     throw error;
   }
 }
@@ -192,7 +204,7 @@ export async function createUser(email: string, password: string) {
   try {
     return await db.insert(user).values({ email, password: hash });
   } catch (error) {
-    console.error("Failed to create user in database");
+    console.error("Failed to create user in database", error);
     throw error;
   }
 }
@@ -225,7 +237,7 @@ export async function saveChat({
       userId,
     });
   } catch (error) {
-    console.error("Failed to save chat in database");
+    console.error("Failed to save chat in database", error);
     throw error;
   }
 }
@@ -234,7 +246,7 @@ export async function deleteChatById({ id }: { id: string }) {
   try {
     return await db.delete(chat).where(eq(chat.id, id));
   } catch (error) {
-    console.error("Failed to delete chat by id from database");
+    console.error("Failed to delete chat by id from database", error);
     throw error;
   }
 }
@@ -247,7 +259,7 @@ export async function getChatsByUserId({ id }: { id: string }) {
       .where(eq(chat.userId, id))
       .orderBy(desc(chat.createdAt));
   } catch (error) {
-    console.error("Failed to get chats by user from database");
+    console.error("Failed to get chats by user from database", error);
     throw error;
   }
 }
@@ -257,7 +269,7 @@ export async function getChatById({ id }: { id: string }) {
     const [selectedChat] = await db.select().from(chat).where(eq(chat.id, id));
     return selectedChat;
   } catch (error) {
-    console.error("Failed to get chat by id from database");
+    console.error("Failed to get chat by id from database", error);
     throw error;
   }
 }

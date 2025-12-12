@@ -72,10 +72,6 @@ export default function Page() {
 
   const handleAdd = async () => {
 
-    // const addPromise = fetch(`/api/flight`, {
-    //   method: "POST",
-    // });
-
     // toast.promise(addPromise, {
     //   loading: "Adding flight...",
     //   success: () => {

@@ -98,6 +98,7 @@ export const flights = pgTable("Flights", {
   origin_iata: text("origin_iata"),
   destination_iata: text("destination_iata"),
   ident: text("ident").notNull(),
+  ident_iata: text("ident_iata"),
   userId: uuid("userId")
     .notNull()
     .references(() => user.id),

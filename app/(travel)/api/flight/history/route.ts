@@ -38,14 +38,12 @@ export async function GET(request: Request) {
   //       }
   //     }
 
-  //     const res_f = await fetcherInternal(`/api/flight?id=${r.fa_flight_id}`, request);
 
   //     const json_f = await res_f.json()
   //     if (json_f?.flights?.length > 0) {
 
   //       for (let f of json_f.flights) {
   //         if (f.origin.code_iata === r.origin_iata && f.destination.code_iata === r.destination_iata && f.scheduled_out.startsWith(r.scheduled_out.toISOString().split('T')[0])) {
-  //           const res = await fetcherInternal(`/api/flight`, request, {
   //             method: "POST",
   //             body: JSON.stringify(f),
   //           });
