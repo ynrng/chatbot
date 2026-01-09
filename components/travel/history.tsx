@@ -11,8 +11,8 @@ import { fetcher, } from "@/lib/utils";
 
 import {
   InfoIcon,
-  InformationIcon,
-  CheckCircle,
+  ZeroConfigIcon,
+  CheckCircleIcon,
   TrashIcon,
 } from "../custom/icons";
 import {
@@ -26,6 +26,7 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
+
 
 export const History = ({ user }: { user: User | undefined }) => {
   const {
@@ -91,7 +92,7 @@ export const History = ({ user }: { user: User | undefined }) => {
 
   return (
     <>
-      <div className=" w-90  p-2  top-0 bottom-0 left-0 bg-background">
+      <div className=" w-90  p-2 inset-y-0 left-0 bg-background">
 
         <div className="text-sm flex flex-row items-center justify-between">
           <div className="flex flex-row gap-2">
@@ -156,13 +157,19 @@ export const History = ({ user }: { user: User | undefined }) => {
                   <Button
                     className="flex flex-row gap-2 items-center justify-start h-fit font-normal  p-2 rounded-sm"
                     variant="ghost"
-                    disabled={flight.positions?.length}
+                    disabled={flight.positions?.length || flight.status == 'Cancelled'}
                     onClick={() => {
                       console.log("fetch clicked");
                       handleFetchTrack(flight)
                     }}
                   >
-                    {flight.positions?.length ? (<CheckCircle />) : (<InformationIcon />)}
+                    {flight.status == 'Cancelled' ?
+                    // <Tooltip delay={false} text={flight.status || ''}>
+                      <ZeroConfigIcon />
+                    // </Tooltip>
+                      : (
+                        flight.positions?.length ? (<CheckCircleIcon />) : (<InfoIcon />)
+                      )}
                   </Button>
 
                   <Button

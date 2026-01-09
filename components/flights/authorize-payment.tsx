@@ -7,7 +7,7 @@ import useSWR from "swr";
 
 import { fetcher } from "@/lib/utils";
 
-import { CheckCircle, InfoIcon } from "../custom/icons";
+import { CheckCircleIcon, InfoIcon } from "../custom/icons";
 import { Input } from "../ui/input";
 
 export function AuthorizePayment({
@@ -57,7 +57,7 @@ export function AuthorizePayment({
         Payment Verified
       </div>
       <div className="dark:text-emerald-950 text-emerald-50">
-        <CheckCircle size={20} />
+        <CheckCircleIcon size={20} />
       </div>
     </div>
   ) : differenceInMinutes(new Date(), new Date(reservation?.createdAt)) >

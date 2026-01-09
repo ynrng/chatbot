@@ -40,7 +40,7 @@ def read_into_db_train():
         {"name": "past-scot",   "key": "pastBookings"},
         # {"name": "past",        "key": "pastBookings"},
         # {"name": "upcoming",    "key": "upcomingBookings"},
-        {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        # {"name": "upcoming-scot",    "key": "upcomingBookings"},
     ]
 
     bookings = []

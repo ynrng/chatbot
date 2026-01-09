@@ -79,6 +79,7 @@ export async function POST(request: Request) {
     ident: body.ident,
     ident_iata: body.ident_iata || null,
     userId: session?.user?.id || '',
+    status: body.status || null,
   };
 
   console.log("Saving flight:", f, body);
