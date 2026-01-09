@@ -118,6 +118,9 @@ export default function FlightPolyLine({
     flight: any,
     zoom?: number
 }) {
+    if (f.status == 'Cancelled') {
+        return null;
+    }
 
     const edi_coords: [number, number] = [55.9500, -3.3725]; // Edinburgh Airport coordinates
 
