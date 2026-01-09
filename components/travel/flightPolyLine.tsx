@@ -118,6 +118,10 @@ export default function FlightPolyLine({
     flight: any,
     zoom?: number
 }) {
+
+    // Error: React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?  react-hooks/rules-of-hooks
+    const [highlight, setHighlight] = useState(false);
+
     if (f.status == 'Cancelled') {
         return null;
     }
@@ -145,7 +149,6 @@ export default function FlightPolyLine({
     let midi = Math.floor((positions.length + 1) / 2)
     const midP = positions[midi];
 
-    const [highlight, setHighlight] = useState(false);
     const arrowPos = getArrowPoints(positions, (zoom || 1) * (highlight ? 0.9 : 1));
 
     let pathOptions = {
