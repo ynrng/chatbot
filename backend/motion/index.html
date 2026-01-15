@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>iPhone Teleoperation</h2>
+    <button id="start">Start Streaming</button>
+    <p id="status">Not connected</p>
+
+    <script>
+        let websocket;
+        let ipaddr = '10.124.105.35';
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const messages = document.createElement("ul");
+            document.body.appendChild(messages);
+
+            websocket = new WebSocket("wss://"+ ipaddr+":8080"); // replace this
+            console.log("ws://"+ ipaddr+":8080")
+            // websocket.onmessage = ({ data }) => {
+            //     const message = document.createElement("li");
+            //     const content = document.createTextNode(data);
+            //     message.appendChild(content);
+            //     messages.appendChild(message);
+            // };
+            websocket.onopen = () => {
+                websocket.send("Hello Server!");
+            }
+        });
+
+        document.getElementById("start").onclick = () => {
+            // Request motion/orientation permission (required on iOS)
+            try {
+                if (typeof DeviceMotionEvent.requestPermission === "function") {
+                    DeviceMotionEvent.requestPermission().then(response => {
+                        if (response === "granted") {
+                            console.log("DeviceMotionEvent access granted");
+                        } else {
+                            alert("DeviceMotionEvent Permission denied");
+                            return;
+                        }
+                    }).catch(console.error);
+
+
+                    DeviceOrientationEvent.requestPermission().then(response => {
+                        if (response === "granted") {
+                            console.log("DeviceOrientationEvent access granted");
+                        } else {
+                            alert("DeviceOrientationEvent Permission denied");
+                            return;
+                        }
+                    }).catch(console.error);
+                    console.log("Motion/Orientation access granted");
+                }
+                else {
+                    document.getElementById("status").innerText = "⚠️ DeviceMotionEvent.requestPermission not supported";
+                    return;
+                }
+
+            } catch (e) {
+                alert("Permission denied: " + e);
+                return;
+            }
+
+            // Send orientation
+            window.addEventListener("deviceorientation", (e) => {
+                    let ss = JSON.stringify({
+                        type: "orientation",
+                        data: { alpha: e.alpha, beta: e.beta, gamma: e.gamma }
+                    })
+
+                if (websocket?.readyState === WebSocket.OPEN) {
+                    document.getElementById("status").innerText = ss
+
+                    websocket.send(ss);
+                } else {
+
+                    // document.getElementById("status").innerText =
+                    //     websocket?.readyState
+                        // + '\n\n' + ss
+                }
+            });
+
+            // Send motion
+            window.addEventListener("devicemotion", (e) => {
+                    let ss_motion = JSON.stringify({
+                        type: "motion",
+                        data: {
+                            accel: e.accelerationIncludingGravity,
+                            rotRate: e.rotationRate
+                        }
+                    })
+                if (websocket?.readyState === WebSocket.OPEN) {
+                    document.getElementById("status").innerText = ss_motion
+                    websocket.send(ss_motion);
+                } else {
+
+                    // document.getElementById("status").innerText =
+                    //     websocket?.readyState + '\n\n'
+                        // + ss_motion
+                    // console.log(websocket?.readyState )
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
