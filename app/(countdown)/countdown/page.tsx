@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 
 export default function Page({ params }: { params: any }) {
 
-    const targetDate = new Date("2025-12-27");
+    const targetDate = new Date("2026-03-21");
+    const place = 'TBD, France';
 
     const calculateRemainingDays = () => {
         const diff = targetDate.getTime() - Date.now();
@@ -33,8 +34,8 @@ export default function Page({ params }: { params: any }) {
                     className="transition-colors flex items-center justify-center text-forground gap-2 font-extrabold text-9xl w-full sm:w-auto "
                 >
                     {daysLeft > 0 ? <span>
-                        {daysLeft} Days Until Les Arcs
-                    </span> : <span>Les Arcs was on {targetDate.toDateString()}</span>}
+                        {daysLeft} Days Until {place}
+                    </span> : <span>{place} was on {targetDate.toDateString()}</span>}
 
                 </span>
 
