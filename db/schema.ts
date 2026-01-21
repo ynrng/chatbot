@@ -142,3 +142,10 @@ export const trainLegs  = pgTable("TrainLegs", {
   segments: jsonb("segments"),
 })
 export type TrainLegs = InferSelectModel<typeof trainLegs>;
+
+
+export const wordle  = pgTable("Wordle", {
+  id: text("id").notNull().primaryKey(),
+  explain: jsonb("explain")
+})
+export type Wordle = InferSelectModel<typeof wordle>;

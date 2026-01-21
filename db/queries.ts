@@ -9,6 +9,7 @@ import {
   user, chat, User, reservation,
   flightTrack, FlightTrack, flights, Flights, airport, Airport,
   TrainStation, trainStation, trains, Trains, trainLegs, TrainLegs,
+  Wordle, wordle
 } from "./schema";
 
 // Optionally, if not using email/pass login, you can
@@ -17,6 +18,25 @@ import {
 let client = postgres(`${process.env.POSTGRES_URL!}?sslmode=require`);
 let db = drizzle(client);
 
+
+
+export async function createWordle(w: Wordle) {
+  try {
+    return await db.insert(wordle).values(w);
+  } catch (error) {
+    console.error("Failed to create wordle in database", error);
+    throw error;
+  }
+}
+
+export async function getWordles(): Promise<Array<Wordle>> {
+  try {
+    return await db.select().from(wordle)
+  } catch (error) {
+    console.error("Failed to get wordle from database", error);
+    throw error;
+  }
+}
 
 export async function createTrainLegs(ts: TrainLegs) {
   try {
