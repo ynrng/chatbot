@@ -41,6 +41,7 @@
     "next": "15.0.5",
     "next-auth": "5.0.0-beta.30",
     "next-themes": "^0.4.6",
+    "playwright": "^1.57.0",
     "postgres": "^3.4.4",
     "react": "19.0.0-rc-7771d3a7-20240827",
     "react-dom": "19.0.0-rc-7771d3a7-20240827",
