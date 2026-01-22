@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default function Page({ params }: { params: any }) {
 
     const targetDate = new Date("2026-03-21");
-    const place = 'TBD, France';
+    const place = 'Avoriaz, France';
 
     const calculateRemainingDays = () => {
         const diff = targetDate.getTime() - Date.now();
