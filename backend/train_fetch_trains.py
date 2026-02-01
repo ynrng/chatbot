@@ -38,9 +38,9 @@ def db_upsert_train(supabase: Client, train: dict):
 def read_into_db_train():
     paths = [
         {"name": "past-scot",   "key": "pastBookings"},
-        # {"name": "past",        "key": "pastBookings"},
-        # {"name": "upcoming",    "key": "upcomingBookings"},
-        # {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        # {"name": "past-trainline",        "key": "pastBookings"},
+        # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
     ]
 
     bookings = []

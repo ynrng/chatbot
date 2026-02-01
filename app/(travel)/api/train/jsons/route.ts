@@ -12,9 +12,9 @@ export async function POST(request: Request) {
   }
   try {
     let res_past: Response | undefined, res_future: Response | undefined;
-    // res_past = await fetcherInternal(`/train/bookings/past.json`, request);
+    // res_past = await fetcherInternal(`/train/bookings/past-trainline.json`, request);
     // res_past = await fetcherInternal(`/train/bookings/past-scot.json`, request);
-    // res_future = await fetcherInternal(`/train/bookings/upcoming.json`, request);
+    // res_future = await fetcherInternal(`/train/bookings/upcoming-trainline.json`, request);
 
     let res1 = res_past ? await res_past.json() : { pastBookings: { results: [] } };
     let res2 = res_future ? await res_future.json() : { upcomingBookings: { results: [] } };
