@@ -11,8 +11,6 @@ from datetime import datetime, timedelta
 
 
 
-
-
 def db_select_trains(supabase: Client):
     response = (
         supabase.table("Trains")
@@ -35,13 +33,16 @@ def db_upsert_train(supabase: Client, train: dict):
     return response
 
 
-def read_into_db_train():
-    paths = [
-        {"name": "past-scot",   "key": "pastBookings"},
-        {"name": "upcoming-scot",    "key": "upcomingBookings"},
-        # {"name": "past-trainline",        "key": "pastBookings"},
-        # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
-    ]
+def get_platform(p: str):
+    u = p['seatReservation']['unallocatedInfoUrl']
+    if u.find('scotrail') > -1:
+        return 'scotrail'
+    if u.find('trainline') > -1:
+        return 'trainline'
+    # return 'trip.com'
+    return ''
+
+def read_into_db_train(paths=[]):
 
     bookings = []
 
@@ -76,6 +77,8 @@ def read_into_db_train():
                         'origin_time': '0000',
                         'atoc_code': carrierCodes[-1],
                         'transport_mode': trip['transportMode'],
+                        'id': trip['id']+'-1',
+                        'platform': get_platform(trip),
                     }
                     # if trip.get('timetableId'):
                     #     train['service_uid'] = trip.get('timetableId')
@@ -101,6 +104,8 @@ def read_into_db_train():
                 'transport_mode': trip['transportMode'],
                 # 'route_from': '',
                 # 'route_to': '',
+                'id': trip['id'],
+                'platform': get_platform(trip),
             }
             if trip.get('timetableId'):
                 train['service_uid'] = trip.get('timetableId')
@@ -207,13 +212,64 @@ def fetch_rrt_search(record, ):
     return None
 
 
+def read_trip_com_into_db():
+
+    data = {}
+
+    # for p in paths:
+    # trains = []
+    path1 = f'/Users/yan/code/chatbot/public/train/bookings/trip.com.json'
+    with open(path1, 'r') as f:
+        booking_data = json.load(f)
+        data = booking_data.get('data')
+
+    # print("Total bookings loaded:", len(bookings))
+    # trains=[]
+
+    # for trains in bookings:
+    orderId = data['orderId']
+
+
+    for trip in data['outJourney'] + data.get('returnJourney', []):
+        # if trip['TicketType'] == '12':
+        #     continue
+        for seg in trip['segments']:
+            originTime =  seg['departureDateTime'].split(" ")
+            # carrierCodes = trip['carrierCode'].split(':')
+            train = {
+                'run_date': seg['dateType'],
+                'destination': seg['arrivalLocation'].get('name'),
+                'origin': seg['departureLocation'].get('name'),
+                'origin_time': ''.join(originTime[1].split(':')[0:2]),
+                'atoc_code': seg['transport']['carrier']['code'],
+                'transport_mode': seg['transport']['type'].lower(),
+                'id': orderId + f"-{seg['segmentId']}",
+                'platform': 'trip.com'
+            }
+            # if trip.get('timetableId'):
+            #     train['service_uid'] = trip.get('timetableId')
+            # trains.append(train)
+            print("Upserting trip.com train:", train)
+            # db_upsert_train(db, train)
+
+
 
 def main():
     load_dotenv('/Users/yan/code/chatbot/.env.local')
     global db
     db = connect_db()
 
-    read_into_db_train()
+
+    paths = [
+        {"name": "past-scot",   "key": "pastBookings"},
+        {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        {"name": "past-trainline",        "key": "pastBookings"},
+        {"name": "upcoming-trainline",    "key": "upcomingBookings"},
+    ]
+
+    # read_into_db_train(paths)
+
+    # read_trip_com_into_db()
 
     records = db_select_trains(db)
     for record in records:

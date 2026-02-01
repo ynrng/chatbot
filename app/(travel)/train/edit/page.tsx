@@ -103,11 +103,11 @@ export default function Page() {
     });
   };
 
-  const getBooking = async () => {
-    fetch(`/api/train/bookings`, {
-      // method: "GET",
-    });
-  }
+  // const getBooking = async () => {
+  //   fetch(`/api/train/bookings`, {
+  //     // method: "GET",
+  //   });
+  // }
 
 
   const fetchOsmUK = async () => {
@@ -118,7 +118,7 @@ export default function Page() {
 
 
   // setData(aaaa);
-  console.log('3333222', data);
+  // console.log('3333222', data);
 
 
 
@@ -148,11 +148,11 @@ export default function Page() {
           >
             Load trainline bookings from json files
           </Button>
-          <Button
+          {/* <Button
             onClick={getBooking}
           >
             Fetch booking
-          </Button>
+          </Button> */}
           <Button
             onClick={fetchOsmUK}
           >

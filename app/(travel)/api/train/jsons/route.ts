@@ -40,6 +40,7 @@ export async function POST(request: Request) {
             originName: trip.destination.name,
             atocCode: carrierCodes[carrierCodes.length - 1],
             transportMode: trip.transportMode,
+            id: trip.id + '-1',
           }
           await createTrain(train);
         }
@@ -62,6 +63,7 @@ export async function POST(request: Request) {
           destinationName: trip.destination.name,
           atocCode: carrierCodes[carrierCodes.length - 1],
           transportMode: trip.transportMode,
+          id: trip.id,
         }
         await createTrain(train);
       }

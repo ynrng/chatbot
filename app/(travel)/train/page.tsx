@@ -10,6 +10,9 @@ const FlightMap = dynamic(() => import("@/components/travel/flightMap"), {
 const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack"), {
     ssr: false, // Disable SSR for Leaflet
 });
+const TrainStationMarker = dynamic(() => import("@/components/travel/trainStationMarker"), {
+    ssr: false, // Disable SSR for Leaflet
+});
 
 import { useMap, } from "react-leaflet";
 
@@ -33,9 +36,10 @@ export default function Page() {
         return null
     }
 
-    let { data } = useSWR(`/api/train/rails`, fetcher);
+    let { data:rails } = useSWR(`/api/train/rails`, fetcher);
+    let { data:stations } = useSWR(`/api/train/stations`, fetcher);
 
-    console.log('3333222', data);
+    console.log('3333222', rails, );
 
     return (
         <div className="h-screen w-full">
@@ -43,7 +47,13 @@ export default function Page() {
                 // minZoom={minZoom || 2.5}
                 maxZoom={20}
             >
-                {data && <TrainTrackGeoJSON data={data} />}
+                {rails && <TrainTrackGeoJSON data={rails} />}
+
+                {
+                    stations?.map((a: any) => (
+                        <TrainStationMarker key={a.crs} station={a} ></TrainStationMarker>
+                    ))
+                }
                 <MyComponent />
             </FlightMap>
         </div>

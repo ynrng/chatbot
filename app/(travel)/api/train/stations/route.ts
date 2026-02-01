@@ -1,6 +1,28 @@
 import { auth } from "@/app/(auth)/auth";
-import { getTrainStations, createTrainStations } from "@/db/queries";
+import { getTrainStations, createTrainStations ,getTrains} from "@/db/queries";
 import { fetcherInternal } from "@/lib/utils";
+
+
+export async function GET(request: Request) {
+
+  try {
+    let records = await getTrains();
+
+    let s = records.map((v:any) => [v.origin, v.destination])
+    s = s.flat()
+    s = (new Set(s)).keys().toArray();
+
+    let existings = await getTrainStations([]);
+    let res = existings.filter((st:any) => s.includes(st.crs));
+
+    return Response.json(res);
+  } catch (err) {
+    console.error("Failed to fetch stations", err);
+
+  }
+
+  return Response.json({});
+}
 
 
 export async function POST(request: Request) {

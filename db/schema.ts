@@ -120,6 +120,7 @@ export const trainStation = pgTable("TrainStation", {
 export type TrainStation = InferSelectModel<typeof trainStation>;
 
 export const trains = pgTable("Trains", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
   serviceUid: text("service_uid"),
   runDate: date("run_date").notNull(),
   origin: text("origin").notNull().references(() => trainStation.crs),
