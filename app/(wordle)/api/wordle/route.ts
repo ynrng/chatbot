@@ -37,10 +37,13 @@ export async function POST(request: Request) {
     return new Response("Invalid JSON in request body", { status: 400 });
   }
 
+  if (!body.id || typeof body.id !== "string") {
+    return new Response("Missing or invalid word", { status: 400 });
+  }
 
 
   let f: Wordle = {
-    id: body.id,
+    id: body.id.toLowerCase(),
     explain: ""
   };
 
