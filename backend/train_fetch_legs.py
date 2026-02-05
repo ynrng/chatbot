@@ -18,8 +18,8 @@ def db_select_from_train(supabase: Client):
         .order('run_date', desc=True)
         .execute()
     )
-    t = [v['locations'] for v in response.data]
-    print('db_select_from_train',len(t))
+    t = [[l for l in v['locations'] if l.get('crs') and (l.get('isCall')!=False)] for v in response.data]
+    print('db_select_from_train',t)
     return t
 
 
@@ -178,7 +178,7 @@ def get_path_between_stations(locations: list, nodes, edges):
             if leg_reverse and len(leg_reverse.get('segments')) > 2 and len(leg_reverse.get('segments')) < len(seg):
                 seg = leg_reverse.get('segments')[::-1]
             elif leg_reverse and  len(leg_reverse.get('segments')) > len(seg):
-                print({"start": B['crs'], "end": ['crs'], "segments": len(seg)})
+                print({"start": B['crs'], "end": A['crs'], "segments": len(seg)})
                 db_upsert_train_leg(db, {
                     "start": B['crs'],
                     "end": A['crs'],

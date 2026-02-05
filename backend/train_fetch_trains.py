@@ -79,6 +79,7 @@ def read_into_db_train(paths=[]):
                         'transport_mode': trip['transportMode'],
                         'id': trip['id']+'-1',
                         'platform': get_platform(trip),
+                        'raw': booking,
                     }
                     # if trip.get('timetableId'):
                     #     train['service_uid'] = trip.get('timetableId')
@@ -106,6 +107,7 @@ def read_into_db_train(paths=[]):
                 # 'route_to': '',
                 'id': trip['id'],
                 'platform': get_platform(trip),
+                'raw': booking,
             }
             if trip.get('timetableId'):
                 train['service_uid'] = trip.get('timetableId')
@@ -129,9 +131,9 @@ def fetch_rrt_service(s: dict, record: dict):
 
         if start > -1 and end > start:
             record['locations'] = [
-                {'description': loc['description'], 'crs': loc.get('crs')}
+                {'description': loc['description'], 'crs': loc.get('crs'), 'isCall': loc.get('isCall')}
                 for loc in res2['locations'][start:end + 1]
-                if loc.get('crs')
+                # if loc.get('crs') and loc.get('isCall')
             ]
             record['service_uid'] = res2['serviceUid']
             record['atoc_code'] = res2['atocCode']
@@ -216,26 +218,17 @@ def read_trip_com_into_db():
 
     data = {}
 
-    # for p in paths:
-    # trains = []
     path1 = f'/Users/yan/code/chatbot/public/train/bookings/trip.com.json'
     with open(path1, 'r') as f:
         booking_data = json.load(f)
         data = booking_data.get('data')
 
-    # print("Total bookings loaded:", len(bookings))
-    # trains=[]
-
     # for trains in bookings:
     orderId = data['orderId']
 
-
     for trip in data['outJourney'] + data.get('returnJourney', []):
-        # if trip['TicketType'] == '12':
-        #     continue
         for seg in trip['segments']:
             originTime =  seg['departureDateTime'].split(" ")
-            # carrierCodes = trip['carrierCode'].split(':')
             train = {
                 'run_date': seg['dateType'],
                 'destination': seg['arrivalLocation'].get('name'),
@@ -246,11 +239,7 @@ def read_trip_com_into_db():
                 'id': orderId + f"-{seg['segmentId']}",
                 'platform': 'trip.com'
             }
-            # if trip.get('timetableId'):
-            #     train['service_uid'] = trip.get('timetableId')
-            # trains.append(train)
             print("Upserting trip.com train:", train)
-            # db_upsert_train(db, train)
 
 
 
@@ -262,7 +251,7 @@ def main():
 
     paths = [
         {"name": "past-scot",   "key": "pastBookings"},
-        {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        # {"name": "upcoming-scot",    "key": "upcomingBookings"},
         {"name": "past-trainline",        "key": "pastBookings"},
         {"name": "upcoming-trainline",    "key": "upcomingBookings"},
     ]

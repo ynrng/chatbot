@@ -49,7 +49,8 @@ export async function GET(request: Request) {
     for (let t of trains) {
       if (Array.isArray(t.locations) && t.locations.length && t.transportMode == 'train') {
         let couples: any[] = [];
-        let locs = t.locations.filter((loc: any) => loc.crs);
+        let locs = t.locations.filter((loc: any) => loc.crs && (loc.isCall != false));
+
         let seg = []
         for (let i = 0; i < locs.length - 1; i++) {
           let k =`${locs[i].crs}-${locs[i + 1].crs}`

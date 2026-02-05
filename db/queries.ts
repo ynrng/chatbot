@@ -49,7 +49,7 @@ export async function createTrainLegs(ts: TrainLegs) {
 
 export async function getTrainLegs(): Promise<Array<TrainLegs>> {
   try {
-    return await db.select().from(trainLegs)
+    return await db.select().from(trainLegs);
   } catch (error) {
     console.error("Failed to get trainLegs from database", error);
     throw error;
@@ -103,7 +103,7 @@ export async function createTrain(ts: Trains) {
 
 export async function getTrains(): Promise<Array<any>> {
   try {
-    return await db.select().from(trains);
+    return await db.select().from(trains).orderBy(desc(trains.runDate));
   } catch (error) {
     console.error("Failed to get trains from database", error);
     throw error;
