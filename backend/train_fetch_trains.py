@@ -241,6 +241,27 @@ def read_trip_com_into_db():
             }
             print("Upserting trip.com train:", train)
 
+def read_tranpal_into_db():
+
+    p = f'/Users/yan/code/chatbot/public/train/bookings/trainpal.json'
+    with open(p, 'r') as f:
+        booking_data = json.load(f)
+        orders = booking_data.get('data', {}).get('orders', [])
+        for trip in orders:
+            originTime =  trip['departureTime'].split(" ")
+            # carrierCodes = trip['arrivalTime'].split(' ')
+            train = {
+                'run_date': originTime[0].replace(':', ''),
+                'destination': 'EDB',
+                'origin': "BHM",
+                'origin_time': originTime[1],
+                # 'atoc_code': carrierCodes[-1],
+                'transport_mode': 'train' if trip.get('businessType', '').index('train') > -1 else trip.get('businessType', ''),
+                'id': trip['orderId'],
+                'platform': 'tranpal',
+                'raw': trip,
+            }
+            db_upsert_train(db, train)
 
 
 def main():
@@ -252,11 +273,13 @@ def main():
     paths = [
         {"name": "past-scot",   "key": "pastBookings"},
         # {"name": "upcoming-scot",    "key": "upcomingBookings"},
-        {"name": "past-trainline",        "key": "pastBookings"},
-        {"name": "upcoming-trainline",    "key": "upcomingBookings"},
+        # {"name": "past-trainline",        "key": "pastBookings"},
+        # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
+
     ]
 
     # read_into_db_train(paths)
+    read_tranpal_into_db()
 
     # read_trip_com_into_db()
 

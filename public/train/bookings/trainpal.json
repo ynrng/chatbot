@@ -1,0 +1,69 @@
+{
+    "ResponseStatus": {
+        "Timestamp": "/Date(1776086667264+0100)/",
+        "Ack": "Success",
+        "Errors": [],
+        "Extension": [
+            {
+                "Id": "CLOGGING_TRACE_ID",
+                "Value": "8526384106653713803"
+            },
+            {
+                "Id": "RootMessageId",
+                "Value": "100025527-0a0e307f-493357-227232"
+            }
+        ]
+    },
+    "status": {
+        "retCode": "200"
+    },
+    "data": {
+        "orders": [
+            {
+                "orderId": 1134744313533619,
+                "gdsOrderId": 1134744313533619,
+                "orderStatus": "Issued",
+                "displayOrderStatus": "Issued",
+                "totalPrice": "£22.95",
+                "businessType": "gb_train",
+                "orderType": 2,
+                "countryCode": "GB",
+                "vehicle": 1,
+                "tripType": 1,
+                "ticketingOption": 2,
+                "departureLocation": {
+                    "name": "Birmingham New Street",
+                    "code": "GB0281"
+                },
+                "arrivalLocation": {
+                    "name": "Edinburgh (Waverley)",
+                    "code": "GB0872"
+                },
+                "departureTime": "2026-05-04 06:05",
+                "arrivalTime": "2026-05-04 10:18",
+                "eTickets": [
+                    {
+                        "urls": []
+                    }
+                ],
+                "deeplinkUrl": "/book-tickets/book-detail?orderId=1134744313533619&flightsignature=H4sIAAAAAAAA_4uuVirOTM_zS8xNVbJSyi9KSS3yTFHSAQuGJeaUgkQNDY1NzE1MjA2NTY2NzQwtodKJJaVFIGlHR1dHx0BHjyRjr-yoCK-CKLcIA_8qg1CTFOOiTONcowrP8Owk80QDT8_cKqfQpLyKgtIMZ88w16SUQg_dkqLMApBhSrWxAAsDeG6LAAAA-split-AAEAAQAPZmxpZ2h0c2lnbmF0dXJlDb_6s_vOi01sI9VB6n12MXWbVrm0yO0uvUJwqltUrr8=-tripsign",
+                "outItineraryInfoList": [
+                    {
+                        "departureDate": "2026-05-04",
+                        "departureTime": "06:05",
+                        "departureStationCode": "GB0281",
+                        "departureStationName": "Birmingham New Street",
+                        "arrivalDate": "2026-05-04",
+                        "arrivalTime": "10:18",
+                        "arrivalStationCode": "GB0872",
+                        "arrivalStationName": "Edinburgh (Waverley)",
+                        "validFlag": true
+                    }
+                ],
+                "returnItineraryInfoList": [],
+                "createTime": "2026-04-11 03:33:04",
+                "showRemove": false
+            }
+        ]
+    }
+}
