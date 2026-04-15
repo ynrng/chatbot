@@ -8,7 +8,7 @@ import { Navbar } from "@/components/movie/navbar";
 
 export const metadata: Metadata = {
   // metadataBase: new URL("https://gemini.vercel.ai"),
-  title: "Wordle",
+  title: "Trains",
   // description: "Next.js chatbot template using the AI SDK and Gemini.",
 };
 
@@ -19,7 +19,6 @@ export default async function RootLayout({
 }>) {
   return (
     <>
-      <Navbar />
       {children}
     </>
   );

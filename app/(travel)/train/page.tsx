@@ -32,6 +32,8 @@ const defaultBounds: L.LatLngBoundsLiteral = [
     london_coords,
 ]
 
+
+
 export default function Page() {
 
 

@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { Toaster } from "sonner";
 
-import { Navbar } from "@/components/custom/navbar";
+// import { Navbar } from "@/components/custom/navbar";
 import { ThemeProvider } from "@/components/custom/theme-provider";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import "./globals.css";
 
@@ -30,6 +31,8 @@ export default async function RootLayout({
           {/* <Navbar /> */}
           {children}
         </ThemeProvider>
+
+      <GoogleAnalytics gaId="G-MJKDHT5R" />
       </body>
     </html>
   );
