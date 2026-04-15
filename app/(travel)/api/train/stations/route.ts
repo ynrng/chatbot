@@ -8,12 +8,14 @@ export async function GET(request: Request) {
   try {
     let records = await getTrains();
 
-    let s = records.map((v:any) => [v.origin, v.destination])
-    s = s.flat()
-    s = (new Set(s)).keys().toArray();
+    let s = Array.from(
+      new Set(records.flatMap((v: any) => [v.origin, v.destination])),
+    );
 
     let existings = await getTrainStations([]);
-    let res = existings.filter((st:any) => s.includes(st.crs));
+    let res = existings.filter(
+      (st: any) => s.includes(st.crs) || s.includes(`${st.crs}:${st.countryCode}`),
+    );
 
     return Response.json(res);
   } catch (err) {

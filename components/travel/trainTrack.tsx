@@ -9,7 +9,7 @@ export default function TrainTrackGeoJSON({
 }: {
     data: any
 }) {
-    console.log('TrainTrackGeoJSONdata:', data);
+    // console.log('TrainTrackGeoJSONdata:', data);
     return (
         <GeoJSON attribution="&copy; credits due overpass api" data={data} pathOptions={{
             color: 'yellow',

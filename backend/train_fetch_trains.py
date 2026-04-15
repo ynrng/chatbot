@@ -53,7 +53,6 @@ def read_into_db_train(paths=[]):
             bookings += [b.get('booking') for b in booking_data.get(p['key'], {}).get('results', [])]
 
     print("Total bookings loaded:", len(bookings))
-    trains=[]
 
     for booking in bookings:
         print('Booking ID:', booking['id'])
@@ -62,12 +61,12 @@ def read_into_db_train(paths=[]):
             continue
         outward = booking.get('outward', {})
         inward = booking.get('inward', {})
-        legs = []
+        # legs = []
+        # eutrain = {}
+
         if inward:
             if inward.get('openReturn', False):
                 for trip in outward.get('legs', []):
-                    if trip['destination']['countryCode'] != 'GB' or trip['origin']['countryCode'] != 'GB':
-                        continue
                     originTime =  trip['origin']['time'].split("T")
                     carrierCodes = trip['carrierCode'].split(':')
                     train = {
@@ -81,40 +80,49 @@ def read_into_db_train(paths=[]):
                         'platform': get_platform(trip),
                         'raw': booking,
                     }
-                    # if trip.get('timetableId'):
-                    #     train['service_uid'] = trip.get('timetableId')
-                    trains.append(train)
                     db_upsert_train(db, train)
             else:
-                legs += inward.get('legs', [])
-        legs += outward.get('legs', [])
-        for trip in legs:
-            if trip['destination']['countryCode'] != 'GB' or trip['origin']['countryCode'] != 'GB':
-                continue
-            originTime =  trip['origin']['time'].split("T")
-            carrierCodes = trip['carrierCode'].split(':')
+                form_train_from_legs(booking, inward)
+        if outward:
+            form_train_from_legs(booking, outward)
 
-            train = {
-                'run_date': originTime[0],
-                'origin': trip['origin'].get('crs'),
-                'origin_time': ''.join(originTime[1].split(':')[0:2]),
-                'destination': trip['destination'].get('crs'),
-                'destination_time': ''.join(trip['destination']['time'].split('T')[1].split(':')[0:2]),
-                # 'locations': '',
-                'atoc_code': carrierCodes[-1],
-                'transport_mode': trip['transportMode'],
-                # 'route_from': '',
-                # 'route_to': '',
-                'id': trip['id'],
-                'platform': get_platform(trip),
-                'raw': booking,
+intl_crs_map = {
+    'LON:GB': 'STP:GB',
+}
+
+def form_train_from_legs(booking, outward):
+    for trip in outward.get('legs', []):
+        originTime =  trip['origin']['time'].split("T")
+        carrierCodes = trip['carrierCode'].split(':')
+
+        train = {
+            'run_date': originTime[0],
+            'origin': trip['origin'].get('crs'),
+            'origin_time': ''.join(originTime[1].split(':')[0:2]),
+            'destination': trip['destination'].get('crs'),
+            'destination_time': ''.join(trip['destination']['time'].split('T')[1].split(':')[0:2]),
+            # 'locations': '',
+            'atoc_code': carrierCodes[-1],
+            'transport_mode': trip['transportMode'],
+            'id': trip['id'],
+            'platform': get_platform(trip),
+            'raw': booking,
+        }
+        if  booking['isEuBooking']:
+            train = train | {
+                'destination': outward['destination'].get('code') + ":" + trip['destination'].get('countryCode'),
+                'origin':  outward['origin'].get('code') + ":" + trip['origin'].get('countryCode'),
+                'route_from': outward['origin'].get('name'),
+                'route_to': outward['destination'].get('name'),
             }
-            if trip.get('timetableId'):
-                train['service_uid'] = trip.get('timetableId')
-            trains.append(train)
-            db_upsert_train(db, train)
 
-    print('all', len(trains))
+            train['origin'] = intl_crs_map.get(train['origin'], train['origin'])
+            train['destination'] = intl_crs_map.get(train['destination'], train['destination'])
+
+
+        if trip.get('timetableId'):
+            train['service_uid'] = trip.get('timetableId')
+    db_upsert_train(db, train)
 
 
 def fetch_rrt_service(s: dict, record: dict):
@@ -124,9 +132,9 @@ def fetch_rrt_service(s: dict, record: dict):
     if res2.get('locations') and len(res2['locations']) > 0:
         start, end = -1, -1
         for i, location in enumerate(res2['locations']):
-            if location.get('crs') == record['origin']:
+            if location.get('crs') == get_intl_crs(record['origin']):
                 start = i
-            elif location.get('crs') == record['destination']:
+            elif location.get('crs') == get_intl_crs(record['destination']):
                 end = i
 
         if start > -1 and end > start:
@@ -150,15 +158,24 @@ def fetch_rrt_service(s: dict, record: dict):
 
     return None
 
+def get_intl_crs(crs: str):
+    return crs.split(':')[0]
 
 def fetch_rrt_search(record, ):
+
+    # if eurostar
+    is_eurostar = False
+    if record['origin'].index(':') > -1 or record['destination'].index(':') > -1:
+        print('eurostar:', record['origin'], 'to', record['destination'])
+        is_eurostar = True
+
 
     day = datetime.strptime(record['run_date'], '%Y-%m-%d')
     today = datetime.now()
 
-    if abs((day - today).total_seconds()) < 7 * 24 * 60 * 60:  # within 7 days
+    if abs((day - today).total_seconds()) < (40 if is_eurostar else 7) * 24 * 60 * 60:  # within 7 days
 
-        url4 = f"/json/search/{record['origin']}/to/{record['destination']}/{record['run_date'].replace('-', '/')}"
+        url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{record['run_date'].replace('-', '/')}"
         if record['origin_time'] != '0000':
             url4 += f"/{record['origin_time']}"
         res_ser = fetch_rrt(url4)
@@ -186,7 +203,7 @@ def fetch_rrt_search(record, ):
                         return record
 
     elif day < today:
-        url4 = f"/json/search/{record['origin']}/to/{record['destination']}/{today.strftime('%Y/%m/%d')}"
+        url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{today.strftime('%Y/%m/%d')}"
         if record['origin_time'] != '0000':
             url4 += f"/{record['origin_time']}"
         res4 = fetch_rrt(url4)
@@ -251,13 +268,13 @@ def read_tranpal_into_db():
             originTime =  trip['departureTime'].split(" ")
             # carrierCodes = trip['arrivalTime'].split(' ')
             train = {
-                'run_date': originTime[0].replace(':', ''),
+                'run_date': originTime[0],
                 'destination': 'EDB',
                 'origin': "BHM",
-                'origin_time': originTime[1],
+                'origin_time': originTime[1].replace(':', ''),
                 # 'atoc_code': carrierCodes[-1],
                 'transport_mode': 'train' if trip.get('businessType', '').index('train') > -1 else trip.get('businessType', ''),
-                'id': trip['orderId'],
+                'id': str(trip['orderId']),
                 'platform': 'tranpal',
                 'raw': trip,
             }
@@ -271,22 +288,22 @@ def main():
 
 
     paths = [
-        {"name": "past-scot",   "key": "pastBookings"},
+        # {"name": "past-scot",   "key": "pastBookings"},
         # {"name": "upcoming-scot",    "key": "upcomingBookings"},
         # {"name": "past-trainline",        "key": "pastBookings"},
-        # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
+        {"name": "upcoming-trainline",    "key": "upcomingBookings"},
 
     ]
 
-    # read_into_db_train(paths)
-    read_tranpal_into_db()
+    read_into_db_train(paths)
+    # read_tranpal_into_db()
 
     # read_trip_com_into_db()
 
     records = db_select_trains(db)
     for record in records:
         if record['locations'] is None or len(record['locations']) == 0:
-            if record.get('service_uid'):
+            if record.get('service_uid') and record['origin'].index(':')==-1:
                 re = fetch_rrt_service(record,record)
                 if re:
                     db_upsert_train(db, re)

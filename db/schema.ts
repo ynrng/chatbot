@@ -115,6 +115,7 @@ export const trainStation = pgTable("TrainStation", {
   longitude: doublePrecision("longitude"),
   operator: text("operator"),
   postcode: text("postcode"),
+  countryCode: text("country_code"),
 });
 
 export type TrainStation = InferSelectModel<typeof trainStation>;

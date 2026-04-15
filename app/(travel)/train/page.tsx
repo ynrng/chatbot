@@ -13,8 +13,13 @@ const TrainTrackGeoJSON = dynamic(() => import("@/components/travel/trainTrack")
 const TrainStationMarker = dynamic(() => import("@/components/travel/trainStationMarker"), {
     ssr: false, // Disable SSR for Leaflet
 });
+const FlightPolyLine = dynamic(() => import("@/components/travel/flightPolyLine"), {
+    ssr: false, // Disable SSR for Leaflet
+});
 
-import { useMap, } from "react-leaflet";
+
+import { useMap, useMapEvents, } from "react-leaflet";
+import { useEffect, useState } from "react";
 
 
 // TO change map designs: https://leaflet-extras.github.io/leaflet-providers/preview/
@@ -30,16 +35,25 @@ const defaultBounds: L.LatLngBoundsLiteral = [
 export default function Page() {
 
 
+    const [zoom, setZoom] = useState<number>(0);
     function MyComponent() {
-        const map = useMap();
-        map.fitBounds(defaultBounds)
-        return null
+            const map = useMapEvents({
+                // https://leafletjs.com/reference.html#evented
+                zoom: () => {
+                    setZoom(map.getZoom());
+                },
+            });
+            if (0 == zoom) {
+                setZoom(map.getZoom());
+                map.fitBounds(defaultBounds)
+            }
+            return null
     }
 
-    let { data:rails } = useSWR(`/api/train/rails`, fetcher);
-    let { data:stations } = useSWR(`/api/train/stations`, fetcher);
+    let { data } = useSWR(`/api/train/rails`, fetcher);
+    let { data: stations } = useSWR(`/api/train/stations`, fetcher);
 
-    console.log('3333222', rails, );
+    // console.log('3333222', data?.eurotrains, stations);
 
     return (
         <div className="h-screen w-full">
@@ -47,13 +61,26 @@ export default function Page() {
                 // minZoom={minZoom || 2.5}
                 maxZoom={20}
             >
-                {rails && <TrainTrackGeoJSON data={rails} />}
+                {data?.rails && <TrainTrackGeoJSON data={data.rails} />}
+
+                {
+                    data?.eurotrains?.map((t: any) => (
+                        <FlightPolyLine key={t.id} flight={{
+                            to_airport: stations?.find((s: any) => s.crs + ":" + s.countryCode == t.destination),
+                            from_airport: stations?.find((s: any) => s.crs + ":" + s.countryCode == t.origin),
+                            scheduled_out: t.runDate + ' ' + t.originTime,
+                            ident: t.serviceUid,
+                            route_count: 0,
+                        }} zoom={zoom} />
+                    ))
+                }
 
                 {
                     stations?.map((a: any) => (
                         <TrainStationMarker key={a.crs} station={a} ></TrainStationMarker>
                     ))
                 }
+
                 <MyComponent />
             </FlightMap>
         </div>

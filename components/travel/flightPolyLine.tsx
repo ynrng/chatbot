@@ -132,7 +132,7 @@ export default function FlightPolyLine({
     let to_dis = Math.abs(f.to_airport?.latitude - edi_coords[0]) + Math.abs(f.to_airport?.longitude - edi_coords[1])
     let color = from_dis > to_dis ? "green" : "deepskyblue";
     let popupText = (<>
-        <div>{`${f.scheduled_out.split('T')[0]} ${f.ident}`} </div>
+        <div>{`${f.scheduled_out.split('T')[0]} ${f.ident || ''}`} </div>
         <div>{`${f.from_airport?.name} - ${f.to_airport?.name}`}</div>
     </>)
     let popups = (<Tooltip opacity={1} sticky>{popupText}</Tooltip>)
@@ -169,7 +169,7 @@ export default function FlightPolyLine({
                 pathOptions={pathOptions}
                 eventHandlers={{
                     mouseover: (e) => {
-                        console.log("Mouse over polyline", f, e.target);
+                        // console.log("Mouse over polyline", f, e.target);
                         setHighlight(true);
                     },
                     mouseout: (e) => {

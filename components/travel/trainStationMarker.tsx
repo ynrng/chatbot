@@ -20,7 +20,7 @@ export default function TrainStationMarker({
         <Marker position={[station.latitude, station.longitude]} icon={airportIcon}>
             <Popup>
                 {station.crs == 'EDI' ? "📍 I'm Here!" : ''}
-                <div>{station.name} ({station.crs})</div>
+                <div>{station.name} ({station.crs}{station.countryCode!='GB' && `:${station.countryCode}`})</div>
             </Popup>
         </Marker>)
 

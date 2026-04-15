@@ -45,8 +45,12 @@ export async function GET(request: Request) {
     let trains = await getTrains() || [];
 
     let paths: any = [];
+    let eurotrains = [];
 
     for (let t of trains) {
+      if ((t.origin.indexOf(':')>-1 || t.destination.indexOf(':')>-1) && t.transportMode == 'train') {
+        eurotrains.push(t);
+      }
       if (Array.isArray(t.locations) && t.locations.length && t.transportMode == 'train') {
         let couples: any[] = [];
         let locs = t.locations.filter((loc: any) => loc.crs && (loc.isCall != false));
@@ -82,8 +86,11 @@ export async function GET(request: Request) {
 
 
     let res = {
-      "type": "FeatureCollection",
-      "features": paths.filter((p: any) => p !== null),
+      rails: {
+        "type": "FeatureCollection",
+        "features": paths.filter((p: any) => p !== null),
+      },
+      eurotrains,
     }
 
     return Response.json(res);
