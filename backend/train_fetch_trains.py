@@ -16,6 +16,7 @@ def db_select_trains(supabase: Client):
         supabase.table("Trains")
         .select("*", count="exact")
         .eq("transport_mode", 'train')
+        .order('run_date', desc=True)
         # .eq("locations", 'null')
         .execute()
     )
@@ -165,9 +166,12 @@ def fetch_rrt_search(record, ):
 
     # if eurostar
     is_eurostar = False
-    if record['origin'].index(':') > -1 or record['destination'].index(':') > -1:
-        print('eurostar:', record['origin'], 'to', record['destination'])
+    if record['atoc_code'] == 'ES':
         is_eurostar = True
+    elif record['origin'].find(':') > -1 or record['destination'].find(':') > -1:
+        print('eurostar:', record['origin'], 'to', record['destination'])
+        # is_eurostar = True
+        return None
 
 
     day = datetime.strptime(record['run_date'], '%Y-%m-%d')
@@ -288,10 +292,10 @@ def main():
 
 
     paths = [
-        # {"name": "past-scot",   "key": "pastBookings"},
+        {"name": "past-scot",   "key": "pastBookings"},
         # {"name": "upcoming-scot",    "key": "upcomingBookings"},
         # {"name": "past-trainline",        "key": "pastBookings"},
-        {"name": "upcoming-trainline",    "key": "upcomingBookings"},
+        # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
 
     ]
 
