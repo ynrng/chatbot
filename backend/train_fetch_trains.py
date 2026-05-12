@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 import json
 
-from utils import connect_db, fetch_rrt
+from utils import connect_db, fetch_rrt, fetch_rrt_new
 from datetime import datetime, timedelta
 
 
@@ -127,34 +127,43 @@ def form_train_from_legs(booking, outward):
 
 
 def fetch_rrt_service(s: dict, record: dict):
-    url = f"/json/service/{s['service_uid']}/{s['run_date'].replace('-', '/')}"
-    res2 = fetch_rrt(url)
+    params = {
+        'uniqueIdentity':'gb-nr:' + s['service_uid'] + ':' + record['run_date'],
+    }
 
-    if res2.get('locations') and len(res2['locations']) > 0:
+    res2 = fetch_rrt_new('/rtt/service', params=params)
+
+
+    if res2.get('service').get('locations') and len(res2['service']['locations']) > 0:
         start, end = -1, -1
-        for i, location in enumerate(res2['locations']):
-            if location.get('crs') == get_intl_crs(record['origin']):
+        for i, location in enumerate(res2['service']['locations']):
+            if location.get('location').get('shortCodes')[0] == get_intl_crs(record['origin']):
                 start = i
-            elif location.get('crs') == get_intl_crs(record['destination']):
+            elif location.get('location').get('shortCodes')[0] == get_intl_crs(record['destination']):
                 end = i
 
         if start > -1 and end > start:
             record['locations'] = [
-                {'description': loc['description'], 'crs': loc.get('crs'), 'isCall': loc.get('isCall')}
-                for loc in res2['locations'][start:end + 1]
+                {
+                    'description': loc['location']['description'],
+                    'crs': loc.get('location').get('shortCodes')[0],
+                    # 'isCall': loc.get('isCall')
+                }
+                for loc in res2['service']['locations'][start:end + 1]
                 # if loc.get('crs') and loc.get('isCall')
             ]
-            record['service_uid'] = res2['serviceUid']
-            record['atoc_code'] = res2['atocCode']
+            record['service_uid'] = res2['service']['scheduleMetadata'].get('identity')
+            record['atoc_code'] = res2['service']['scheduleMetadata'].get('operator').get('code')
 
-            if not record.get('destination_time') or (
+            if not record.get('destination_time'):
                 # record.get('destination_time') and
-                record['destination_time'] == res2['locations'][end].get('gbttBookedArrival')
-            ):
-                record['destination_time'] = res2['locations'][end].get('gbttBookedArrival')
+                # record['destination_time'] == res2['service']['locations'][end].get('temperaolData', {}).get('arrival', {}).get('scheduleAdvertised')
+            # ):
+                scheduleAdvertised = res2['service']['locations'][end]['temporalData']['arrival']['scheduleAdvertised']
+                record['destination_time'] = scheduleAdvertised[-8:-3].replace(':', '')
 
-        record['route_from'] = res2['locations'][0]['origin'][0].get('description')
-        record['route_to'] = res2['locations'][0]['destination'][0].get('description')
+        record['route_from'] = res2['service']['origin'][0].get('location').get('description')
+        record['route_to'] = res2['service']['destination'][0].get('location').get('description')
         return record
 
     return None
@@ -179,55 +188,80 @@ def fetch_rrt_search(record, ):
 
     if abs((day - today).total_seconds()) < (40 if is_eurostar else 7) * 24 * 60 * 60:  # within 7 days
 
-        url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{record['run_date'].replace('-', '/')}"
+        # url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{record['run_date']}"
+        # if record['origin_time'] != '0000':
+        #     url4 += f"/{record['origin_time']}"
+        params = {
+            'code': 'gb-nr:' + get_intl_crs(record['origin']),
+            'filterTo': 'gb-nr:' + get_intl_crs(record['destination']),
+            'timeFrom': record['run_date'],
+            'timeTolerance': True,
+        }
         if record['origin_time'] != '0000':
-            url4 += f"/{record['origin_time']}"
-        res_ser = fetch_rrt(url4)
+            params['timeFrom'] = params['timeFrom']+f"T{record['origin_time'][:2]}:{record['origin_time'][2:]}"
+            params['timeWindow'] = 60
+            params['timeTolerance'] = True
+        else:
+            params['timeTo'] = params['timeFrom']+"T23:59"
+        res_ser = fetch_rrt_new('/rtt/location', params=params)
 
         if res_ser and res_ser.get('services'):
             if record['origin_time'] == '0000':
                 timefiltered = [
-                    s for s in res_ser['services']
-                    if s.get('serviceUid') and s['atocCode'] == record['atoc_code']
+                    s['scheduleMetadata'] for s in res_ser['services']
+                    if s.get('identity') and s['operator']['code'] == record['atoc_code']
                 ]
             else:
                 timefiltered = [
-                    s for s in res_ser['services']
-                    if s.get('serviceUid') and s['locationDetail']['gbttBookedDeparture'] == record['origin_time']
+                    s['scheduleMetadata'] for s in res_ser['services']
+                    if s.get('scheduleMetadata').get('identity') and s['temporalData']['departure']['scheduleAdvertised'].find( f"{record['origin_time'][:2]}:{record['origin_time'][2:]}") >-1
                 ]
 
             if len(timefiltered):
                 for s in timefiltered:
                     res2 = fetch_rrt_service({
-                        'service_uid': s['serviceUid'],
-                        'run_date': s['runDate']
+                        'service_uid': s['identity'],
+                        'run_date': s['departureDate']
                     }, record)
                     if res2:
                         record = res2
                         return record
 
     elif day < today:
-        url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{today.strftime('%Y/%m/%d')}"
+        # url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{today.strftime('%Y/%m/%d')}"
+        # if record['origin_time'] != '0000':
+        #     url4 += f"/{record['origin_time']}"
+
+        params = {
+            'code': 'gb-nr:' + get_intl_crs(record['origin']),
+            'filterTo': 'gb-nr:' + get_intl_crs(record['destination']),
+            'timeFrom': today.strftime('%Y/%m/%d'),
+            'timeTolerance': True,
+        }
         if record['origin_time'] != '0000':
-            url4 += f"/{record['origin_time']}"
-        res4 = fetch_rrt(url4)
+            params['timeFrom'] = params['timeFrom']+f"T{record['origin_time'][:2]}:{record['origin_time'][2:]}"
+            params['timeWindow'] = 60
+            params['timeTolerance'] = True
+        else:
+            params['timeTo'] = params['timeFrom']+"T23:59"
+        res4 = fetch_rrt_new('/rtt/location', params=params)
 
         if res4 and res4.get('services'):
             timefiltered = [
-                s for s in res4['services']
-                if s.get('serviceUid') and s['locationDetail']['gbttBookedDeparture'] == record['origin_time']
-            ]
+                    s['scheduleMetadata'] for s in res_ser['services']
+                    if s.get('scheduleMetadata').get('identity') and s['temporalData']['departure']['scheduleAdvertised'].find( f"{record['origin_time'][:2]}:{record['origin_time'][2:]}") >-1
+                ]
 
             if len(timefiltered) == 0:
                 timefiltered = [
-                    s for s in res4['services']
-                    if s.get('serviceUid') and s['atocCode'] == record['atoc_code']
+                    s['scheduleMetadata'] for s in res4['services']
+                    if s.get('scheduleMetadata').get('identity') and s['operator']['code'] == record['atoc_code']
                 ]
 
             for s in timefiltered:
                 res2 = fetch_rrt_service({
-                        'service_uid': s['serviceUid'],
-                        'run_date': s['runDate']
+                        'service_uid': s['identity'],
+                        'run_date': s['departureDate']
                     }, record)
                 if res2:
                     record = res2
@@ -292,8 +326,8 @@ def main():
 
 
     paths = [
-        {"name": "past-scot",   "key": "pastBookings"},
-        # {"name": "upcoming-scot",    "key": "upcomingBookings"},
+        # {"name": "past-scot",   "key": "pastBookings"},
+        {"name": "upcoming-scot",    "key": "upcomingBookings"},
         # {"name": "past-trainline",        "key": "pastBookings"},
         # {"name": "upcoming-trainline",    "key": "upcomingBookings"},
 
