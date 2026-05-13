@@ -217,7 +217,7 @@ def main():
     # mock_list = [ 'TAM', 'BHM', ]
     # mock_list = [ 'BHM', 'TAM', ]
     # mock_list = [[ 'CHC', 'GLQ', ],[ 'GLQ', 'CHC', ]]
-    trains = [[{"crs": a} for b in mock_list for a in b]]
+    # trains = [[{"crs": a} for b in mock_list for a in b]]
 
     stations = db_select_from_station(db)
     locations = [[stations.get(s.get('crs')) for s in t if s.get('crs') in stations] for t in trains]
@@ -258,5 +258,5 @@ def main_eurostar():
 
 
 if __name__ == "__main__":
-    # main()
-    main_eurostar()
+    main()
+    # main_eurostar()
