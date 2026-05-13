@@ -31,7 +31,7 @@ export default function Page() {
             <FlightMap center_coords={edi_coords}
                 maxZoom={20}
             >
-                {data  && <TrainTrackGeoJSON data={osmToGeoJSON(data)}  />}
+                {data  && <TrainTrackGeoJSON data={data}  />}
             </FlightMap>
         </div>
     );

@@ -48,12 +48,18 @@ export async function GET(request: Request) {
     let eurotrains = [];
 
     for (let t of trains) {
-      if ((t.origin.indexOf(':')>-1 || t.destination.indexOf(':')>-1) && t.transportMode == 'train') {
-        eurotrains.push(t);
-      }
-      if (Array.isArray(t.locations) && t.locations.length && t.transportMode == 'train') {
+
+      if (t.transportMode != 'train') continue
+      let has_path = false
+      if (Array.isArray(t.locations) && t.locations.length) {
         let couples: any[] = [];
         let locs = t.locations.filter((loc: any) => loc.crs && (loc.isCall != false));
+
+
+      // if ((t.origin.indexOf(':')>-1 || t.destination.indexOf(':')>-1))  {
+      //     locs = [t.locations[0], t.locations[t.locations.length - 1]]
+      //   console.log('eurotrain:',locs);
+      // }
 
         let seg = []
         for (let i = 0; i < locs.length - 1; i++) {
@@ -68,12 +74,17 @@ export async function GET(request: Request) {
           if (s && s.length) {
             couples = couples.concat(s);
             seg = s.slice(-1);
+            has_path = true;
           } else {
             console.log('No leg found between', locs[i].crs, locs[i + 1].crs, t.serviceUid, t.runDate, t.origin, t.originTime, t.destination);
           }
         }
         couples = couples.concat(seg);
         paths.push(pathToGeoJSON(couples.filter(v => v), locs.map((v: any) => v.crs)));
+      }
+
+      if ((t.origin.indexOf(':')>-1 || t.destination.indexOf(':')>-1) && !has_path)  { //
+        eurotrains.push(t);
       }
     }
 

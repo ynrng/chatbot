@@ -77,13 +77,22 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 ### Map related
 [geojson docs](https://stevage.github.io/geojson-spec/#section-3.3)
 
+#### Overpass
+
+```sh
+# for feed into fetch legs .py
+  [out:json][timeout:60];
+  way["railway"="rail"](55.842322929999995,-4.270657943,56.13979974,-3.810576234);
+  out geom;
+```
+
 ### Library usage
 -  [supabase database connection with python](https://supabase.com/docs/reference/python/eq)
 -  https://wiki.openstreetmap.org/wiki/Railways_in_the_United_Kingdom
 -
 
 ## Todos Tracking
-1. [SOLVED][flight] check if /api/flight works
-2. [train] legs (might) need to be fixed: `TAM-BHM` ; `CHC-GLQ` ; `GLQ-HST` ; `HST-GLQ` ; `GLQ-CHC`
+<!-- 1. [SOLVED][flight] check if /api/flight works -->
+<!-- 2. [train] legs (might) need to be fixed: `TAM-BHM` ; `CHC-GLQ` ; `GLQ-HST` ; `HST-GLQ` ; `GLQ-CHC` -->
 3. [train] might want to actually read from route.
 4. Move all writing data to python script

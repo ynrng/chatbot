@@ -19,7 +19,7 @@ def db_select_from_train(supabase: Client):
         .execute()
     )
     t = [[l for l in v['locations'] if l.get('crs') and (l.get('isCall')!=False)] for v in response.data]
-    print('db_select_from_train',t)
+    # print('db_select_from_train',t)
     return t
 
 
@@ -163,6 +163,8 @@ def get_path_between_stations(locations: list, nodes, edges):
                 db_upsert_train_leg(db, {
                     "start": A['crs'],
                     "end": B['crs'],
+                    'start_country': A['country_code'],
+                    'end_country': B['country_code'],
                     "segments": leg_reverse.get('segments')[::-1],
                     "created_at": "now()"
                 })
@@ -182,6 +184,8 @@ def get_path_between_stations(locations: list, nodes, edges):
                 db_upsert_train_leg(db, {
                     "start": B['crs'],
                     "end": A['crs'],
+                    'start_country': B['country_code'],
+                    'end_country': A['country_code'],
                     "segments": seg[::-1],
                     "created_at": "now()"
                 })
@@ -190,6 +194,8 @@ def get_path_between_stations(locations: list, nodes, edges):
             db_upsert_train_leg(db, {
                 "start": A['crs'],
                 "end": B['crs'],
+                'start_country': A['country_code'],
+                'end_country': B['country_code'],
                 "segments": seg,
                 "created_at": "now()"
             })
@@ -204,14 +210,14 @@ def main():
     db = connect_db()
     trains = db_select_from_train(db)
 
-    # mock_list = [ 'PNR', 'LAN',  ]
-    # mock_list = [ 'MKC','WFJ'  ]
+    mock_list = [[ 'RYS', 'CBG' ]]
+    # mock_list = [ 'KGX', 'LET', ]
     # mock_list = [ 'LIN', 'HYM', ]
     # mock_list = [ 'PBO', 'MCH', ]
     # mock_list = [ 'TAM', 'BHM', ]
     # mock_list = [ 'BHM', 'TAM', ]
     # mock_list = [[ 'CHC', 'GLQ', ],[ 'GLQ', 'CHC', ]]
-    # trains = [[{"crs": a} for b in mock_list for a in b]]
+    trains = [[{"crs": a} for b in mock_list for a in b]]
 
     stations = db_select_from_station(db)
     locations = [[stations.get(s.get('crs')) for s in t if s.get('crs') in stations] for t in trains]
@@ -228,5 +234,29 @@ def main():
         # print("Path found with", len(path), "edges.")
 
 
+def main_eurostar():
+
+    global db
+    db = connect_db()
+    trains = db_select_from_train(db)
+
+
+    stations = db_select_from_station(db)
+    locations = [[stations.get(s.get('crs')) for s in t if s.get('crs') in stations] for t in trains]
+
+    locations_eurostar = [i for i in locations if i[0]['operator'] == 'ES' or i[-1]['operator'] == 'ES']
+    # print('sss', stations['EDB'],   stations['PNR'],   stations['LAN'])
+
+    with open('/Users/yan/code/chatbot/public/train/osm/eurostar1.json', 'r') as f:
+        osm_data = json.load(f)
+
+    nodes, edges = overpass_to_graph(osm_data['elements'])
+    # paths = []
+    for l in locations_eurostar:
+        get_path_between_stations(l, nodes, edges)
+        # print("Path found with", len(path), "edges.")
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    main_eurostar()

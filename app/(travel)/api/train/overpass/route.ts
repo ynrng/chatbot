@@ -9,9 +9,15 @@ const OSM_FILE_PATH = "/train/osm/"; //rail.uk.json
 
 export async function GET(request: Request) {
 
-  let res = await fetcherInternal(OSM_FILE_PATH+'rail.uk.json', request);
+  let res = await fetcherInternal(OSM_FILE_PATH+'uk_rail.geojson', request);
+  // let res = await fetcherInternal(OSM_FILE_PATH+'eurostar.geojson', request);
   const osm = await res.json()
-  console.log('osm data:', osm.elements.length);
+  osm.features = osm.features.filter((feature: any) => {
+    let is = feature.geometry.type === 'LineString' ;
+    delete feature.properties
+    return is
+  });
+  console.log('osm data:', osm.features.length);
 
   return Response.json(osm);
 }

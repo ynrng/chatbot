@@ -37,3 +37,6 @@ yarn-error.log*
 .vscode
 .env*.local
 __pycache__
+
+# data
+public/train/osm/*.osm.pbf
