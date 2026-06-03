@@ -123,7 +123,7 @@ def form_train_from_legs(booking, outward):
 
         if trip.get('timetableId'):
             train['service_uid'] = trip.get('timetableId')
-    db_upsert_train(db, train)
+        db_upsert_train(db, train)
 
 
 def fetch_rrt_service(s: dict, record: dict):
@@ -186,7 +186,7 @@ def fetch_rrt_search(record, ):
     day = datetime.strptime(record['run_date'], '%Y-%m-%d')
     today = datetime.now()
 
-    if abs((day - today).total_seconds()) < (40 if is_eurostar else 7) * 24 * 60 * 60:  # within 7 days
+    if abs((day - today).total_seconds()) < (40 if is_eurostar else 30) * 24 * 60 * 60:  # within 7 days
 
         # url4 = f"/json/search/{get_intl_crs(record['origin'])}/to/{get_intl_crs(record['destination'])}/{record['run_date']}"
         # if record['origin_time'] != '0000':
@@ -209,7 +209,7 @@ def fetch_rrt_search(record, ):
             if record['origin_time'] == '0000':
                 timefiltered = [
                     s['scheduleMetadata'] for s in res_ser['services']
-                    if s.get('identity') and s['operator']['code'] == record['atoc_code']
+                    if s.get('scheduleMetadata').get('identity') and s.get('scheduleMetadata')['operator']['code'] == record['atoc_code']
                 ]
             else:
                 timefiltered = [
@@ -218,7 +218,7 @@ def fetch_rrt_search(record, ):
                 ]
 
             if len(timefiltered):
-                for s in timefiltered:
+                for s in reversed(timefiltered):
                     res2 = fetch_rrt_service({
                         'service_uid': s['identity'],
                         'run_date': s['departureDate']
@@ -248,17 +248,17 @@ def fetch_rrt_search(record, ):
 
         if res4 and res4.get('services'):
             timefiltered = [
-                    s['scheduleMetadata'] for s in res_ser['services']
+                    s['scheduleMetadata'] for s in res4['services']
                     if s.get('scheduleMetadata').get('identity') and s['temporalData']['departure']['scheduleAdvertised'].find( f"{record['origin_time'][:2]}:{record['origin_time'][2:]}") >-1
                 ]
 
             if len(timefiltered) == 0:
                 timefiltered = [
                     s['scheduleMetadata'] for s in res4['services']
-                    if s.get('scheduleMetadata').get('identity') and s['operator']['code'] == record['atoc_code']
+                    if s.get('scheduleMetadata').get('identity') and s.get('scheduleMetadata')['operator']['code'] == record['atoc_code']
                 ]
 
-            for s in timefiltered:
+            for s in reversed(timefiltered):
                 res2 = fetch_rrt_service({
                         'service_uid': s['identity'],
                         'run_date': s['departureDate']
@@ -341,7 +341,7 @@ def main():
     records = db_select_trains(db)
     for record in records:
         if record['locations'] is None or len(record['locations']) == 0:
-            if record.get('service_uid') and record['origin'].index(':')==-1:
+            if record.get('service_uid') and record['origin'].find(':')==-1:
                 re = fetch_rrt_service(record,record)
                 if re:
                     db_upsert_train(db, re)

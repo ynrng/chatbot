@@ -91,7 +91,7 @@ def fetch_rrt_new(url: str, params: dict = {}):
         "Authorization": f"Bearer {rrt_token}",
     }
     response = requests.get('https://data.rtt.io' + url, params=params, headers=headers)
-    print('fetch_rrt_new', 'https://data.rtt.io' + url)
+    print('fetch_rrt_new', 'https://data.rtt.io' + url, params)
     if response.ok:
         return response.json()
     else:
