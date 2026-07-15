@@ -128,7 +128,7 @@ def form_train_from_legs(booking, outward):
 
 def fetch_rrt_service(s: dict, record: dict):
     params = {
-        'uniqueIdentity':'gb-nr:' + s['service_uid'] + ':' + record['run_date'],
+        'uniqueIdentity':'gb-nr:' + s['service_uid'] + ':' + s['run_date'],
     }
 
     res2 = fetch_rrt_new('/rtt/service', params=params)
@@ -235,7 +235,7 @@ def fetch_rrt_search(record, ):
         params = {
             'code': 'gb-nr:' + get_intl_crs(record['origin']),
             'filterTo': 'gb-nr:' + get_intl_crs(record['destination']),
-            'timeFrom': today.strftime('%Y/%m/%d'),
+            'timeFrom': today.strftime('%Y-%m-%d'),
             'timeTolerance': True,
         }
         if record['origin_time'] != '0000':

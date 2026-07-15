@@ -94,5 +94,9 @@ https://www.realtimetrains.co.uk/about/developer/pull/docs/serviceinfo/
 ## Todos Tracking
 <!-- 1. [SOLVED][flight] check if /api/flight works -->
 <!-- 2. [train] legs (might) need to be fixed: `TAM-BHM` ; `CHC-GLQ` ; `GLQ-HST` ; `HST-GLQ` ; `GLQ-CHC` -->
-3. [train] might want to actually read from route.
+3. [train] might want to actually read from route. ->
+   1. https://gtfs.org/documentation/schedule/examples/routes-stops-trips/
+   2. https://gtfs.org/resources/producing-data/
+   3. https://www.transit.land/feeds/f-eurostar/versions/56874c31cea8a8928f13230b944b1546bfeaa9e2?utm_source=chatgpt.com
+   4. scotrail: https://www.transit.land/operators/o-gc-scotrail
 4. Move all writing data to python script

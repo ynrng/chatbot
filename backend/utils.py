@@ -95,7 +95,7 @@ def fetch_rrt_new(url: str, params: dict = {}):
     if response.ok:
         return response.json()
     else:
-        raise requests.HTTPError("Request to {} failed ({}, {})".format(url, response.status_code, response.reason))
+        raise requests.HTTPError("Request to {} failed ({}, {}, {})".format(url, response.status_code, response.reason, response.text))
 
 
 @rate_limited
