@@ -151,22 +151,35 @@ export default function FlightPolyLine({
 
     const arrowPos = getArrowPoints(positions, (zoom || 1) * (highlight ? 0.9 : 1));
 
-    let pathOptions = {
+    const neonClass = color === "green" ? "flight-neon-green" : "flight-neon-cyan";
+    const glowPathOptions = {
         color: color,
-        weight: highlight ? 5 : 1,
-        opacity: highlight ? 1 : 0.8,
-        // renderer: L.canvas(), // force canvas rendering
-        className: cx(
-            "bg-cyan-500 shadow-lg shadow-cyan-500/50",
-            highlight ? 'z-50' : ''
-        ), //todo this is not working
+        weight: highlight ? 2 : 1,
+        opacity: highlight ? 0.5 : 0.3,
+        className: cx("flight-neon-glow", neonClass),
+    };
+    const corePathOptions = {
+        color: color,
+        weight: highlight ? 2 : 1,
+        opacity: 1,
+        className: cx("flight-neon-core", neonClass),
     }
 
     return positions?.length && (
         <>
             <Polyline
                 positions={positions}
-                pathOptions={pathOptions}
+                pathOptions={glowPathOptions}
+                interactive={false}
+            />
+            <Polyline
+                positions={arrowPos}
+                pathOptions={glowPathOptions}
+                interactive={false}
+            />
+            <Polyline
+                positions={positions}
+                pathOptions={corePathOptions}
                 eventHandlers={{
                     mouseover: (e) => {
                         // console.log("Mouse over polyline", f, e.target);
@@ -181,7 +194,7 @@ export default function FlightPolyLine({
             </Polyline>
             <Polyline
                 positions={arrowPos}
-                pathOptions={pathOptions}
+                pathOptions={corePathOptions}
             >
                 <Popup>{popupText}</Popup>
             </Polyline>
